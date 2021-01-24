@@ -161,7 +161,7 @@ const SignUpPage = ({ userMessage, signup, isFetching }) => {
                <div className="ui horizontal divider">Or</div>
                <Button
                   as={'a'}
-                  href="/auth/google"
+                  href="http://localhost:5000/auth/google"
                   icon="google"
                   content="Sign up with Google"
                   color='google plus'

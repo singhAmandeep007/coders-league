@@ -116,7 +116,7 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
                <div className="ui horizontal divider">Or</div>
                <Button
                   as={'a'}
-                  href="/auth/google"
+                  href="http://localhost:5000/auth/google"
                   icon="google"
                   content="Continue with Google"
                   color='google plus'
