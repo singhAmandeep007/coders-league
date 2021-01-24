@@ -1,0 +1,13 @@
+.pushable:not(body) {
+   transform: none !important ;
+}
+
+.pushable:not(body) > .ui.sidebar,
+.pushable:not(body) > .fixed,
+.pushable:not(body) > .pusher:after {
+   position: fixed !important;
+}
+
+.ui.thin.left.sidebar {
+   width: 210px !important;
+}

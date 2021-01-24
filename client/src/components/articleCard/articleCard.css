@@ -1,0 +1,22 @@
+.articleHeader:hover {
+   color: rgb(118, 60, 255) !important;
+   cursor: pointer;
+}
+.articleHeader {
+   margin-top: 0.45rem !important;
+}
+.userName {
+   color: unset !important;
+   font-weight: 700;
+}
+.userName:hover {
+   color: rgb(118, 60, 255) !important;
+   cursor: pointer;
+}
+
+.articleSubHeader {
+   font-size: 1rem !important;
+   color: rgba(0, 0, 0, 0.6) !important;
+   font-weight: 200 !important;
+   line-height: 1.2em !important;
+}

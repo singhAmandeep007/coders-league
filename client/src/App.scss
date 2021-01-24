@@ -1,0 +1,35 @@
+@import "./Theme.scss";
+
+//generic
+$dark-font: rgb(8, 9, 11);
+$light-font: rgba(255, 255, 255, 0.9);
+
+//algae
+$algae-bg: rgb(191, 211, 206);
+$algae-menu: #116466;
+$algae-card: rgba(140, 170, 150, 0.7);
+//theme($bg-color,$font-color)
+body.algae {
+   @include theme($algae-bg, $dark-font, $algae-menu, $algae-card);
+}
+//paper
+$paper-bg: rgb(239, 240, 242);
+$paper-menu: rgba(110, 110, 110, 1);
+$paper-card: #fff;
+body.paper {
+   @include theme($paper-bg, $dark-font, $paper-menu, $paper-card);
+}
+//charcoal
+$charcoal-bg: rgb(13, 18, 24);
+$charcoal-menu: rgb(26, 38, 52);
+$charcoal-card: #1b1c1d;
+body.charcoal {
+   @include theme($charcoal-bg, $light-font, $charcoal-menu, $charcoal-card);
+}
+//lavender
+$lavender-bg: rgb(224, 191, 224);
+$lavender-menu: rgb(180, 140, 180);
+$lavender-card: rgba(219, 212, 196, 0.699);
+body.lavender {
+   @include theme($lavender-bg, $dark-font, $lavender-menu, $lavender-card);
+}

@@ -1,0 +1,9 @@
+.grid {
+   margin-top: 0 !important;
+}
+.wrapWord {
+   word-wrap: break-word !important;
+}
+.hiddenCustom {
+   display: none !important;
+}

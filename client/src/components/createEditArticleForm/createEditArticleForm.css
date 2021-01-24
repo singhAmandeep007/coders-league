@@ -1,0 +1,26 @@
+.quill .ql-container {
+   min-height: 10em;
+   height: auto !important;
+   border-bottom-left-radius: 0.28571429rem;
+   border-bottom-right-radius: 0.28571429rem;
+   background: #ffffff;
+}
+
+.quill .ql-toolbar {
+   height: auto !important;
+   background: #eaecec;
+   border-top-left-radius: 0.28571429rem;
+   border-top-right-radius: 0.28571429rem;
+}
+
+.quill-error .ql-container {
+   border-color: #e0b4b4 !important;
+   background: #fff6f6;
+   color: #9f3a38;
+}
+
+.quill-error .ql-toolbar {
+   border-color: #e0b4b4 !important;
+   color: #fff6f6;
+   background: #e0b4b4;
+}

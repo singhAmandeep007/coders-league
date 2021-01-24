@@ -1,0 +1,26 @@
+@mixin theme($bg-color, $font-color, $menu, $card-bg) {
+   background-color: $bg-color !important;
+   color: $font-color !important;
+   .menu {
+      background-color: $menu !important;
+      .menu.transition.visible {
+         background-color: $menu !important;
+      }
+   }
+   .text {
+      color: $font-color !important;
+   }
+   .ui.card {
+      background-color: $card-bg !important;
+      .header,
+      .meta {
+         color: $font-color !important;
+      }
+   }
+   h2,
+   h3,
+   p,
+   table {
+      color: $font-color !important;
+   }
+}
