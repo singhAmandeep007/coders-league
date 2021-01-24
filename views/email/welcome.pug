@@ -1,0 +1,17 @@
+extends baseEmail
+
+block content
+   p Hi #{firstName},
+   p Welcome to CodersLeague, 🙏.
+   p We are a huge network of coders, so make sure to update your profile so we get to know you a bit better!
+   table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+      tbody
+         tr
+            td(align='left')
+               table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                  tbody
+                     tr
+                        td
+                           a(href=`${url}`, target='_blank') Update profile
+   p If you need any help with writing article, please don't hesitate to contact me!
+   p - Grimm Reaper, CEO
