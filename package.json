@@ -10,7 +10,8 @@
     "server:prod": "set NODE_ENV=production&nodemon server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
-    "prod": "concurrently \"npm run server:prod\" \"npm run client\""
+    "prod": "concurrently \"npm run server:prod\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Amandeep Singh",
   "license": "ISC",

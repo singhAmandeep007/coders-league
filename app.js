@@ -30,12 +30,10 @@ app.use((req, res, next) => {
    return next();
 });
 
-
+// Body parser, reading data from body into req.body
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
-app.use(express.json({
-   limit: '10kb'
-}));
-
 // COMPRESSION
 app.use(compression())
 // logging 
@@ -56,6 +54,15 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/articles', articleRouter);
 app.use('/api/v1/comments', commentRouter);
+
+if (process.env.NODE_ENV === 'production') {
+   app.use(express.static(path.resolve(__dirname, 'client', 'build')));
+   app.get('*', (req, res) => {
+      res.sendFile(
+         path.resolve(__dirname, 'client', 'build', 'index.html')
+      );
+   });
+}
 
 // Handling unhandled routes.
 app.all('*', (req, res, next) => {
