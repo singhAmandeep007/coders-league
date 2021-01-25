@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 //SECURITY
-// app.use(helmet());
+app.use(helmet());
 
 const limiter = rateLimit({
    max: 100,
