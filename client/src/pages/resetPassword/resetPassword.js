@@ -37,14 +37,13 @@ const ResetPasswordPage = ({ resetPassword, isFetching, userMessage }) => {
    return (
       <Grid textAlign='center' style={formStyle.grid} verticalAlign='middle'>
          <Grid.Column style={formStyle.gridColumn}>
-
+            <img style={formStyle.img} alt="logo" src='/images/logoCLsvgBlack.svg' />
+            <Message
+               floating
+               header='Reset Password!'
+               content='Fill out the form below to reset your password.'
+            />
             <Segment raised padded  >
-               <img style={formStyle.img} alt="logo" src='/images/logo.png' />
-               <Message
-                  floating
-                  header='Reset Password!'
-                  content='Fill out the form below to reset your password.'
-               />
 
                <Form
                   style={formStyle.align}

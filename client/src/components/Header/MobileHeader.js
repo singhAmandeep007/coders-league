@@ -26,7 +26,7 @@ const MobileHeader = ({ children, leftItems, rightItems }) => {
          >
 
             <Menu.Item header >
-               <img src="/images/logoCLSVG.svg" alt="logodesktopw" className="ui mini right spaced image" />
+               <img src="/images/logoCLsvg.svg" alt="logomobile" className="ui mini right spaced image" />
                <strong>     <span style={{ fontSize: '1.2em' }} className="header-logo">&nbsp;&nbsp;Coders League</span></strong>
             </Menu.Item>
 

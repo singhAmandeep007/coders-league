@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 // const cors = require('cors');
 var compression = require('compression')
-// const authRouter = require('./routes/authRoutes');
+const authRouter = require('./routes/authRoutes');
 const userRouter = require('./routes/userRoutes');
 const articleRouter = require('./routes/articleRoutes');
 const commentRouter = require('./routes/commentRoutes');
@@ -50,7 +50,7 @@ app.use((req, res, next) => {
 
 
 // routes middleware , mounting our routers.
-// app.use('/auth', authRouter);
+app.use('/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/articles', articleRouter);
 app.use('/api/v1/comments', commentRouter);
@@ -63,6 +63,7 @@ if (process.env.NODE_ENV === 'production') {
       );
    });
 }
+
 
 // Handling unhandled routes.
 app.all('*', (req, res, next) => {

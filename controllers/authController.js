@@ -71,27 +71,27 @@ exports.login = catchAsync(async (req, res, next) => {
    createSendToken(user, 200, res);
 })
 
-// exports.signInSocial = catchAsync(async (req, res, next) => {
-//    // console.log(req.user)
-//    if (!req.user) {
-//       return res.send(401, 'User Not Authenticated');
-//    }
-//    // generate token
-//    const token = signToken(req.user._id);
+exports.signInSocial = catchAsync(async (req, res, next) => {
+   // console.log(req.user)
+   if (!req.user) {
+      return res.send(401, 'User Not Authenticated');
+   }
+   // generate token
+   const token = signToken(req.user._id);
 
-//    const cookieOptions = {
-//       expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),//90days
-//       httpOnly: true, //A cookie with the HttpOnly attribute is inaccessible to the JavaScript Document.cookie API; it is sent only to the server.This precaution helps mitigate cross-site scripting (XSS) attacks.
-//    }
-//    if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+   const cookieOptions = {
+      expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),//90days
+      httpOnly: true, //A cookie with the HttpOnly attribute is inaccessible to the JavaScript Document.cookie API; it is sent only to the server.This precaution helps mitigate cross-site scripting (XSS) attacks.
+   }
+   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
-//    //res.cookie Sets cookie name to value. The value parameter may be a string or object converted to JSON.
-//    res.cookie('jwt', token, cookieOptions);
-//    res.cookie('signedInWith', 'social')
-//    // remove password from output
-//    req.user.password = undefined;
-//    res.redirect('/');
-// });
+   //res.cookie Sets cookie name to value. The value parameter may be a string or object converted to JSON.
+   res.cookie('jwt', token, cookieOptions);
+   res.cookie('signedInWith', 'social')
+   // remove password from output
+   req.user.password = undefined;
+   res.redirect('/');
+});
 
 exports.logout = (req, res) => {
    // setting a dummy cookie value which expires in 10seconds from current date

@@ -11,7 +11,7 @@ module.exports = class Email {
       this.firstName = user.fullname.split(' ')[0];
       this.url = url;
       // we can easily customise email to send from
-      this.from = `Admin <${process.env.EMAIL_FROM}>`;
+      this.from = `CodersLeague <${process.env.EMAIL_FROM}>`;
    }
    // have different transport for prod and dev
    newTransport() {
