@@ -3,7 +3,14 @@ const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 // const cors = require('cors');
-var compression = require('compression')
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const expressSanitizer = require('express-sanitizer');
+const xss = require('xss-clean');
+const hpp = require('hpp');
+const compression = require('compression')
+
 const authRouter = require('./routes/authRoutes');
 const userRouter = require('./routes/userRoutes');
 const articleRouter = require('./routes/articleRoutes');
@@ -30,10 +37,30 @@ app.use((req, res, next) => {
    return next();
 });
 
+//SECURITY
+app.use(helmet());
+
+const limiter = rateLimit({
+   max: 100,
+   windowMs: 60 * 60 * 1000,// 1 hour
+   message: 'Too many requests from this IP, please try again in an hour!'
+})
+app.use('/api', limiter);
+
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
+// Data sanitization against NoSQL query injection
+app.use(mongoSanitize());
+// HTML sanitizer
+app.use(expressSanitizer());
+// Data sanitization against XSS
+app.use(xss());
+// Prevent parameter pollution
+app.use(hpp({
+   whitelist: ['tags', 'likeCounts', 'commentCounts']
+}));
 // COMPRESSION
 app.use(compression())
 // logging 
@@ -46,8 +73,6 @@ app.use((req, res, next) => {
    req.requestTime = new Date().toISOString();
    next();
 })
-
-
 
 // routes middleware , mounting our routers.
 app.use('/auth', authRouter);
@@ -63,7 +88,6 @@ if (process.env.NODE_ENV === 'production') {
       );
    });
 }
-
 
 // Handling unhandled routes.
 app.all('*', (req, res, next) => {

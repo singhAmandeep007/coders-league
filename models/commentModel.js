@@ -66,9 +66,11 @@ commentSchema.statics.calcNumComments = function (articleId) {
 
 commentSchema.post('save', function () {
    // this points to current comment
-   console.log('article id: ', this.article)
+   console.log('article id: ', this.article);
    this.constructor.calcNumComments(this.article);
 });
+
+
 
 commentSchema.post(/^findOneAndDelete/, async function (doc) {
    if (doc) {
@@ -76,5 +78,9 @@ commentSchema.post(/^findOneAndDelete/, async function (doc) {
    }
 });
 
+commentSchema.post('deleteOne', { document: true }, async function (doc) {
+   await doc.constructor.calcNumComments(doc.article);
+   // console.log('DOC from post delteONe hook comment', doc)
+})
 
 module.exports = mongoose.model('Comment', commentSchema);

@@ -28,7 +28,7 @@ passport.use(
             } else {
                const newUser = await new User({
                   googleId: profile.id,
-                  username: profile.name.givenName,
+                  username: `${profile.name.givenName}-${(0 | Math.random() * 9e6).toString(36)}`,
                   fullname: profile.displayName,
                   email: profile.emails[0].value,
                   photo: profile.photos[0].value

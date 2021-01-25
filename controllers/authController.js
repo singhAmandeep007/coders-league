@@ -129,7 +129,7 @@ exports.protect = catchAsync(async (req, res, next) => {
    // 3) check if user still exits
    const currentUser = await User.findById(decoded.id);
    if (!currentUser) {
-      return next(new AppError('The user belonging to this token does no longer exist.', 401))
+      return next(new AppError('The user belonging to this token does no longer exist. Please Signup!', 401))
    }
    // 4) check if user changed password after the JWT was issued
    if (currentUser.changedPasswordAfter(decoded.iat)) {
@@ -155,7 +155,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
    //1) get user with req.body.email in DB where google id doesn't exist
    const user = await User.findOne({ email: req.body.email, googleId: { "$exists": false } });
    if (!user) {
-      return next(new AppError('There is no user with this email address!', 404));
+      return next(new AppError('There is no user with this email address or account registered with googleId!', 404));
    }
    //2) generate random reset token 
    const resetToken = user.createPasswordResetToken();
@@ -208,8 +208,11 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 exports.updatePassword = catchAsync(async (req, res, next) => {
    // console.log(req.body)
    // 1) get user from the collection along with password
-   const user = await User.findById(req.user.id).select('+password');
+   const user = await User.findOne({ _id: req.user.id, googleId: { "$exists": false } }).select('+password');
    // 2) check if POSTed current password  is correct
+   if (!user) {
+      return next(new AppError('Not allowed as account is registered with googleId.', 404));
+   }
    if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
       return next(new AppError('Your current password is wrong!', 401))
    }

@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 const crypto = require('crypto');
 const validator = require('validator');
 const bcyrptjs = require('bcryptjs');
-const { domainToASCII } = require('url');
 
 const userSchema = new Schema(
    {
@@ -165,24 +164,33 @@ userSchema.pre('save', function (next) {
 //    next();
 // })
 
+// DELETE USER
 userSchema.post(/^findOneAndDelete/, async function (doc) {
    if (doc) {
       const Article = require('./../models/articleModel');
       const Comment = require('./../models/commentModel');
+      // first find all articles with matching user id
       const articles = await Article.find({
          user: doc._id
       });
-
+      // if there is any then iterate over each and delete all comments on it and then delete the article itself
       if (articles && articles.length > 0) {
          articles.forEach(async (doc) => {
             await Comment.deleteMany({ article: doc._id });
             await doc.deleteOne();
          })
       }
-
-      await Comment.deleteMany({
+      // Then find all comments with matching user id that are genrated on other articles
+      const comments = await Comment.find({
          user: doc._id
       });
+      // if there is any then iterate over each and delete comment with deleteOne operation which will trigger post deleteOne hook 
+      // and invoke calcNumComments 
+      if (comments && comments.length > 0) {
+         comments.forEach(async (doc) => {
+            await doc.deleteOne();
+         })
+      }
    }
 });
 
