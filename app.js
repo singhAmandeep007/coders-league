@@ -38,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 //SECURITY
-app.use(helmet());
+// app.use(helmet());
 
 const limiter = rateLimit({
    max: 100,
@@ -51,16 +51,16 @@ app.use('/api', limiter);
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
-// Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
-// HTML sanitizer
-app.use(expressSanitizer());
-// Data sanitization against XSS
-app.use(xss());
-// Prevent parameter pollution
-app.use(hpp({
-   whitelist: ['tags', 'likeCounts', 'commentCounts']
-}));
+// // Data sanitization against NoSQL query injection
+// app.use(mongoSanitize());
+// // HTML sanitizer
+// app.use(expressSanitizer());
+// // Data sanitization against XSS
+// app.use(xss());
+// // Prevent parameter pollution
+// app.use(hpp({
+//    whitelist: ['tags', 'likeCounts', 'commentCounts']
+// }));
 // COMPRESSION
 app.use(compression())
 // logging 
