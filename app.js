@@ -45,10 +45,7 @@ app.use(helmet({
          scriptSrc: ["'self'", "'unsafe-inline'", "https://codersleague.herokuapp.com"],
          styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
          imgSrc: ["'self'", 'https://*.com'],
-         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-         objectSrc: ["'self'"],
-         mediaSrc: ["'self'"],
-         frameSrc: ["'self'"],
+         fontSrc: ["'self'", 'https://*.com', "'data:'"]
       },
    }
 }));
