@@ -68,7 +68,7 @@ app.use(mongoSanitize());
 // HTML sanitizer
 app.use(expressSanitizer());
 // Data sanitization against XSS
-app.use(xss());
+// app.use(xss());
 // Prevent parameter pollution
 app.use(hpp({
    whitelist: ['tags', 'likeCounts', 'commentCounts']
