@@ -41,14 +41,12 @@ app.use((req, res, next) => {
 app.use(helmet({
    contentSecurityPolicy: {
       directives: {
-         scriptSrc: ["'self'", "'unsafe-inline'", "https://codersleague.herokuapp.com"],
-         styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
-         imgSrc: ["'self'", 'data:'],
-         fontSrc: ["'self'", 'https://fonts.gstatic.com']
+         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+         "script-src": ["'self'", "'unsafe-inline'", "https://codersleague.herokuapp.com"],
+         "img-src": ["'self'", 'https://res.cloudinary.com/dryiuvv1l', 'data:'],
       },
-   }
-})
-);
+   },
+}));
 
 // Rate Limiting
 const limiter = rateLimit({
