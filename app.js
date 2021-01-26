@@ -41,12 +41,16 @@ app.use((req, res, next) => {
 app.use(helmet({
    contentSecurityPolicy: {
       directives: {
-         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-         "script-src": ["'self'", "'unsafe-inline'", "https://codersleague.herokuapp.com"],
+         scriptSrc: ["'self'", "'unsafe-inline'", "https://codersleague.herokuapp.com"],
+         styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
+         imgSrc: ["'self'", 'data:'],
+         fontSrc: ["'self'", 'https://fonts.gstatic.com']
       },
-   },
-}));
+   }
+})
+);
 
+// Rate Limiting
 const limiter = rateLimit({
    max: 100,
    windowMs: 60 * 60 * 1000,// 1 hour
