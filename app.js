@@ -42,9 +42,9 @@ app.use(helmet({
    contentSecurityPolicy: {
       directives: {
          defaultSrc: ["'self'"],
-         scriptSrc: ["'self'", "'unsafe-inline'", "https://codersleague.herokuapp.com"],
+         scriptSrc: ["'self'", "'unsafe-inline'", "https://*.com"],
          styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
-         imgSrc: ["'self'", 'https://*.com'],
+         imgSrc: ["'self'", 'https://*.com', 'data:'],
          fontSrc: ["'self'", 'https://*.com', 'data:']
       },
    }
