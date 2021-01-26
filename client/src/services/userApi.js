@@ -10,8 +10,8 @@ const urlResetPassword = `/api/v1/users/resetPassword`;
 const urlUserInfo = `/api/v1/users/me`;
 const urlUserProfile = `/api/v1/users/profile`;
 const urlUpdatePassword = `/api/v1/users/updatePassword`;
-// const urlDeleteUser = `/api/v1/users/`;
 const urlUpdateUser = `/api/v1/users/updateMe`;
+// const urlDeleteUser = `/api/v1/users/`;
 
 export function loginService(email, password) {
    return axios.post(urlLogin, {
@@ -46,10 +46,12 @@ export function logoutService() {
 export function getUserInfo() {
    return axios.get(urlUserInfo);
 }
+
 export function getUserProfile(username) {
    // return axios.get(`${urlUserProfile}/${name.replace(/\%20/g, " ")}`)
    return axios.get(`${urlUserProfile}/${username}`)
 }
+
 export function updatePasswordService(data) {
    return axios.patch(urlUpdatePassword,
       data

@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 
-import { Menu, Icon, Dropdown, Input } from 'semantic-ui-react';
+import { Menu, Icon, Dropdown } from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import './articleSidebarMenu.css'
 
-const ArticleSidebarMenu = ({ screen, articleData, userData }) => {
+const ArticleSidebarMenu = ({ screen, isAuthenticated, articleData, userData }) => {
 
    const [state, setState] = useState({ copied: false });
 
 
    const isMobile = screen === 'mobile';
-   const testUrl = 'https://www.npmjs.com/package/react-sharingbuttons'; // window.location.href
+   const testUrl = window.location.href;
 
    return (
       <Menu
@@ -23,16 +23,16 @@ const ArticleSidebarMenu = ({ screen, articleData, userData }) => {
          fixed={isMobile ? 'bottom' : null}
          widths={isMobile ? 3 : null}
       >
-         <Menu.Item
+         {isAuthenticated && <><Menu.Item
             name='like'
          >
             <Icon color='red' name='like' />
          </Menu.Item>
-         <Menu.Item
-            name='bookmark'
-         >
-            <Icon name='bookmark' />
-         </Menu.Item>
+            <Menu.Item
+               name='bookmark'
+            >
+               <Icon name='bookmark' />
+            </Menu.Item></>}
 
 
          <Dropdown item icon="share alternate" floating direction={isMobile ? 'left' : null}>
@@ -68,7 +68,6 @@ const ArticleSidebarMenu = ({ screen, articleData, userData }) => {
 
             </Dropdown.Menu>
          </Dropdown>
-
 
       </Menu >
    )

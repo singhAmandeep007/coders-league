@@ -155,7 +155,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
    //1) get user with req.body.email in DB where google id doesn't exist
    const user = await User.findOne({ email: req.body.email, googleId: { "$exists": false } });
    if (!user) {
-      return next(new AppError('There is no user with this email address or account registered with googleId!', 404));
+      return next(new AppError('No user with this email address or account registered with googleId!', 404));
    }
    //2) generate random reset token 
    const resetToken = user.createPasswordResetToken();
@@ -176,7 +176,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
       user.passwordResetToken = undefined;
       user.passwordResetExpires = undefined;
       await user.save({ validateBeforeSave: false });
-      return next(new AppError('There was an error sending the email. Try again later!', 500))
+      return next(new AppError('Error sending the email. Try again later!', 500))
    }
 })
 

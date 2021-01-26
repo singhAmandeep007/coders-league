@@ -9,10 +9,7 @@ const ResponsiveHeader = ({ children, isAuthenticated, logout, currentUser }) =>
    const setTheme = (themeName) => {
       document.getElementById("body").className = themeName;
       localStorage.setItem("theme", themeName);
-      console.log("Theme set to: ", localStorage.getItem("theme"));
-      if (themeName === "default") {
-         document.getElementById("body").className = " ";
-      }
+      // console.log("Theme set to: ", localStorage.getItem("theme"));
    }
 
    const themeSelector = {
@@ -25,7 +22,6 @@ const ResponsiveHeader = ({ children, isAuthenticated, logout, currentUser }) =>
          { text: "🟣", setTheme: () => setTheme('paper'), key: "paper" }]
    }
 
-   console.log('in responsive header')
    const isDesktopOrLaptop = useMediaQuery({
       query: '(min-device-width: 768px)'
    })
@@ -33,8 +29,7 @@ const ResponsiveHeader = ({ children, isAuthenticated, logout, currentUser }) =>
       query: '(max-device-width: 768px)'
    })
    const leftItems = [
-      { content: "Home", to: "/", key: "Home", icon: "home" },
-      { content: "About", to: "/about", key: "About", icon: "info" }
+      { content: "Home", to: "/", key: "Home", icon: "home" }
    ];
    const rightItems = [
       themeSelector,

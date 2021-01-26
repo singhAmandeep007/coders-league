@@ -1,32 +1,28 @@
 import axios from 'axios';
 
-const urlGetArticles = `/api/v1/articles`;
-const urlGetArticle = `/api/v1/articles/`;
-const urlPostArticle = `/api/v1/articles`;
-const urlUpdateArticle = `/api/v1/articles`;
-const urlDeleteArticle = `/api/v1/articles`;
+const urlArticleApi = `/api/v1/articles`;
 
 export function getArticlesService() {
-   return axios.get(urlGetArticles);
+   return axios.get(urlArticleApi);
 }
 
 export function getArticleService(username, slug) {
-   return axios.get(`${urlGetArticle}/${username}/${slug}`);
+   return axios.get(`${urlArticleApi}/${username}/${slug}`);
 }
 
 export function postArticleService(data) {
-   return axios.post(urlPostArticle,
+   return axios.post(urlArticleApi,
       data
    );
 }
 
 export function updateArticleService(id, data) {
-   return axios.patch(`${urlUpdateArticle}/${id}`,
+   return axios.patch(`${urlArticleApi}/${id}`,
       data
    )
 }
 export function deleteArticleService(id) {
-   return axios.delete(`${urlDeleteArticle}/${id}`)
+   return axios.delete(`${urlArticleApi}/${id}`)
 }
 
 

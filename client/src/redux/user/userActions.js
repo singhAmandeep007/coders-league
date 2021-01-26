@@ -173,8 +173,6 @@ export function logout() {
 
       services.logoutService().then(
          response => {
-            // console.log(response)
-            // console.log('logout')
             localStorage.removeItem('jtoken');
             dispatch(logoutSuccess(response.data));
          },

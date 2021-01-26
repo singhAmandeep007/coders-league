@@ -19,7 +19,7 @@ const UserProfilePage = ({ match, history }) => {
 
    useEffect(() => {
       getUserProfile(match.params.username).then(response => {
-         console.log(response.data)
+         // console.log(response.data)
          setData({ userData: response.data.data, loading: false })
       }, err => history.push('/error'))
    }, [match.params.username, history])
@@ -48,12 +48,12 @@ const UserProfilePage = ({ match, history }) => {
                               {data.userData.location}
                            </span>}
                            {data.userData.createdAt && <span className="item">
-                              <i className="birthday cake icon"></i>
+                              <i class="calendar alternate icon"></i>
                               {convertIsoToDate(data.userData.createdAt)}
                            </span>}
                            {data.userData.url && <span className="item">
                               <i className="linkify icon"></i>
-                              <a href={`${data.userData.url}`}><span className="wrapWord urlInProfile">{data.userData.url}</span></a>
+                              <a href={`${data.userData.url}`} target="_blank" rel="noreferrer"><span className="wrapWord urlInProfile">{data.userData.url}</span></a>
                            </span>}
                         </div></>)
 
@@ -89,7 +89,7 @@ const UserProfilePage = ({ match, history }) => {
                      </div>
                   </Grid.Row> : null}
 
-                  {data.loading ? <PlaceholderComment num={1} /> : (data.userData && data.userData.skills) ? <Grid.Row style={{ marginTop: "20px" }}>
+                  {data.loading ? <PlaceholderComment num={1} /> : data.userData ? <Grid.Row style={{ marginTop: "20px" }}>
                      <div className="ui  floating message purple">
                         <div className="header">
                            <i className=" thumbtack icon"></i>
@@ -111,7 +111,6 @@ const UserProfilePage = ({ match, history }) => {
                   </Grid.Row> : null}
 
                </Grid.Column>
-
 
                <Grid.Column width={9}>
 

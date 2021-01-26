@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { Link } from 'react-router-dom';
 import { Comment, Segment } from 'semantic-ui-react';
 
 import { postCommentService, updateCommentService, deleteCommentService } from './../../services/commentApi';
@@ -60,7 +61,7 @@ const CommentsSection = ({ commentsData, isAuthenticated, currentUser, articleId
    const updateComment = async (commentId, text) => {
       try {
          const response = await updateCommentService(articleId, commentId, { text });
-         console.log(response.data.data)
+         // console.log(response.data.data)
          if (response.status === 200) {
             dispatch({
                type: 'updateComment', payload: {
@@ -100,7 +101,7 @@ const CommentsSection = ({ commentsData, isAuthenticated, currentUser, articleId
                   dispatch={(payload) => dispatch({ type: 'addComment', payload })}
                />}
 
-               {state.commentsData.map(comment => {
+               {(state.commentsData && state.commentsData.length > 0) ? state.commentsData.map(comment => {
                   return <CommentBox
                      key={comment._id}
                      comment={comment}
@@ -108,7 +109,12 @@ const CommentsSection = ({ commentsData, isAuthenticated, currentUser, articleId
                      updateComment={(commentId, text) => updateComment(commentId, text)}
                      deleteComment={(commentId) => deleteComment(commentId)}
                   />
-               })}
+               }) : !isAuthenticated ? <div className="ui message" >
+                  <div className="header" style={{ fontWeight: 200 }}>
+                     <Link to='/login'>Login</Link> or
+               <Link to='/signup'> Signup</Link> to be the first to comment.🥇
+               </div>
+               </div> : null}
             </Comment.Group>
          </Segment>
       </>

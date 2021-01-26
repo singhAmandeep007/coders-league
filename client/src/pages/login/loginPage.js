@@ -33,12 +33,18 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
    };
    const onForgotPasswordSubmit = (e) => {
       e.preventDefault();
-      const forgotPasswordEmail = inputForgotPasswordRef.current.value;
-      try {
-         forgotPassword(forgotPasswordEmail)
-      } catch (error) {
-         console.log(error.message)
+      if (inputForgotPasswordRef.current.value) {
+         const forgotPasswordEmail = inputForgotPasswordRef.current.value;
+         try {
+            forgotPassword(forgotPasswordEmail)
+         } catch (error) {
+            console.log(error.message)
+         }
       }
+      else {
+         return;
+      }
+
    }
 
    return (
@@ -163,7 +169,7 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
 
                      <Form.Button
                         style={formStyle.formButton}
-                        content='Send'
+                        content='Send Reset Link'
                         loading={isFetching && mfor === 'forgotPassword' ? true : false}
                         fluid
                      />

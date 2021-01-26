@@ -26,7 +26,7 @@ const commentSchema = new Schema({
 );
 
 commentSchema.pre('save', function (next) {
-   console.log('in pre save of comment model')
+   // console.log('in pre save of comment model')
    const Article = require('./articleModel');
    Article.findById(this.article, function (err, doc) {
       //console.log(doc)
@@ -66,7 +66,7 @@ commentSchema.statics.calcNumComments = function (articleId) {
 
 commentSchema.post('save', function () {
    // this points to current comment
-   console.log('article id: ', this.article);
+   // console.log('article id: ', this.article);
    this.constructor.calcNumComments(this.article);
 });
 

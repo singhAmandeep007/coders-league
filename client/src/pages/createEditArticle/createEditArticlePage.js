@@ -4,12 +4,9 @@ import { Container, Tab } from 'semantic-ui-react';
 import isEqual from "react-fast-compare";
 
 import CreateEditArticleForm from './../../components/createEditArticleForm';
-import PreviewArticle from './../../components/previewArticle';
+import ArticleBody from './../../components/articleBody/articleBody';
 
-import './../../quill.css';
-import './../../gruvbox-dark.css';
-
-const CreateArticlePage = ({ currentUser, location }) => {
+const CreateEditArticlePage = ({ currentUser, location }) => {
 
    const initialArticleData = location && location.articleData ? location.articleData : null;
 
@@ -19,16 +16,14 @@ const CreateArticlePage = ({ currentUser, location }) => {
       if (initialArticleData !== null) {
          setArticleData(initialArticleData);
       }
-      console.log('inuse effect article page')
    }, [location, initialArticleData])
-
 
    const childRef = useRef();
 
    const handleTabChange = () => {
       const formArticleData = childRef.current.getArticleData();
       if (isEqual(articleData, formArticleData)) return;
-      console.log('tab changed')
+      // console.log('tab changed')
       setArticleData(formArticleData)
    }
 
@@ -46,8 +41,8 @@ const CreateArticlePage = ({ currentUser, location }) => {
       {
          menuItem: 'Preview', pane: {
             key: "preview",
-            content: (<PreviewArticle
-               previewArticleData={articleData}
+            content: (<ArticleBody
+               articleData={articleData}
                userData={currentUser}
             />)
          }
@@ -65,4 +60,4 @@ const CreateArticlePage = ({ currentUser, location }) => {
    )
 }
 
-export default CreateArticlePage;
+export default CreateEditArticlePage;

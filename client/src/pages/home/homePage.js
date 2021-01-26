@@ -1,7 +1,5 @@
 import React from 'react';
 
-// import Loading from './../../Loading';
-// import RenderArticles from './RenderArticles';
 // import SearchBar from './SearchBar';
 import Feed from './../../components/Feed/Feed'
 
@@ -35,7 +33,5 @@ class HomePage extends React.Component {
       )
    }
 }
-
-
 
 export default HomePage;

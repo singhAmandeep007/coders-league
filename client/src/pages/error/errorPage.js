@@ -15,7 +15,7 @@ const ErrorPage = () => {
             <div className="ui message large  red">
 
                <div className="header">Description</div>
-               <p>Page you were trying to visit is <strong>not found</strong> or <strong>deleted.</strong></p>
+               <p>Page you were trying to visit was <strong>not found</strong> or <strong>deleted.</strong></p>
                <div className="ui horizontal divider" style={{ paddingTop: '60px' }}>
                   👇
                </div>

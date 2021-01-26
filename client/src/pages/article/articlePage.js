@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { Grid, Ref, Segment, Sticky, Container, Card } from 'semantic-ui-react';
 
+import { getArticleService } from './../../services/articleApi';
+
 import ArticleBody from './../../components/articleBody';
 import ArticleSidebarMenu from './../../components/articleSidebarMenu/articleSidebarMenu';
-
-import { getArticleService } from './../../services/articleApi';
 import CommentSection from './../../components/commentsSection/commentsSection';
+
 import convertIsoToDate from './../../utils/IsoDateConvert';
 
 import PlaceholderCard from './../../components/placeholderCard/placeholderCard';
@@ -27,7 +28,7 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
    });
 
    const objectRef = React.useRef(null)
-   console.log(data)
+   // console.log(data)
    useEffect(() => {
       const { username, slug } = match.params;
       getArticleService(username, slug).then(response => {
@@ -59,12 +60,14 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
                screen='desktop'
                articleData={data.articleData}
                userData={data.userData}
+               isAuthenticated={isAuthenticated}
             />}
          </Sticky>}
          {/* fixed sidebar menu*/}
          {!data.loading && isTabletOrMobileDevice && <ArticleSidebarMenu screen='mobile'
             articleData={data.articleData}
             userData={data.userData}
+            isAuthenticated={isAuthenticated}
          />}
 
       </Grid.Column>
@@ -103,11 +106,21 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
 
                   <Card.Content>
                      <img className="ui mini left floated image" src={data.userData.photo} alt={data.userData.username} />
-                     <Card.Header as={Link} to={`/u/${data.userData.username}`}> {data.userData.fullname} </Card.Header>
-                     <Card.Meta style={{ fontSize: '0.9rem', lineHeight: '1em' }}>Joined {convertIsoToDate(data.userData.createdAt)}</Card.Meta>
-                     <Card.Description>
-                        Software engineer with a passion for new technologies.
-                     </Card.Description>
+                     <Card.Header as={Link} to={`/u/${data.userData.username}`}>
+                        {data.userData.fullname}
+                     </Card.Header>
+                     <Card.Meta style={{ fontSize: '0.83rem', lineHeight: '1.5em' }}>
+                        <i className="calendar alternate icon"></i>&nbsp;&nbsp;
+                        {convertIsoToDate(data.userData.createdAt)}
+                     </Card.Meta>
+                     {data.userData.bio && <Card.Description>
+                        {data.userData.bio}
+                     </Card.Description>}
+
+                     {isAuthenticated && <button className="ui primary tiny fluid button">
+                        Follow
+                     </button>}
+
                   </Card.Content>
                </Card>
             </Sticky>

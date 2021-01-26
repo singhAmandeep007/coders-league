@@ -63,16 +63,14 @@ const CommentBox = ({ comment, isAuthenticated, updateComment, deleteComment }) 
             {isAuthenticated && <Comment.Actions>
 
                <Comment.Action >
-                  <i className={`heart ${state.isLiked ? 'red' : ''} icon`} onClick={() => console.log('dd')}></i>
+                  <i className={`heart ${state.isLiked ? 'red' : ''} icon`} onClick={() => setState({ ...state, isLiked: !state.isLiked })}></i>
                </Comment.Action>
-               <Comment.Action>Reply</Comment.Action>
+               {/* <Comment.Action>Reply</Comment.Action> */}
 
                {state.isEditable && <Comment.Action
                   style={{ float: 'right' }}
-
                ><span className="saveLabel" onClick={async () => {
                   const text = commentText.current.value.trim();
-                  console.log(text)
                   if (text) {
                      await updateComment(comment._id, text);
                   }

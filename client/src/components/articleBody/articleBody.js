@@ -44,7 +44,7 @@ const ArticleBody = ({ articleData, userData, isAuthor = false }) => {
             </Label>}
 
             {articleData && articleData.tags && articleData.tags.map(tag => {
-               return <Label key={tag} color="black"># {tag}</Label>
+               return <Label key={tag} ># {tag}</Label>
             })}
 
          </Segment>

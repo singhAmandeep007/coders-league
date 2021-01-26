@@ -9,7 +9,7 @@ import ResponsiveHeader from './components/Header';
 import Loading from './components/Loading';
 
 // error handling
-import ErrorBoundaryPage from './pages/error/errorBoundaryPage';
+// import ErrorBoundaryPage from './pages/error/errorBoundaryPage';
 import ErrorPage from './pages/error/errorPage';
 import NotFoundPage from './pages/notFound/notFoundPage';
 
@@ -26,9 +26,8 @@ const ResetPasswordPage = lazy(() => import('./pages/resetPassword'));
 const UserProfilePage = lazy(() => import('./pages/userProfile'));
 
 const ArticlePage = lazy(() => import('./pages/article'));
-const CreateArticlePage = lazy(() => import('./pages/createArticle/createArticlePage'));
+const CreateEditArticlePage = lazy(() => import('./pages/createEditArticle/createEditArticlePage'));
 const UserSettingsPage = lazy(() => import('./pages/userSettings/userSettingsPage'));
-//on feed add lazy
 
 const RouteUnauthenticated = ({ isAuthenticated, ...props }) => {
   return !isAuthenticated ? <Route {...props} /> : <Redirect to="/" />;
@@ -40,12 +39,11 @@ const RouteAuthenticated = ({ isAuthenticated, ...props }) => {
 const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
 
   useEffect(() => {
-    let checkSigninSocial = Cookies.get('signedInWith')
+    let checkSigninSocial = Cookies.get('signedInWith');
     if (checkSigninSocial && checkSigninSocial === 'social') {
       getUserInfo();
-      Cookies.remove('signedInWith')
+      Cookies.remove('signedInWith');
     }
-
   })
 
   return (
@@ -109,13 +107,13 @@ const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
             exact
             path="/a/create"
             isAuthenticated={isAuthenticated}
-            render={() => <CreateArticlePage currentUser={currentUser} />}
+            render={() => <CreateEditArticlePage currentUser={currentUser} />}
           />
           <RouteAuthenticated
             exact
             path="/a/edit/:slug"
             isAuthenticated={isAuthenticated}
-            render={(props) => <CreateArticlePage currentUser={currentUser} {...props} />}
+            render={(props) => <CreateEditArticlePage currentUser={currentUser} {...props} />}
           />
           <RouteAuthenticated
             path="/settings"

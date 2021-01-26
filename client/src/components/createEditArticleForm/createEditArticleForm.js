@@ -13,13 +13,15 @@ import { postArticleService, updateArticleService } from './../../services/artic
 
 import formStyle from './../../common/formStyles';
 
+import './../../quill.css';
+import './../../gruvbox-dark.css';
 import './createEditArticleForm.css';
 
 Quill.register({ "modules/imageUploader": ImageUploader }, true);
 
 const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, ref) => {
-   console.log('rendered')
-   console.log(articleData)
+   // console.log('rendered')
+   // console.log(articleData)
    const defaultValues = {
       image: (articleData && articleData.image) || "",
       file: null,
@@ -72,7 +74,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
          }
       });
 
-      console.log('rendered in use effect')
+      // console.log('rendered in use effect')
       return () => {
          unregister("expertiseLevel")
          unregister("tags")
@@ -83,7 +85,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
    const handleCoverImageUpload = () => {
 
       const image = getValues('file')[0];
-      console.log(image)
+      // console.log(image)
       if (!image) {
          return;
       }
@@ -123,7 +125,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
    }
 
    const onSubmit = async ({ file, ...data }) => {
-      console.log(data)
+      // console.log(data)
       try {
          setStatus({ ...baseState, isUploading: true });
          let response;
@@ -133,7 +135,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
             response = await postArticleService(data);
          }
 
-         console.log(response.data)
+         // console.log(response.data)
          setStatus({
             ...baseState,
             statusCode: response.status,
@@ -183,7 +185,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
       { key: 'ux', text: 'User Experience', value: 'ux' },
    ]
    const handleChange = async (e, { name, value }) => {
-      console.log(name, value)
+      // console.log(name, value)
       setValue(name, value);
       await trigger(name);
    }
@@ -240,9 +242,6 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
             });
          }
       },
-      // imageResize: {
-      //    parchment: Quill.import('parchment')
-      // },
       syntax: {
          highlight: text => hljs.highlightAuto(text).value,
       }
@@ -408,7 +407,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
                   <Icon name='bullhorn' />
                   <Message.Content>
                      <Message.Header>{status.errors ? 'Error' : 'Success'}</Message.Header>
-                     {status.errors ? status.errors : <Link to={status.successMessage}>Click to visit it.</Link>}
+                     {status.errors ? status.errors : <Link to={status.successMessage}>Published 🚀. Click to visit it.</Link>}
                   </Message.Content>
                </Message>}
                <Form.Button
@@ -420,7 +419,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
                   fluid
                />
                <button className="ui fluid button" type="button" onClick={() => reset()}>Reset</button>
-               <button className="ui fluid button secondary" type="button" onClick={() => console.log(getValues())}>getdata</button>
+               {/* <button className="ui fluid button secondary" type="button" onClick={() => console.log(getValues())}>getdata</button> */}
             </Form>
          </Segment>
 
