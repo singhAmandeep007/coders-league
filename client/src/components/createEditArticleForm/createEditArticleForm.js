@@ -208,7 +208,8 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
             ['blockquote', 'code-block'],
             [{ 'align': [] }, { 'list': 'ordered' }, { 'list': 'bullet' }],
             [{ 'color': [] }, { 'background': [] }],
-            ['link', 'image', 'video'],
+            ['link', 'image'],
+            // removed 'video' due to helmet & mobile view issues
          ]
       },
       imageUploader: {

@@ -6,14 +6,36 @@ import { postCommentLikeService } from './../../services/commentApi'
 
 import convertIsoToDate from './../../utils/IsoDateConvert';
 import './commentBox.css';
-const CommentBox = ({ comment, isAuthenticated, updateComment, deleteComment }) => {
+const CommentBox = ({ comment, isAuthenticated, isLiked, updateComment, deleteComment }) => {
+
 
    const commentText = useRef(null)
    const [state, setState] = useState({
       isEditable: false,
-      isLiked: true
+      isLiked: isLiked,
+      numLikes: comment.commentLikes.users.length
    })
 
+   const handleLike = async () => {
+      try {
+         const response = await postCommentLikeService(comment._id);
+         if (response.status === 200) {
+            setState({
+               ...state,
+               isLiked: !state.isLiked,
+               numLikes: state.isLiked ? state.numLikes - 1 : state.numLikes + 1
+            })
+         }
+         else {
+            throw new Error('Failed to Like Comment!')
+         }
+      }
+      catch (error) {
+         const { response } = error;
+         const { request, ...errorObject } = response;
+         console.log(errorObject.data.message)
+      }
+   }
 
    return (
       <Comment>
@@ -62,8 +84,8 @@ const CommentBox = ({ comment, isAuthenticated, updateComment, deleteComment }) 
 
             {isAuthenticated && <Comment.Actions>
 
-               <Comment.Action >
-                  <i className={`heart ${state.isLiked ? 'red' : ''} icon`} onClick={() => setState({ ...state, isLiked: !state.isLiked })}></i>
+               <Comment.Action onClick={() => handleLike()}>
+                  <i className={`heart ${state.isLiked ? 'red' : ''} icon`} ></i>{state.numLikes}
                </Comment.Action>
                {/* <Comment.Action>Reply</Comment.Action> */}
 

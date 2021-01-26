@@ -32,4 +32,10 @@ router.route('/:id')
       commentController.checkOwnershipAndDelete
    )
 
+//  /api/v1/comments/5fc508915eeed324b8ade5e1/like/ 
+router.route('/:commentId/like')
+   .post(
+      authController.restrictTo('user'),
+      commentController.setCommentLike
+   )
 module.exports = router; 

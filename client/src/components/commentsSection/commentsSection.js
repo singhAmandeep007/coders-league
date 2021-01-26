@@ -106,6 +106,7 @@ const CommentsSection = ({ commentsData, isAuthenticated, currentUser, articleId
                      key={comment._id}
                      comment={comment}
                      isAuthenticated={isAuthenticated}
+                     isLiked={(currentUser && comment.commentLikes && comment.commentLikes.users.indexOf(currentUser.id) !== -1) ? true : false}
                      updateComment={(commentId, text) => updateComment(commentId, text)}
                      deleteComment={(commentId) => deleteComment(commentId)}
                   />

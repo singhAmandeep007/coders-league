@@ -25,6 +25,14 @@ const commentSchema = new Schema({
 }
 );
 
+// virtual populate
+commentSchema.virtual('commentLikes', {
+   ref: 'CommentLike',
+   localField: '_id',
+   foreignField: 'comment',
+   justOne: true
+})
+
 commentSchema.pre('save', function (next) {
    // console.log('in pre save of comment model')
    const Article = require('./articleModel');
@@ -64,22 +72,35 @@ commentSchema.statics.calcNumComments = function (articleId) {
    })
 }
 
-commentSchema.post('save', function () {
+commentSchema.post('save', async function () {
    // this points to current comment
    // console.log('article id: ', this.article);
    this.constructor.calcNumComments(this.article);
+   const CommentLike = require('./commentLikeModel');
+   await CommentLike.create({
+      comment: this._id
+   });
 });
 
 
 
 commentSchema.post(/^findOneAndDelete/, async function (doc) {
    if (doc) {
-      await doc.constructor.calcNumComments(doc.article)
+      await doc.constructor.calcNumComments(doc.article);
+      const CommentLike = require('./commentLikeModel');
+      await CommentLike.deleteOne({
+         comment: doc._id
+      });
    }
 });
 
+// for delete user
 commentSchema.post('deleteOne', { document: true }, async function (doc) {
    await doc.constructor.calcNumComments(doc.article);
+   const CommentLike = require('./commentLikeModel');
+   await CommentLike.deleteOne({
+      comment: doc._id
+   });
    // console.log('DOC from post delteONe hook comment', doc)
 })
 

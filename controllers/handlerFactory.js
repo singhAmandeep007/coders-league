@@ -44,7 +44,7 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
    if (req.params.username && req.params.slug) {
       filter["slug"] = req.params.slug;
       query = Model.findOne(filter);
-      query.populate([{ path: 'user', username: req.params.username, select: "username fullname photo location createdAt" }, { path: 'comments' }])
+      query.populate([{ path: 'user', username: req.params.username, select: "username fullname photo createdAt" }, { path: 'comments', populate: { path: 'commentLikes', select: "users -comment" } }])
    }
    // /profile/:username
    else if (req.params.username && !req.params.slug) {
@@ -68,8 +68,13 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
    })
 })
 
-exports.createOne = Model => catchAsync(async (req, res, next) => {
-   const doc = await Model.create(req.body);
+exports.createOne = (Model, populateOptions) => catchAsync(async (req, res, next) => {
+   let doc = await Model.create(req.body);
+
+   if (populateOptions) {
+      doc = await doc.populate(populateOptions).execPopulate()
+   }
+
    res.status(200).json({
       status: 'success',
       data: doc
