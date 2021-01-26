@@ -44,15 +44,13 @@ app.use(helmet({
          defaultSrc: ["'self'"],
          scriptSrc: ["'self'", "'unsafe-inline'", "https://codersleague.herokuapp.com"],
          styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
-         imgSrc: ["'self'", 'data:'],
-         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+         imgSrc: ["'self'", "https://res.cloudinary.com/dryiuvv1l"],
          objectSrc: ["'self'"],
          mediaSrc: ["'self'"],
          frameSrc: ["'self'"],
       },
    }
-}
-));
+}));
 
 // Rate Limiting
 const limiter = rateLimit({
