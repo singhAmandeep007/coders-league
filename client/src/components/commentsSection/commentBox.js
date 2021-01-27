@@ -13,8 +13,10 @@ const CommentBox = ({ comment, isAuthenticated, isLiked, updateComment, deleteCo
    const [state, setState] = useState({
       isEditable: false,
       isLiked: isLiked,
-      numLikes: comment.commentLikes.users.length
+      numLikes: comment.commentLikes.users.length,
+      errorMsg: null
    })
+
 
    const handleLike = async () => {
       try {
@@ -33,7 +35,11 @@ const CommentBox = ({ comment, isAuthenticated, isLiked, updateComment, deleteCo
       catch (error) {
          const { response } = error;
          const { request, ...errorObject } = response;
-         console.log(errorObject.data.message)
+         console.log(errorObject.data.message || errorObject.data)
+         setState({ ...state, errorMsg: errorObject.data.message || errorObject.data })
+         setTimeout(function () {
+            setState({ ...state, errorMsg: null });
+         }, 5000);
       }
    }
 
@@ -87,7 +93,8 @@ const CommentBox = ({ comment, isAuthenticated, isLiked, updateComment, deleteCo
                <Comment.Action onClick={() => handleLike()}>
                   <i className={`heart ${state.isLiked ? 'red' : ''} icon`} ></i>{state.numLikes}
                </Comment.Action>
-               {/* <Comment.Action>Reply</Comment.Action> */}
+
+               {state.errorMsg && <span className="errorMessage">{state.errorMsg}</span>}
 
                {state.isEditable && <Comment.Action
                   style={{ float: 'right' }}

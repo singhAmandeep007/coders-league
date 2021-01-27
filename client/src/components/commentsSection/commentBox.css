@@ -8,3 +8,8 @@
 .customText {
    word-break: break-all;
 }
+
+.errorMessage {
+   font-size: 10px;
+   color: #dd221f;
+}
