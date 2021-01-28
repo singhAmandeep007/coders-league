@@ -6,7 +6,7 @@ const authController = require('./../controllers/authController');
 
 const commentRouter = require('./../routes/commentRoutes');
 
-const createLikeLimiter = rateLimit({
+const createLimiter = rateLimit({
    windowMs: 60 * 60 * 1000, // 1 hour window
    max: 20, // start blocking after 10 requests
    message:
@@ -50,13 +50,21 @@ router.route('/:id')
       articleController.checkOwnershipAndDelete
    );
 
-//  /api/v1/articles/5fc508915eeed324b8ade5e1/like/ 
+
+router.use(authController.protect);
+//  /api/v1/articles/5fc508915eeed324b8ade5e1/like
 router.route('/:articleId/like')
    .post(
-      createLikeLimiter,
-      authController.protect,
+      createLimiter,
       authController.restrictTo('user'),
       articleController.setArticleLike
+   )
+//  /api/v1/articles/5fc508915eeed324b8ade5e1/bookmark
+router.route('/:articleId/bookmark')
+   .post(
+      createLimiter,
+      authController.restrictTo('user'),
+      articleController.setArticleBookmark
    )
 
 module.exports = router;

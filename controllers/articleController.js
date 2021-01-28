@@ -1,5 +1,6 @@
 const Article = require('./../models/articleModel');
 const ArticleLike = require('./../models/articleLikeModel');
+const ArticleBookmark = require('./../models/articleBookmarkModel');
 const factory = require('./handlerFactory');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -68,15 +69,15 @@ exports.checkOwnershipAndDelete = catchAsync(async (req, res, next) => {
 exports.setArticleLike = async (req, res, next) => {
     try {
 
-        if (!req.params.articleId) {
-            return next(new AppError('Article Like must be created on a Article!', 401))
-        }
+        // if (!req.params.articleId) {
+        //     return next(new AppError('Article Like must be created on a Article!', 401))
+        // }
 
         let doc = await Article.findById({ _id: req.params.articleId });
         if (!doc) {
             return next(new AppError('No Article found with that ID', 404))
         }
-        // find One and update
+        // updateOne
         let articleTobeLiked = await ArticleLike.updateOne(
             {
                 article: req.params.articleId,
@@ -104,6 +105,50 @@ exports.setArticleLike = async (req, res, next) => {
             return res.status(200).json({
                 status: 'success',
                 data: 'successfully unliked article',
+            })
+        }
+        return next(new AppError('You are not authorised to perform this action', 403))
+    } catch (err) {
+        next(err)
+    }
+}
+
+exports.setArticleBookmark = async (req, res, next) => {
+    try {
+
+        let doc = await Article.findById({ _id: req.params.articleId });
+        if (!doc) {
+            return next(new AppError('No Article found with that ID', 404))
+        }
+
+        // updateOne
+        let articleTobeBookmarked = await ArticleBookmark.updateOne(
+            {
+                article: req.params.articleId,
+                "users": { $ne: req.user.id }
+            },
+            {
+                $addToSet: { users: req.user.id }
+            }
+        )
+
+        if (articleTobeBookmarked.nModified === 1) {
+            //1 means, modification, that means its bookmarked
+            return res.status(200).json({
+                status: 'success',
+                data: 'successfully bookmarked article',
+            })
+        } else if (articleTobeBookmarked.nModified === 0) {
+            await ArticleBookmark.updateOne(
+                { article: req.params.articleId },
+                {
+                    $pull: { users: req.user.id }
+                }
+            )
+
+            return res.status(200).json({
+                status: 'success',
+                data: 'successfully unbookmarked article',
             })
         }
         return next(new AppError('You are not authorised to perform this action', 403))

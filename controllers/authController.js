@@ -115,7 +115,7 @@ exports.protect = catchAsync(async (req, res, next) => {
    } else if (req.cookies.jwt) {
       // reading jwt from a cookie using cookieParser. 
       // if it exists then token is exactly that. Now we can also authenticate users by the jwt send via cookies.
-      console.log('jwt recieved via cookie:', req.cookies.jwt)
+      // console.log('jwt recieved via cookie:', req.cookies.jwt)
       token = req.cookies.jwt;
    }
 

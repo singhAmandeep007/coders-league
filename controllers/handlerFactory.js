@@ -44,13 +44,57 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
    if (req.params.username && req.params.slug) {
       filter["slug"] = req.params.slug;
       query = Model.findOne(filter);
-      query.populate([{ path: 'user', username: req.params.username, select: "username fullname photo createdAt" }, { path: 'comments', populate: { path: 'commentLikes', select: "users -comment" } }, { path: 'articleLikes', populate: 'articleLikes', select: 'users -article' }])
+      query.populate([
+         {
+            path: 'user',
+            username: req.params.username,
+            select: "username fullname photo createdAt"
+         },
+         {
+            path: 'comments',
+            populate: {
+               path: 'commentLikes',
+               select: "users -comment"
+            }
+         },
+         {
+            path: 'articleLikes',
+            populate: 'articleLikes',
+            select: 'users -article'
+         },
+         {
+            path: 'articleBookmarks',
+            populate: 'articleBookmarks',
+            select: 'users -article'
+         }
+      ])
    }
    // /profile/:username
    else if (req.params.username && !req.params.slug) {
       filter["username"] = req.params.username;
       query = Model.findOne(filter);
-      query.populate([{ path: 'articles', select: '-body -image -images', populate: { path: 'user', select: "username fullname photo" } }, { path: 'comments', select: "text -user", populate: { path: 'article', select: "title slug", populate: { path: 'user', select: "username" } } }])
+      query.populate([
+         {
+            path: 'articles',
+            select: '-body -image -images',
+            populate: {
+               path: 'user',
+               select: "username fullname photo"
+            }
+         },
+         {
+            path: 'comments',
+            select: "text -user",
+            populate: {
+               path: 'article',
+               select: "title slug",
+               populate: {
+                  path: 'user',
+                  select: "username"
+               }
+            }
+         }
+      ])
    }
 
    else {

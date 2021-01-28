@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Menu, Dropdown } from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { postArticleLikeService } from './../../services/articleApi'
+import { postArticleLikeService, postArticleBookmarkService } from './../../services/articleApi'
 
 import './articleSidebarMenu.css'
 
@@ -13,12 +13,13 @@ const ArticleSidebarMenu = ({ screen, isAuthenticated, articleData, currentUserI
 
    const [state, setState] = useState({
       copied: false,
-      isLiked: (currentUserId && articleData.articleLikes && articleData.articleLikes.users && articleData.articleLikes.users.indexOf(currentUserId) !== -1) ? true : false,
+      isLiked: (currentUserId && articleData.articleLikes.users && articleData.articleLikes.users.indexOf(currentUserId) !== -1) ? true : false,
       numLikes: articleData.articleLikes.users.length,
-      isBookmarked: false,
-      errorMsg: null
+      isBookmarked: (currentUserId && articleData.articleBookmarks.users && articleData.articleBookmarks.users.indexOf(currentUserId) !== -1) ? true : false,
+      numBookmarks: articleData.articleBookmarks.users.length,
+      errorMsgLike: null,
+      errorMsgBookmark: null
    });
-
 
    const isMobile = screen === 'mobile';
    const testUrl = window.location.href;
@@ -41,13 +42,36 @@ const ArticleSidebarMenu = ({ screen, isAuthenticated, articleData, currentUserI
          const { response } = error;
          const { request, ...errorObject } = response;
          console.log(errorObject.data.message || errorObject.data)
-         setState({ ...state, errorMsg: errorObject.data.message || errorObject.data })
+         setState({ ...state, errorMsgLike: errorObject.data.message || errorObject.data })
          setTimeout(function () {
-            setState({ ...state, errorMsg: null });
+            setState({ ...state, errorMsgLike: null });
          }, 2000);
       }
    }
-
+   const handleBookmark = async () => {
+      try {
+         const response = await postArticleBookmarkService(articleData._id);
+         if (response.status === 200) {
+            setState({
+               ...state,
+               isBookmarked: !state.isBookmarked,
+               numBookmarks: state.isBookmarked ? state.numBookmarks - 1 : state.numBookmarks + 1
+            })
+         }
+         else {
+            throw new Error('Failed to Bookmark Article!')
+         }
+      }
+      catch (error) {
+         const { response } = error;
+         const { request, ...errorObject } = response;
+         console.log(errorObject.data.message || errorObject.data)
+         setState({ ...state, errorMsgBookmark: errorObject.data.message || errorObject.data })
+         setTimeout(function () {
+            setState({ ...state, errorMsgBookmark: null });
+         }, 2000);
+      }
+   }
    return (
       <Menu
          fluid
@@ -62,19 +86,24 @@ const ArticleSidebarMenu = ({ screen, isAuthenticated, articleData, currentUserI
                icon
                onClick={() => handleLike()}
             >
-               <button className={`ui circular icon button ${!isMobile ? 'marginBottomLike' : ''}`} >
+               <button className={`ui circular icon button ${!isMobile ? 'marginBottomReaction' : ''}`} >
                   <i className={`heart  ${state.isLiked ? 'red' : ''} icon`} ></i>
                </button>
 
                <span style={{ margin: '0.5em' }}>{state.numLikes}</span>
-               {state.errorMsg && <span className="errorMessageArticleLike">{state.errorMsg}</span>}
+               {state.errorMsgLike && <span className="errorMessageReaction">{state.errorMsgLike}</span>}
             </Menu.Item>
+
             <Menu.Item
                icon
+               onClick={() => handleBookmark()}
             >
-               <button className="ui circular icon button">
-                  <i className={`bookmark icon`} ></i>
+               <button className={`ui circular icon button ${!isMobile ? 'marginBottomReaction' : ''}`} >
+                  <i className={`bookmark  ${state.isBookmarked ? 'blue' : ''} icon`} ></i>
                </button>
+
+               <span style={{ margin: '0.5em' }}>{state.numBookmarks}</span>
+               {state.errorMsgBookmark && <span className="errorMessageReaction">{state.errorMsgBookmark}</span>}
 
             </Menu.Item></>}
 

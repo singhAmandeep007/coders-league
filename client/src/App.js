@@ -28,6 +28,7 @@ const UserProfilePage = lazy(() => import('./pages/userProfile'));
 const ArticlePage = lazy(() => import('./pages/article'));
 const CreateEditArticlePage = lazy(() => import('./pages/createEditArticle/createEditArticlePage'));
 const UserSettingsPage = lazy(() => import('./pages/userSettings/userSettingsPage'));
+const ReadingListPage = lazy(() => import('./pages/readingList'));
 
 const RouteUnauthenticated = ({ isAuthenticated, ...props }) => {
   return !isAuthenticated ? <Route {...props} /> : <Redirect to="/" />;
@@ -114,6 +115,12 @@ const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
             path="/a/edit/:slug"
             isAuthenticated={isAuthenticated}
             render={(props) => <CreateEditArticlePage currentUser={currentUser} {...props} />}
+          />
+          <RouteAuthenticated
+            exact
+            path="/u/:username/readinglist"
+            isAuthenticated={isAuthenticated}
+            render={(props) => <ReadingListPage currentUser={currentUser} {...props} />}
           />
           <RouteAuthenticated
             path="/settings"

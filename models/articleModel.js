@@ -85,7 +85,12 @@ articleSchema.virtual('articleLikes', {
     foreignField: 'article',
     justOne: true
 })
-
+articleSchema.virtual('articleBookmarks', {
+    ref: 'ArticleBookmark',
+    localField: '_id',
+    foreignField: 'article',
+    justOne: true
+})
 // middlewares
 articleSchema.pre('save', function (next) {
     let slugifiedTitle = `${slugify(this.title, { lower: true })}-${(0 | Math.random() * 9e6).toString(36)}`;
@@ -108,6 +113,18 @@ articleSchema.pre('aggregate', function (next) {
 })
 
 //post hook
+articleSchema.post('save', async function () {
+    // this points to current article
+    const ArticleLike = require('./articleLikeModel');
+    const ArticleBookmark = require('./articleBookmarkModel');
+    await ArticleLike.create({
+        article: this._id
+    });
+    await ArticleBookmark.create({
+        article: this._id
+    });
+});
+
 articleSchema.post(/^findOneAndDelete/, async function (doc) {
     if (doc) {
         // console.log('hello from post find&delete hook', doc)
@@ -126,16 +143,11 @@ articleSchema.post(/^findOneAndDelete/, async function (doc) {
         await ArticleLike.deleteOne({
             article: doc._id
         });
+        const ArticleBookmark = require('./articleBookmarkModel');
+        await ArticleBookmark.deleteOne({
+            article: doc._id
+        });
     }
 });
-
-articleSchema.post('save', async function () {
-    // this points to current article
-    const ArticleLike = require('./articleLikeModel');
-    await ArticleLike.create({
-        article: this._id
-    });
-});
-
 
 module.exports = mongoose.model('Article', articleSchema);

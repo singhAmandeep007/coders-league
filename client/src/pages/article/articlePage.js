@@ -100,7 +100,7 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
       </Grid.Column>
 
       <Grid.Column width={4} >
-         {data.loading ? <PlaceholderCard /> : data.userData && <div style={{ paddingBottom: '4em' }}>
+         {data.loading ? <PlaceholderCard /> : data.userData && <div style={{ paddingBottom: '6em' }}>
             <Sticky context={objectRef} offset={90}>
                <Card fluid raised>
 

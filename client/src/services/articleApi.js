@@ -28,6 +28,12 @@ export function deleteArticleService(id) {
 
 // Article LIKE
 export function postArticleLikeService(articleId) {
-   console.log(articleId)
+
    return axios.post(`${urlArticleApi}/${articleId}/like`);
+}
+
+// Article BOOKMARK
+export function postArticleBookmarkService(articleId) {
+
+   return axios.post(`${urlArticleApi}/${articleId}/bookmark`);
 }
