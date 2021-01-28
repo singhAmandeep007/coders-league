@@ -52,6 +52,7 @@ const articleSchema = new Schema({
         type: String
     },
     images: [{ type: String }],
+    readingTime: Schema.Types.Mixed,
     user: {
         type: mongoose.Schema.ObjectId,
         ref: 'User',
@@ -78,12 +79,19 @@ articleSchema.virtual('comments', {
     localField: '_id',
     foreignField: 'article'
 })
-
+articleSchema.virtual('articleLikes', {
+    ref: 'ArticleLike',
+    localField: '_id',
+    foreignField: 'article',
+    justOne: true
+})
 
 // middlewares
 articleSchema.pre('save', function (next) {
     let slugifiedTitle = `${slugify(this.title, { lower: true })}-${(0 | Math.random() * 9e6).toString(36)}`;
     this.slug = slugifiedTitle;
+    const readingTime = require('reading-time');
+    this.readingTime = readingTime(this.body);
     next();
 })
 
@@ -103,12 +111,31 @@ articleSchema.pre('aggregate', function (next) {
 articleSchema.post(/^findOneAndDelete/, async function (doc) {
     if (doc) {
         // console.log('hello from post find&delete hook', doc)
-        await Comment.deleteMany({
+        const comments = await Comment.find({
+            article: doc._id
+        });
+        if (comments && comments.length > 0) {
+            comments.forEach(async (doc) => {
+                await doc.deleteOne();
+            })
+        }
+        // await Comment.deleteMany({
+        //     article: doc._id
+        // });
+        const ArticleLike = require('./articleLikeModel');
+        await ArticleLike.deleteOne({
             article: doc._id
         });
     }
 });
 
+articleSchema.post('save', async function () {
+    // this points to current article
+    const ArticleLike = require('./articleLikeModel');
+    await ArticleLike.create({
+        article: this._id
+    });
+});
 
 
 module.exports = mongoose.model('Article', articleSchema);

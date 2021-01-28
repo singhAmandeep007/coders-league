@@ -13,6 +13,7 @@ class ArticleCard extends React.Component {
          slug,
          likeCounts,
          commentCounts,
+         readingTime,
          createdAt,
          expertiseLevel,
          tags,
@@ -78,12 +79,14 @@ class ArticleCard extends React.Component {
                   </Label>
                </Button>
 
-               <Button as={Link} to={`/u/${user.username}/a/${slug}`} animated floated='right' size="tiny">
+               {readingTime && <small style={{ float: 'right', lineHeight: '2.4em' }}>{readingTime.text}</small>}
+
+               {/* <Button as={Link} to={`/u/${user.username}/a/${slug}`} animated floated='right' size="tiny">
                   <Button.Content visible>Save</Button.Content>
                   <Button.Content hidden>
                      <Icon name='bookmark' />
                   </Button.Content>
-               </Button>
+               </Button> */}
 
             </Card.Content>
          </Card>

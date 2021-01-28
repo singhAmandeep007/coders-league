@@ -1,8 +1,8 @@
 const express = require('express');
+const rateLimit = require("express-rate-limit");
+
 const commentController = require('./../controllers/commentController');
 const authController = require('./../controllers/authController');
-
-const rateLimit = require("express-rate-limit");
 
 const createLikeLimiter = rateLimit({
    windowMs: 60 * 60 * 1000, // 1 hour window

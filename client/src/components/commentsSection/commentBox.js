@@ -39,7 +39,7 @@ const CommentBox = ({ comment, isAuthenticated, isLiked, updateComment, deleteCo
          setState({ ...state, errorMsg: errorObject.data.message || errorObject.data })
          setTimeout(function () {
             setState({ ...state, errorMsg: null });
-         }, 5000);
+         }, 2000);
       }
    }
 
@@ -94,7 +94,7 @@ const CommentBox = ({ comment, isAuthenticated, isLiked, updateComment, deleteCo
                   <i className={`heart ${state.isLiked ? 'red' : ''} icon`} ></i>{state.numLikes}
                </Comment.Action>
 
-               {state.errorMsg && <span className="errorMessage">{state.errorMsg}</span>}
+               {state.errorMsg && <span className="errorMessageCommentLike">{state.errorMsg}</span>}
 
                {state.isEditable && <Comment.Action
                   style={{ float: 'right' }}

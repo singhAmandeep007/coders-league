@@ -44,7 +44,7 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
    if (req.params.username && req.params.slug) {
       filter["slug"] = req.params.slug;
       query = Model.findOne(filter);
-      query.populate([{ path: 'user', username: req.params.username, select: "username fullname photo createdAt" }, { path: 'comments', populate: { path: 'commentLikes', select: "users -comment" } }])
+      query.populate([{ path: 'user', username: req.params.username, select: "username fullname photo createdAt" }, { path: 'comments', populate: { path: 'commentLikes', select: "users -comment" } }, { path: 'articleLikes', populate: 'articleLikes', select: 'users -article' }])
    }
    // /profile/:username
    else if (req.params.username && !req.params.slug) {

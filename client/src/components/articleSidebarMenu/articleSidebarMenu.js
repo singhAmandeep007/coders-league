@@ -1,18 +1,52 @@
 import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 
-import { Menu, Icon, Dropdown } from 'semantic-ui-react';
+import { Menu, Dropdown } from 'semantic-ui-react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+import { postArticleLikeService } from './../../services/articleApi'
 
 import './articleSidebarMenu.css'
 
-const ArticleSidebarMenu = ({ screen, isAuthenticated, articleData, userData }) => {
+const ArticleSidebarMenu = ({ screen, isAuthenticated, articleData, currentUserId }) => {
 
-   const [state, setState] = useState({ copied: false });
+
+   const [state, setState] = useState({
+      copied: false,
+      isLiked: (currentUserId && articleData.articleLikes && articleData.articleLikes.users && articleData.articleLikes.users.indexOf(currentUserId) !== -1) ? true : false,
+      numLikes: articleData.articleLikes.users.length,
+      isBookmarked: false,
+      errorMsg: null
+   });
 
 
    const isMobile = screen === 'mobile';
    const testUrl = window.location.href;
+
+   const handleLike = async () => {
+      try {
+         const response = await postArticleLikeService(articleData._id);
+         if (response.status === 200) {
+            setState({
+               ...state,
+               isLiked: !state.isLiked,
+               numLikes: state.isLiked ? state.numLikes - 1 : state.numLikes + 1
+            })
+         }
+         else {
+            throw new Error('Failed to Like Article!')
+         }
+      }
+      catch (error) {
+         const { response } = error;
+         const { request, ...errorObject } = response;
+         console.log(errorObject.data.message || errorObject.data)
+         setState({ ...state, errorMsg: errorObject.data.message || errorObject.data })
+         setTimeout(function () {
+            setState({ ...state, errorMsg: null });
+         }, 2000);
+      }
+   }
 
    return (
       <Menu
@@ -23,24 +57,33 @@ const ArticleSidebarMenu = ({ screen, isAuthenticated, articleData, userData }) 
          fixed={isMobile ? 'bottom' : null}
          widths={isMobile ? 3 : null}
       >
-         {isAuthenticated && <><Menu.Item
-            name='like'
-         >
-            <Icon color='red' name='like' />
-         </Menu.Item>
+         {isAuthenticated && currentUserId && <>
             <Menu.Item
-               name='bookmark'
+               icon
+               onClick={() => handleLike()}
             >
-               <Icon name='bookmark' />
+               <button className={`ui circular icon button ${!isMobile ? 'marginBottomLike' : ''}`} >
+                  <i className={`heart  ${state.isLiked ? 'red' : ''} icon`} ></i>
+               </button>
+
+               <span style={{ margin: '0.5em' }}>{state.numLikes}</span>
+               {state.errorMsg && <span className="errorMessageArticleLike">{state.errorMsg}</span>}
+            </Menu.Item>
+            <Menu.Item
+               icon
+            >
+               <button className="ui circular icon button">
+                  <i className={`bookmark icon`} ></i>
+               </button>
+
             </Menu.Item></>}
 
-
-         <Dropdown item icon="share alternate" floating direction={isMobile ? 'left' : null}>
+         <Dropdown item icon="share alternate" floating direction={isMobile ? 'left' : null} >
             <Dropdown.Menu>
                <Dropdown.Item >
                   <CopyToClipboard
                      text={window.location.href}
-                     onCopy={() => setState({ copied: true })}
+                     onCopy={() => setState({ ...state, copied: true })}
                   >
                      <div className="ui left icon transparent mini input ">
                         <input readOnly value={window.location.href} size="10" />
@@ -51,7 +94,7 @@ const ArticleSidebarMenu = ({ screen, isAuthenticated, articleData, userData }) 
                </Dropdown.Item>
 
                <Dropdown.Item>
-                  <a target="_blank" rel="noreferrer" href={`https://twitter.com/intent/tweet?text="${articleData.title}" by ${userData.username}&url=${testUrl}`}>
+                  <a target="_blank" rel="noreferrer" href={`https://twitter.com/intent/tweet?text="${articleData.title} Link: "&url=${testUrl}`}>
                      Share to Twitter
                   </a>
                </Dropdown.Item>

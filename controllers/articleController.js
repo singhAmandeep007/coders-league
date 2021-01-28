@@ -1,4 +1,5 @@
 const Article = require('./../models/articleModel');
+const ArticleLike = require('./../models/articleLikeModel');
 const factory = require('./handlerFactory');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -63,6 +64,53 @@ exports.checkOwnershipAndDelete = catchAsync(async (req, res, next) => {
     });
 
 })
+
+exports.setArticleLike = async (req, res, next) => {
+    try {
+
+        if (!req.params.articleId) {
+            return next(new AppError('Article Like must be created on a Article!', 401))
+        }
+
+        let doc = await Article.findById({ _id: req.params.articleId });
+        if (!doc) {
+            return next(new AppError('No Article found with that ID', 404))
+        }
+        // find One and update
+        let articleTobeLiked = await ArticleLike.updateOne(
+            {
+                article: req.params.articleId,
+                "users": { $ne: req.user.id }
+            },
+            {
+                $addToSet: { users: req.user.id }
+            }
+        )
+
+        if (articleTobeLiked.nModified === 1) {
+            //1 means, modification, that means its liked
+            return res.status(200).json({
+                status: 'success',
+                data: 'successfully liked article',
+            })
+        } else if (articleTobeLiked.nModified === 0) {
+            await ArticleLike.updateOne(
+                { article: req.params.articleId },
+                {
+                    $pull: { users: req.user.id }
+                }
+            )
+
+            return res.status(200).json({
+                status: 'success',
+                data: 'successfully unliked article',
+            })
+        }
+        return next(new AppError('You are not authorised to perform this action', 403))
+    } catch (err) {
+        next(err)
+    }
+}
 
 exports.getAllArticles = factory.getAll(Article, { path: 'user', select: "username fullname photo" });
 // we pass the populate in this as we need all the comments filled up for that particular article we are trying to retrieve , we could also specify select, etc.

@@ -15,8 +15,6 @@ const UserProfilePage = ({ match, history }) => {
 
    const [data, setData] = useState({ userData: null, loading: true })
 
-   console.log(data)
-
    useEffect(() => {
       getUserProfile(match.params.username).then(response => {
          // console.log(response.data)
@@ -48,7 +46,7 @@ const UserProfilePage = ({ match, history }) => {
                               {data.userData.location}
                            </span>}
                            {data.userData.createdAt && <span className="item">
-                              <i class="calendar alternate icon"></i>
+                              <i className="calendar alternate icon"></i>
                               {convertIsoToDate(data.userData.createdAt)}
                            </span>}
                            {data.userData.url && <span className="item">
@@ -65,7 +63,7 @@ const UserProfilePage = ({ match, history }) => {
             <Grid.Row>
                <Grid.Column width={5} >
 
-                  {data.loading ? <PlaceholderComment num={1} /> : data.userData && data.userData.skills ? <Grid.Row >
+                  {data.loading ? <PlaceholderComment num={1} /> : data.userData && data.userData.skills ? <Grid.Row style={{ marginBottom: "20px" }}>
                      <div className="ui  floating message pink">
                         <div className="header">
                            <i className=" thumbtack icon"></i>
@@ -89,7 +87,7 @@ const UserProfilePage = ({ match, history }) => {
                      </div>
                   </Grid.Row> : null}
 
-                  {data.loading ? <PlaceholderComment num={1} /> : data.userData ? <Grid.Row style={{ marginTop: "20px" }}>
+                  {data.loading ? <PlaceholderComment num={1} /> : data.userData ? <Grid.Row >
                      <div className="ui  floating message purple">
                         <div className="header">
                            <i className=" thumbtack icon"></i>
@@ -114,7 +112,7 @@ const UserProfilePage = ({ match, history }) => {
 
                <Grid.Column width={9}>
 
-                  {data.loading ? <PlaceholderCard num={2} /> : (data.userData && data.userData.articles && data.userData.articles.length > 0) ? <Grid.Row>
+                  {data.loading ? <PlaceholderCard num={2} /> : (data.userData && data.userData.articles && data.userData.articles.length > 0) ? <Grid.Row style={{ marginBottom: "20px" }}>
                      <div className="ui  floating message teal">
                         <div className="header">
                            <i className=" thumbtack icon"></i>
@@ -126,7 +124,7 @@ const UserProfilePage = ({ match, history }) => {
                      </div>
                   </Grid.Row> : null}
 
-                  {data.loading ? <PlaceholderComment num={5} /> : (data.userData && data.userData.comments && data.userData.comments.length > 0) ? <Grid.Row style={{ marginTop: "20px" }}>
+                  {data.loading ? <PlaceholderComment num={5} /> : (data.userData && data.userData.comments && data.userData.comments.length > 0) ? <Grid.Row>
                      <div className="ui floating message olive">
                         <div className="header">
                            <i className=" thumbtack icon"></i>
@@ -139,7 +137,8 @@ const UserProfilePage = ({ match, history }) => {
                               <div className="ui raised segment" key={comment.id}>
                                  <h4 className="ui header">
                                     <Link to={`/u/${comment.article.user.username}/a/${comment.article.slug}`}>{comment.article.title}</Link>
-                                    <div className="sub header">{comment.text}</div>
+                                    <div className="ui fitted divider"></div>
+                                    <div className="sub header" style={{ fontSize: '0.8em', lineHeight: "2em" }}>{comment.text}</div>
                                  </h4>
                               </div>
                            )

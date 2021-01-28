@@ -41,6 +41,7 @@
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "pug": "^3.0.0",
+    "reading-time": "^1.2.1",
     "slugify": "^1.4.6",
     "validator": "^13.1.17",
     "xss-clean": "^0.1.1"

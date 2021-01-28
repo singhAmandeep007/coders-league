@@ -26,3 +26,8 @@ export function deleteArticleService(id) {
 }
 
 
+// Article LIKE
+export function postArticleLikeService(articleId) {
+   console.log(articleId)
+   return axios.post(`${urlArticleApi}/${articleId}/like`);
+}

@@ -45,10 +45,13 @@ const ResponsiveHeader = ({ children, isAuthenticated, logout, currentUser }) =>
       themeSelector,
       {
          content: `${currentUser.username}`, to: "/profile", key: "profileDropdown",
-         options: [{ text: "Profile", to: `/u/${currentUser.username}`, icon: 'user', key: "profile" },
-         { text: "Settings", to: "/settings", icon: 'settings', key: "settings" },
-         { text: "Help", to: "/help", icon: 'help', key: "help" },
-         { text: "Logout", to: "/logout", logout: () => logout(), key: "logout", icon: 'sign out' }]
+         options: [
+            { text: "Profile", to: `/u/${currentUser.username}`, icon: 'user', key: "profile" },
+            { text: "Reading List", to: `/u/${currentUser.username}/readinglist`, icon: 'book', key: "readingList" },
+            { text: "Settings", to: "/settings", icon: 'settings', key: "settings" },
+            { text: "Help", to: "/help", icon: 'help', key: "help" },
+            { text: "Logout", to: "/logout", logout: () => logout(), key: "logout", icon: 'sign out' }
+         ]
       }
    ] : [];
    return (

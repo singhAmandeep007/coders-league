@@ -53,21 +53,21 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
    })
 
    return <Grid as={Container} stackable>
-      <Grid.Column>
+      <Grid.Column style={{ padding: '0em' }}>
          {/* sticky sidebar menu*/}
          {!data.loading && isDesktopOrLaptop && <Sticky context={objectRef} offset={90}>
             {<ArticleSidebarMenu
                screen='desktop'
                articleData={data.articleData}
-               userData={data.userData}
                isAuthenticated={isAuthenticated}
+               currentUserId={(currentUser && currentUser._id) ? currentUser._id : null}
             />}
          </Sticky>}
          {/* fixed sidebar menu*/}
          {!data.loading && isTabletOrMobileDevice && <ArticleSidebarMenu screen='mobile'
             articleData={data.articleData}
-            userData={data.userData}
             isAuthenticated={isAuthenticated}
+            currentUserId={(currentUser && currentUser._id) ? currentUser._id : null}
          />}
 
       </Grid.Column>
