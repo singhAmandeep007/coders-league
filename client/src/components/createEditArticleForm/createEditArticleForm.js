@@ -11,6 +11,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 
 import { postArticleService, updateArticleService } from './../../services/articleApi';
 
+import tagOptions from './../../common/tagOptions';
 import formStyle from './../../common/formStyles';
 
 import './../../quill.css';
@@ -164,26 +165,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
       { key: 'intermediate', text: 'Intermediate', value: 'intermediate', label: { color: 'orange', empty: true, circular: true }, },
       { key: 'advanced', text: 'Advanced', value: 'advanced', label: { color: 'red', empty: true, circular: true }, },
    ]
-   const tagOptions = [
-      { key: 'angular', text: 'Angular', value: 'angular' },
-      { key: 'css', text: 'CSS', value: 'css' },
-      { key: 'design', text: 'Graphic Design', value: 'design' },
-      { key: 'ember', text: 'Ember', value: 'ember' },
-      { key: 'html', text: 'HTML', value: 'html' },
-      { key: 'c++', text: 'C++', value: 'c++' },
-      { key: 'javascript', text: 'Javascript', value: 'javascript' },
-      { key: 'vue', text: 'Vue', value: 'vue' },
-      { key: 'meteor', text: 'Meteor', value: 'meteor' },
-      { key: 'nodejs', text: 'NodeJS', value: 'nodejs' },
-      { key: 'scss', text: 'SCSS', value: 'scss' },
-      { key: 'python', text: 'Python', value: 'python' },
-      { key: 'rails', text: 'Rails', value: 'rails' },
-      { key: 'react', text: 'React', value: 'react' },
-      { key: 'redux', text: 'Redux', value: 'redux' },
-      { key: 'ruby', text: 'Ruby', value: 'ruby' },
-      { key: 'ui', text: 'UI Design', value: 'ui' },
-      { key: 'ux', text: 'User Experience', value: 'ux' },
-   ]
+
    const handleChange = async (e, { name, value }) => {
       // console.log(name, value)
       setValue(name, value);

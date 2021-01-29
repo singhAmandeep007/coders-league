@@ -51,13 +51,14 @@ const ReadingListPage = ({ currentUser }) => {
                <Header as='h2' icon>
                   <i className="book  circular icon"></i>
                         Reading List
+
                      <Header.Subheader>
                      Search your article bookmark list and check them out.
                      </Header.Subheader>
                </Header>
             </Grid.Row>
 
-            <div className="ui divider"></div>
+
             <Grid.Row >
 
                {state.loading ? <Grid.Column><PlaceholderCard num={4} /></Grid.Column> : (state.articleData && state.articleData.length > 0) ? <RenderArticles articleData={state.articleData} /> : null}
