@@ -1,5 +1,6 @@
 const multer = require('multer');
 const User = require('./../models/userModel');
+const ArticleBookmark = require('./../models/articleBookmarkModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
@@ -39,6 +40,19 @@ exports.getMe = (req, res, next) => {
 };
 
 exports.getUserProfile = factory.getOne(User)
+
+// User Reading List 
+exports.getUserReadingList = catchAsync(async (req, res) => {
+   const readingList = await ArticleBookmark
+      .find({ users: { $eq: req.user.id } })
+      .select('-users')
+      .populate({ path: 'article', select: '-body -image -images', populate: { path: 'user', select: 'username fullname photo' } })
+
+   res.status(200).json({
+      status: 'success',
+      data: readingList
+   })
+})
 
 exports.uploadUserPhoto = upload.single('photo');
 

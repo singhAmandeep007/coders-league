@@ -119,7 +119,7 @@ const UserProfilePage = ({ match, history }) => {
                                  Recent Articles
                            </div>
                      </div>
-                     <div className="ui secondary teal segment">
+                     <div className="ui secondary teal segment" style={{ padding: '1.4em' }}>
                         {data.userData.articles.map(article => <ArticleCard key={article._id} {...article} />)}
                      </div>
                   </Grid.Row> : null}

@@ -8,6 +8,7 @@ const urlForgotPassword = `/api/v1/users/forgotPassword`;
 const urlResetPassword = `/api/v1/users/resetPassword`;
 
 const urlUserInfo = `/api/v1/users/me`;
+const urlUserReadingList = `/api/v1/users/readingList`;
 const urlUserProfile = `/api/v1/users/profile`;
 const urlUpdatePassword = `/api/v1/users/updatePassword`;
 const urlUpdateUser = `/api/v1/users/updateMe`;
@@ -45,6 +46,10 @@ export function logoutService() {
 
 export function getUserInfo() {
    return axios.get(urlUserInfo);
+}
+
+export function getUserReadingList() {
+   return axios.get(urlUserReadingList);
 }
 
 export function getUserProfile(username) {

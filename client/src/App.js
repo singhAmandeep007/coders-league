@@ -118,7 +118,7 @@ const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
           />
           <RouteAuthenticated
             exact
-            path="/u/:username/readinglist"
+            path="/readinglist"
             isAuthenticated={isAuthenticated}
             render={(props) => <ReadingListPage currentUser={currentUser} {...props} />}
           />
