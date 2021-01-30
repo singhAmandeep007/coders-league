@@ -45,7 +45,7 @@ const UserSettingsPage = ({ currentUser, ...props }) => {
                      as={NavLink} color='blue' exact to={`${url}/notifications`}
                   />
                </Menu>
-               <Segment attached="bottom">
+               <Segment attached="bottom" className="userSettings">
 
                   <Switch>
 

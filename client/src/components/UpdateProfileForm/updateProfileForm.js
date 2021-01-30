@@ -87,7 +87,7 @@ const UpdateProfileForm = ({ updateUserInfo, updateUserInfoCB, currentUser }) =>
                   {errors.fullname && <span style={formStyle.errorMessage}>{errors.fullname.message}</span>}
                </Form.Field>
                <Form.Field error={!!errors.username} required>
-                  <label htmlFor="update-username">User Name</label>
+                  <label htmlFor="update-username">User Name </label>
                   <div className="ui left icon input">
                      <i className="user icon"></i>
                      <input
@@ -173,7 +173,7 @@ const UpdateProfileForm = ({ updateUserInfo, updateUserInfoCB, currentUser }) =>
                         id='update-skills'
                         name="skills"
                         type="text"
-                        placeholder="HTML CSS JS"
+                        placeholder="Eg. HTML CSS JS (separated by space !)"
                         ref={register()}
                      />
                   </div>

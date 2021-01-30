@@ -18,8 +18,10 @@ const ResponsiveHeader = ({ children, isAuthenticated, logout, currentUser }) =>
          { text: "⚪", setTheme: () => setTheme('default'), key: "default" },
          { text: "🟢", setTheme: () => setTheme('algae'), key: "algae" },
          { text: "⚫", setTheme: () => setTheme('charcoal'), key: "charcoal" },
-         { text: "🔴", setTheme: () => setTheme('lavender'), key: "lavender" },
-         { text: "🟣", setTheme: () => setTheme('paper'), key: "paper" }]
+         { text: "🔴", setTheme: () => setTheme('blood'), key: "blood" },
+         { text: "🟡", setTheme: () => setTheme('citrus'), key: "citrus" },
+         { text: "🔵", setTheme: () => setTheme('water'), key: "water" }
+      ]
    }
 
    const isDesktopOrLaptop = useMediaQuery({

@@ -113,7 +113,7 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
                         <i className="calendar alternate icon"></i>&nbsp;&nbsp;
                         {convertIsoToDate(data.userData.createdAt)}
                      </Card.Meta>
-                     {data.userData.bio && <Card.Description>
+                     {data.userData.bio && <Card.Description style={{ fontSize: '0.83rem', lineHeight: '1.5em', paddingBottom: '1em' }}>
                         {data.userData.bio}
                      </Card.Description>}
 

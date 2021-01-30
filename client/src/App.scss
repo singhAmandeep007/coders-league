@@ -1,35 +1,89 @@
 @import "./Theme.scss";
+// ⚪ default
+// 🟢 algae
+// ⚫ charcoal
+// 🔴 blood
+// 🟡 citrus
+// 🔵 water
 
 //generic
 $dark-font: rgb(8, 9, 11);
 $light-font: rgba(255, 255, 255, 0.9);
 
 //algae
-$algae-bg: rgb(191, 211, 206);
-$algae-menu: #116466;
-$algae-card: rgba(140, 170, 150, 0.7);
-//theme($bg-color,$font-color)
+$algae-bg: rgb(217, 238, 217);
+$algae-font: rgb(44, 102, 45);
+$algae-link: rgb(2, 91, 4);
+$algae-active: rgba(1, 169, 4, 0.585);
+$algae-menu: rgba(106, 201, 108, 0.788);
+$algae-segment-menu: rgb(106, 201, 107);
+$algae-card: rgba(176, 233, 176, 0.667);
+
 body.algae {
-   @include theme($algae-bg, $dark-font, $algae-menu, $algae-card);
+   @include theme($algae-bg, $algae-font, $algae-link, $algae-active, $algae-menu, $algae-segment-menu, $algae-card);
 }
-//paper
-$paper-bg: rgb(239, 240, 242);
-$paper-menu: rgba(110, 110, 110, 1);
-$paper-card: #fff;
-body.paper {
-   @include theme($paper-bg, $dark-font, $paper-menu, $paper-card);
-}
+
 //charcoal
-$charcoal-bg: rgb(13, 18, 24);
-$charcoal-menu: rgb(26, 38, 52);
-$charcoal-card: #1b1c1d;
+$charcoal-bg: rgb(123, 130, 138);
+$charcoal-menu: rgba(53, 58, 64, 0.707);
+$charcoal-active: rgba(72, 83, 74, 0.578);
+$charcoal-link: rgb(26, 38, 52);
+$charcoal-segment-menu: rgb(53, 58, 64);
+$charcoal-card: rgba(71, 74, 76, 0.573);
+
 body.charcoal {
-   @include theme($charcoal-bg, $light-font, $charcoal-menu, $charcoal-card);
+   @include theme(
+      $charcoal-bg,
+      $dark-font,
+      $charcoal-link,
+      $charcoal-active,
+      $charcoal-menu,
+      $charcoal-segment-menu,
+      $charcoal-card
+   );
 }
-//lavender
-$lavender-bg: rgb(224, 191, 224);
-$lavender-menu: rgb(180, 140, 180);
-$lavender-card: rgba(219, 212, 196, 0.699);
-body.lavender {
-   @include theme($lavender-bg, $dark-font, $lavender-menu, $lavender-card);
+
+//blood
+$blood-bg: rgb(248, 209, 209);
+$blood-font: rgb(216, 81, 81);
+$blood-menu: rgba(218, 132, 132, 0.694);
+$blood-active: rgba(202, 90, 86, 0.612);
+$blood-link: rgb(216, 81, 81);
+$blood-segment-menu: rgb(218, 132, 132);
+$blood-card: rgba(243, 155, 155, 0.585);
+
+body.blood {
+   @include theme($blood-bg, $blood-font, $blood-link, $blood-active, $blood-menu, $blood-segment-menu, $blood-card);
+}
+
+//citrus
+$citrus-bg: rgb(235, 232, 181);
+$citrus-font: rgb(121, 116, 20);
+$citrus-menu: rgba(214, 204, 22, 0.694);
+$citrus-active: rgba(169, 165, 56, 0.626);
+$citrus-link: rgb(121, 116, 20);
+$citrus-segment-menu: rgb(214, 206, 22);
+$citrus-card: rgba(214, 204, 22, 0.578);
+body.citrus {
+   @include theme(
+      $citrus-bg,
+      $citrus-font,
+      $citrus-link,
+      $citrus-active,
+      $citrus-menu,
+      $citrus-segment-menu,
+      $citrus-card
+   );
+}
+
+//water
+$water-bg: rgb(173, 247, 248);
+$water-font: rgb(62, 67, 164);
+$water-menu: rgba(111, 180, 250, 0.551);
+$water-active: rgba(83, 104, 240, 0.51);
+$water-link: rgb(62, 67, 164);
+$water-segment-menu: rgb(111, 180, 250);
+$water-card: rgba(94, 147, 253, 0.578);
+body.water {
+   @include theme($water-bg, $water-font, $water-link, $water-active, $water-menu, $water-segment-menu, $water-card);
 }

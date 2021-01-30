@@ -132,17 +132,18 @@ const UserProfilePage = ({ match, history }) => {
                            </div>
                      </div>
                      <div className="ui olive secondary segment">
-                        {data.userData.comments.map(comment => {
-                           return (
-                              <div className="ui raised segment" key={comment.id}>
-                                 <h4 className="ui header">
-                                    <Link to={`/u/${comment.article.user.username}/a/${comment.article.slug}`}>{comment.article.title}</Link>
-                                    <div className="ui fitted divider"></div>
-                                    <div className="sub header" style={{ fontSize: '0.8em', lineHeight: "2em" }}>{comment.text}</div>
-                                 </h4>
-                              </div>
-                           )
-                        })}
+                        <div className="ui segments">
+                           {data.userData.comments.map(comment => {
+                              return (
+                                 <div className="ui raised segment" key={comment.id}>
+                                    <h4 className="ui header">
+                                       <Link to={`/u/${comment.article.user.username}/a/${comment.article.slug}`}>{comment.article.title}</Link>
+                                       <div className="sub header" style={{ fontSize: '0.8em', lineHeight: "2em" }}>{comment.text}</div>
+                                    </h4>
+                                 </div>
+                              )
+                           })}
+                        </div>
                      </div>
 
                   </Grid.Row> : null}

@@ -20,7 +20,6 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
       errors: false
    }
    function isImage(file) {
-      console.log('isimage: ', file['type'].split('/')[0] === 'image')
       return file['type'].split('/')[0] === 'image';
    }
    function returnFileSize(number) {

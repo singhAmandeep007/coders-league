@@ -44,8 +44,8 @@ const ArticleSearchWidget = ({ search, reset }) => {
             ref={tagsRef}
          />
          <br />
-         <div className="ui button" onClick={() => handleSearch()}>Search</div>
-         <div className="ui button" onClick={() => handleReset()}>Reset</div>
+         <div className="ui button primary tiny" onClick={() => handleSearch()}>Search</div>
+         <div className="ui button tiny" onClick={() => handleReset()}>Reset</div>
       </div>
    )
 }
