@@ -2,8 +2,11 @@ import axios from 'axios';
 
 const urlArticleApi = `/api/v1/articles`;
 
-export function getArticlesService() {
-   return axios.get(urlArticleApi);
+export function getArticlesService(query) {
+   console.log('params', query)
+   return axios.get(urlArticleApi, {
+      params: query
+   });
 }
 
 export function getArticleService(username, slug) {

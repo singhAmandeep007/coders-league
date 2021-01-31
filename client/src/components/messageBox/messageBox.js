@@ -9,7 +9,6 @@ import { dismissMessageUser } from './../../redux/message/messageActions';
 const MessageBox = ({ message, dispatchFor }) => {
   const dispatch = useDispatch();
   let history = useHistory();
-  console.log('in message box', 'message: ', message, 'dispatchFor: ', dispatchFor)
 
   useEffect(() => {
     const unlisten = history.listen((location, action) => {
@@ -63,6 +62,6 @@ const MessageBox = ({ message, dispatchFor }) => {
 
 }
 
-export default MessageBox;
+export default React.memo(MessageBox);
 
 

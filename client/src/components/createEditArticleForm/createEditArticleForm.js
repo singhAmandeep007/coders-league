@@ -11,7 +11,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 
 import { postArticleService, updateArticleService } from './../../services/articleApi';
 
-import tagOptions from './../../common/tagOptions';
+import { tagOptions, expertiseOptions } from './../../common/dropdownOptions';
 import formStyle from './../../common/formStyles';
 
 import './../../quill.css';
@@ -160,11 +160,6 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
    const handleDismiss = () => {
       setStatus({ ...status, visibleMessage: false })
    }
-   const ExpertiseOptions = [
-      { key: 'beginner', text: 'Beginner', value: 'beginner', label: { color: 'blue', empty: true, circular: true }, },
-      { key: 'intermediate', text: 'Intermediate', value: 'intermediate', label: { color: 'orange', empty: true, circular: true }, },
-      { key: 'advanced', text: 'Advanced', value: 'advanced', label: { color: 'red', empty: true, circular: true }, },
-   ]
 
    const handleChange = async (e, { name, value }) => {
       // console.log(name, value)
@@ -314,12 +309,13 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
                      value={expertiseValue}
                      name="expertiseLevel"
                      label='Expertise Level'
-                     options={ExpertiseOptions}
+                     options={expertiseOptions}
                      placeholder='Choose a Expertise Level'
                      onChange={(e, name, value) => handleChange(e, name, value)}
                      error={errors.expertiseLevel ? true : false}
                      fluid
                      selection
+                     lazyLoad={true}
                   />
                   {errors.expertiseLevel && <span style={formStyle.errorMessage}>{errors.expertiseLevel.message}</span>}
                </Form.Field>
@@ -337,6 +333,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
                      search
                      selection
                      fluid
+                     lazyLoad={true}
                   />
                   {errors.tags && <span style={formStyle.errorMessage}>{errors.tags.message}</span>}
                </Form.Field>

@@ -25,10 +25,10 @@ const ResponsiveHeader = ({ children, isAuthenticated, logout, currentUser }) =>
    }
 
    const isDesktopOrLaptop = useMediaQuery({
-      query: '(min-device-width: 768px)'
+      query: '(min-device-width: 767px)'
    })
    const isTabletOrMobileDevice = useMediaQuery({
-      query: '(max-device-width: 768px)'
+      query: '(max-device-width: 767px)'
    })
    const leftItems = [
       { content: "Home", to: "/", key: "Home", icon: "home" }

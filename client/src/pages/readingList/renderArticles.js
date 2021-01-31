@@ -13,17 +13,54 @@ const RenderArticles = ({ articleData }) => {
                articles: articleData.filter(article => article.title.indexOf(action.payload) !== -1)
             };
          case 'SEARCH':
-            const { searchTerm, searchTags } = action.payload;
+            console.log('action.payload', action.payload)
+            const { searchTerm, searchTags, searchExpertiseLevel, sortBy } = action.payload;
             const matchedArticles = articleData.filter((article) => {
 
-               if (searchTerm && searchTags.length === 0) {
+               if (searchTerm && searchTags.length === 0 && !searchExpertiseLevel) {
                   return article.title.indexOf(searchTerm) !== -1;
                }
-               else if (!searchTerm && searchTags.length > 0) {
+               else if (!searchTerm && searchTags.length > 0 && !searchExpertiseLevel) {
                   return searchTags.every((v) => article.tags.includes(v))
                }
-               return article.title.indexOf(searchTerm) !== -1 && searchTags.every((v) => article.tags.includes(v))
+               else if (!searchTerm && searchTags.length === 0 && searchExpertiseLevel) {
+                  return article.expertiseLevel.indexOf(searchExpertiseLevel) !== -1;
+               }
+               else if (searchTerm && searchTags.length > 0 && !searchExpertiseLevel) {
+                  return article.title.indexOf(searchTerm) !== -1 && searchTags.every((v) => article.tags.includes(v))
+               }
+               else if (searchTerm && searchTags.length === 0 && searchExpertiseLevel) {
+                  return article.title.indexOf(searchTerm) !== -1 && article.expertiseLevel.indexOf(searchExpertiseLevel) !== -1
+               }
+               else if (!searchTerm && searchTags.length > 0 && searchExpertiseLevel) {
+                  return article.expertiseLevel.indexOf(searchExpertiseLevel) !== -1 && searchTags.every((v) => article.tags.includes(v))
+               }
+               return article.title.indexOf(searchTerm) !== -1 && article.expertiseLevel.indexOf(searchExpertiseLevel) !== -1 && searchTags.every((v) => article.tags.includes(v))
             })
+
+            if (sortBy && sortBy === '-likeCounts') {
+               matchedArticles.sort((a, b) => {
+                  if (a.likeCounts === b.likeCounts) {
+                     return b.commentCounts - a.commentCounts;
+                  } else {
+                     return b.likeCounts - a.likeCounts;
+                  }
+               });
+            }
+            if (sortBy && sortBy === 'likeCounts') {
+               matchedArticles.sort((a, b) => {
+                  if (a.likeCounts === b.likeCounts) {
+                     return a.commentCounts - b.commentCounts;
+                  } else {
+                     return a.likeCounts - b.likeCounts;
+                  }
+               });
+            }
+            if (sortBy && sortBy === '-createdAt') {
+               matchedArticles.sort((a, b) => {
+                  return (a.createdAt > b.createdAt) ? -1 : ((a.createdAt < b.createdAt) ? 1 : 0);
+               });
+            }
             return {
                articles: matchedArticles || []
             };
@@ -40,7 +77,7 @@ const RenderArticles = ({ articleData }) => {
       <>
          <Grid.Column width={5}>
             <ArticleSearchWidget
-               search={(searchTerm, searchTags) => dispatch({ type: 'SEARCH', payload: { searchTerm, searchTags } })}
+               search={(searchTerm, searchTags, searchExpertiseLevel, sortBy) => dispatch({ type: 'SEARCH', payload: { searchTerm, searchTags, searchExpertiseLevel, sortBy } })}
                reset={() => dispatch({ type: 'RESET' })}
             />
          </Grid.Column>

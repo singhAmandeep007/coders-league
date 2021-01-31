@@ -1,37 +1,59 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { Container, Grid } from 'semantic-ui-react';
 // import SearchBar from './SearchBar';
 import Feed from './../../components/Feed/Feed'
+import ArticleSearchWidget from './../../components/articleSearchWidget/articleSearchWidget';
 
-import { Container, Grid } from 'semantic-ui-react'
 
-class HomePage extends React.Component {
-   render() {
-      return (
-         <Container>
-            <Grid columns={2} stackable divided padded>
-               <Grid.Row>
+const HomePage = () => {
 
-                  <Grid.Column width={3}>
-                     <p> User Info Some Tags</p>
-                  </Grid.Column>
+   const [state, setState] = useState({
+      searchTerm: '',
+      searchTags: [],
+      searchExpertiseLevel: '',
+      sortBy: ''
+   })
 
-                  <Grid.Column width={13}>
-                     <Grid.Row>
-                        {/* <SearchBar></SearchBar> */}
-                     </Grid.Row>
+   return (
+      <Container>
+         <Grid columns={2} stackable divided padded>
+            <Grid.Row>
 
-                     <Grid.Row >
-                        {/* Feed */}
-                        <Feed />
-                     </Grid.Row>
-                  </Grid.Column>
+               <Grid.Column width={5}>
+                  <ArticleSearchWidget
+                     search={(searchTerm, searchTags, searchExpertiseLevel, sortBy) => setState({
+                        searchTerm,
+                        searchTags,
+                        searchExpertiseLevel,
+                        sortBy
+                     })}
+                     reset={() => setState({
+                        searchTerm: '',
+                        searchTags: [],
+                        searchExpertiseLevel: '',
+                        sortBy: ''
+                     })
+                     }
 
-               </Grid.Row>
-            </Grid>
-         </Container>
-      )
-   }
+                  />
+               </Grid.Column>
+
+               <Grid.Column width={11}>
+                  <Grid.Row>
+                     {/* <SearchBar></SearchBar> */}
+                  </Grid.Row>
+
+                  <Grid.Row >
+                     {/* Feed */}
+                     <Feed query={state} />
+                  </Grid.Row>
+               </Grid.Column>
+
+            </Grid.Row>
+         </Grid>
+      </Container>
+   )
 }
+
 
 export default HomePage;

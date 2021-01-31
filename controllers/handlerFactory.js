@@ -4,12 +4,24 @@ const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAll = (Model, populateOptions) => catchAsync(async (req, res, next) => {
    // to allow for nested GET comments on article (kind of hack)
+   console.log('req.query', req.query)
    let filter = {};
+   if (req.query.tags) {
+      var temp = new Array()
+      temp = req.query.tags.split(',')
+
+      filter["tags"] = {
+         "$all": [...temp]
+      }
+   }
+   if (req.query.title) {
+      filter["$text"] = { "$search": `${req.query.title}` }
+   }
    // if articleId is defined we redefine filter obj to find article field matching params.articleId
-   if (req.params.articleId) filter = { article: req.params.articleId };
+   if (req.params.articleId) filter["article"] = req.params.articleId;
 
    // all our resources using this factory fn will get api features 
-   console.log('query', req.query);
+   console.log('fiter', filter);
    const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()

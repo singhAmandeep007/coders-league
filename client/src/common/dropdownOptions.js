@@ -1,4 +1,4 @@
-const tagOptions = [
+export const tagOptions = [
    { key: 'webdev', text: 'Webdev', value: 'webdev' },
    { key: 'career', text: 'Career', value: 'career' },
    { key: 'testing', text: 'Testing', value: 'testing' },
@@ -27,4 +27,8 @@ const tagOptions = [
 
 ]
 
-export default tagOptions;
+export const expertiseOptions = [
+   { key: 'beginner', text: 'Beginner', value: 'beginner', label: { color: 'blue', empty: true, circular: true }, },
+   { key: 'intermediate', text: 'Intermediate', value: 'intermediate', label: { color: 'orange', empty: true, circular: true }, },
+   { key: 'advanced', text: 'Advanced', value: 'advanced', label: { color: 'red', empty: true, circular: true }, },
+]

@@ -21,10 +21,10 @@ export function getArticlesError(err) {
    };
 }
 
-export function getArticles() {
+export function getArticles(query) {
    return dispatch => {
       dispatch(getArticlesStart());
-      services.getArticlesService().then(
+      services.getArticlesService(query).then(
          response => {
             dispatch(getArticlesSuccess(response.data.data));
          },

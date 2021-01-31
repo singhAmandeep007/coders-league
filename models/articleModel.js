@@ -72,7 +72,7 @@ const articleSchema = new Schema({
 // indexes
 articleSchema.index({ slug: 1 })
 articleSchema.index({ likeCounts: -1, commentCounts: -1 })
-
+articleSchema.index({ title: "text", tags: "text" })
 // virtual populate
 articleSchema.virtual('comments', {
     ref: 'Comment',

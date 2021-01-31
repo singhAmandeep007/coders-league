@@ -15,7 +15,7 @@ exports.aliasTopFiveArticle = (req, res, next) => {
 
 exports.setQuery = (req, res, next) => {
     // req.query.limit = '5';
-    req.query.sort = '-createdAt';
+    // req.query.sort = '-createdAt';
     req.query.fields = '-body -image -images';
     next()
 }

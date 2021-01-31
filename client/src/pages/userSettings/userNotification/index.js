@@ -3,7 +3,7 @@ import React from 'react'
 export default function UserNotification() {
    return (
       <div>
-         <p>User notification</p>
+         <p>Under Construction 🔨</p>
       </div>
    )
 }
