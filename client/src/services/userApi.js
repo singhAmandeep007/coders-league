@@ -9,6 +9,9 @@ const urlResetPassword = `/api/v1/users/resetPassword`;
 
 const urlUserInfo = `/api/v1/users/me`;
 const urlUserReadingList = `/api/v1/users/readingList`;
+
+const urlUserFollowing = `/api/v1/users/following`;
+
 const urlUserProfile = `/api/v1/users/profile`;
 const urlUpdatePassword = `/api/v1/users/updatePassword`;
 const urlUpdateUser = `/api/v1/users/updateMe`;
@@ -75,3 +78,13 @@ export function updateUserService(data) {
 //       passwordConfirm
 //    });
 // }
+
+// Get Current USER FOLLOWING list
+export function getUserFollowing() {
+   return axios.get(urlUserFollowing);
+}
+// USER FOLLOW Action
+export function postUserFollowService(userId) {
+   console.log(userId)
+   return axios.post(`/api/v1/users/${userId}/follow`);
+}

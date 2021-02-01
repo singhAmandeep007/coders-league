@@ -1,6 +1,8 @@
 const multer = require('multer');
+
 const User = require('./../models/userModel');
 const ArticleBookmark = require('./../models/articleBookmarkModel');
+const UserFollow = require('./../models/userFollowingModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
@@ -101,6 +103,59 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
       data: null
    })
 })
+
+exports.getFollowing = catchAsync(async (req, res) => {
+   const followingUsers = await UserFollow
+      .find({ user: req.user.id })
+      .select('users')
+   res.status(200).json({
+      status: 'success',
+      data: followingUsers
+   })
+})
+
+exports.setUserFollow = async (req, res, next) => {
+   try {
+
+      let doc = await User.findById(req.params.userId);
+      if (!doc) {
+         return next(new AppError('No User found with that ID', 404))
+      }
+      // updateOne
+      let userToBeFollowed = await UserFollow.updateOne(
+         {
+            user: req.user.id,
+            "users": { $ne: req.params.userId }
+         },
+         {
+            $addToSet: { users: req.params.userId }
+         }
+      )
+
+      if (userToBeFollowed.nModified === 1) {
+         //1 means, modification, that means its followed
+         return res.status(200).json({
+            status: 'success',
+            data: 'successfully followed user',
+         })
+      } else if (userToBeFollowed.nModified === 0) {
+         await UserFollow.updateOne(
+            { user: req.user.id },
+            {
+               $pull: { users: req.params.userId }
+            }
+         )
+
+         return res.status(200).json({
+            status: 'success',
+            data: 'successfully unfollowed user',
+         })
+      }
+      return next(new AppError('You are not authorised to perform this action', 403))
+   } catch (err) {
+      next(err)
+   }
+}
 
 // ADMIN ROUTES
 exports.getAllUsers = factory.getAll(User);

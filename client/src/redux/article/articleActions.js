@@ -17,7 +17,7 @@ export function getArticlesSuccess(articles) {
 export function getArticlesError(err) {
    return {
       type: articleActionTypes.GET_ARTICLES_ERROR,
-      message: { type: 'error', text: 'Error fetching articles' }
+      message: { type: 'error', text: err || 'Error fetching articles' }
    };
 }
 
@@ -29,7 +29,9 @@ export function getArticles(query) {
             dispatch(getArticlesSuccess(response.data.data));
          },
          err => {
-            dispatch(getArticlesError(err));
+            const { response } = err;
+            const { request, ...errorObject } = response;
+            dispatch(getArticlesError(errorObject.data.message || errorObject.data));
          }
       );
    };

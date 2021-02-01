@@ -73,7 +73,7 @@ exports.setArticleLike = async (req, res, next) => {
         //     return next(new AppError('Article Like must be created on a Article!', 401))
         // }
 
-        let doc = await Article.findById({ _id: req.params.articleId });
+        let doc = await Article.findById(req.params.articleId);
         if (!doc) {
             return next(new AppError('No Article found with that ID', 404))
         }

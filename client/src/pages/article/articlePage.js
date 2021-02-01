@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
 import { useMediaQuery } from 'react-responsive';
-import { Grid, Ref, Segment, Sticky, Container, Card } from 'semantic-ui-react';
+import { Grid, Ref, Segment, Sticky, Container } from 'semantic-ui-react';
 
 import { getArticleService } from './../../services/articleApi';
 
 import ArticleBody from './../../components/articleBody';
 import ArticleSidebarMenu from './../../components/articleSidebarMenu/articleSidebarMenu';
 import CommentSection from './../../components/commentsSection/commentsSection';
-
-import convertIsoToDate from './../../utils/IsoDateConvert';
+import ArticleAuthorCard from './../../components/articleAuthorCard';
 
 import PlaceholderCard from './../../components/placeholderCard/placeholderCard';
 import PlaceholderComment from './../../components/placeholderComment/placeholderComment';
@@ -102,27 +101,11 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
       <Grid.Column width={4} >
          {data.loading ? <PlaceholderCard /> : data.userData && <div style={{ paddingBottom: '6em' }}>
             <Sticky context={objectRef} offset={90}>
-               <Card fluid raised>
-
-                  <Card.Content>
-                     <img className="ui mini left floated image" src={data.userData.photo} alt={data.userData.username} />
-                     <Card.Header as={Link} to={`/u/${data.userData.username}`}>
-                        {data.userData.fullname}
-                     </Card.Header>
-                     <Card.Meta style={{ fontSize: '0.83rem', lineHeight: '1.5em' }}>
-                        <i className="calendar alternate icon"></i>&nbsp;&nbsp;
-                        {convertIsoToDate(data.userData.createdAt)}
-                     </Card.Meta>
-                     {data.userData.bio && <Card.Description style={{ fontSize: '0.83rem', lineHeight: '1.5em', paddingBottom: '1em' }}>
-                        {data.userData.bio}
-                     </Card.Description>}
-
-                     {isAuthenticated && <button className="ui primary tiny fluid button">
-                        Follow
-                     </button>}
-
-                  </Card.Content>
-               </Card>
+               <ArticleAuthorCard
+                  userData={data.userData}
+                  isAuthenticated={isAuthenticated}
+                  currentUserId={currentUser.id}
+               />
             </Sticky>
          </div>}
 

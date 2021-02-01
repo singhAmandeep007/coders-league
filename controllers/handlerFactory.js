@@ -60,7 +60,7 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
          {
             path: 'user',
             username: req.params.username,
-            select: "username fullname photo bio createdAt"
+            select: "username fullname photo bio createdAt",
          },
          {
             path: 'comments',
@@ -105,7 +105,12 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
                   select: "username"
                }
             }
+         },
+         {
+            path: 'usersFollowing',
+            select: "users -user"
          }
+
       ])
    }
 

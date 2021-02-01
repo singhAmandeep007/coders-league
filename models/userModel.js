@@ -129,7 +129,12 @@ userSchema.virtual('comments', {
    localField: '_id',
    foreignField: 'user'
 })
-
+userSchema.virtual('usersFollowing', {
+   ref: 'UserFollow',
+   localField: '_id',
+   foreignField: 'user',
+   justOne: true
+})
 // DOC middleware
 // Encrypting password before actually saving the document
 userSchema.pre('save', async function (next) {
@@ -157,6 +162,18 @@ userSchema.pre('save', function (next) {
    next();
 })
 
+userSchema.pre('save', async function (next) {
+   // console.log('this', this)
+   // this points to current user
+   if (this.isNew) {
+      const UserFollow = require('./userFollowingModel');
+      await UserFollow.create({
+         user: this._id
+      });
+   }
+   next();
+});
+
 // QUERY middleware
 // userSchema.pre(/^find/, function (next) {
 //    // this points to current query
@@ -169,6 +186,7 @@ userSchema.post(/^findOneAndDelete/, async function (doc) {
    if (doc) {
       const Article = require('./../models/articleModel');
       const Comment = require('./../models/commentModel');
+      const UserFollow = require('./userFollowingModel');
       // first find all articles with matching user id
       const articles = await Article.find({
          user: doc._id
@@ -191,6 +209,8 @@ userSchema.post(/^findOneAndDelete/, async function (doc) {
             await doc.deleteOne();
          })
       }
+      // delete userFollow document matching the user id
+      await UserFollow.deleteOne({ user: doc._id })
    }
 });
 

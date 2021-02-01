@@ -129,6 +129,41 @@ export function updatePasswordError(err) {
    };
 }
 
+export function getUserFollowing() {
+   return async dispatch => {
+      services.getUserFollowing().then(
+         (response) => {
+            if (response.data) {
+               dispatch({
+                  type: "GET_USER_FOLLOWING",
+                  payload: response.data.data[0].users
+               });
+            }
+         },
+         err => {
+            // need to handle error in someway
+            console.log(err.response)
+         }
+      );
+   };
+}
+export function setUserFollowing(userId) {
+   return dispatch => {
+      services.postUserFollowService(userId).then(
+         (response) => {
+            console.log(response)
+            dispatch({
+               type: "SET_USER_FOLLOWING",
+               payload: userId
+            })
+         },
+         err => {
+            console.log('error in following')
+         }
+      );
+   };
+}
+
 export function login(email, password) {
    return dispatch => {
       dispatch(loginStart());
@@ -140,6 +175,7 @@ export function login(email, password) {
             setTimeout(() => {
                localStorage.setItem('jtoken', response.data.token);
                dispatch(loginSuccess(response.data.data.user));
+               dispatch(getUserFollowing())
             }, 1000)
          },
          err => {
@@ -160,6 +196,7 @@ export function signup(username, email, password, passwordConfirm) {
                localStorage.setItem('jtoken', response.data.token);
                dispatch(signupSuccess(response.data.data.user));
             }, 1000)
+            dispatch(getUserFollowing())
          },
          err => {
             dispatch(signupError(err.response));
@@ -207,6 +244,7 @@ export function resetPassword(resetToken, password, passwordConfirm) {
             setTimeout(() => {
                localStorage.setItem('jtoken', response.data.token);
                dispatch(loginSuccess(response.data.data.user));
+               dispatch(getUserFollowing())
             }, 1000)
          },
          err => {
@@ -239,6 +277,7 @@ export function getUserInfo() {
          (response) => {
             if (response.data) {
                dispatch(loginSuccess(response.data.data));
+               dispatch(getUserFollowing())
             }
          },
          err => {

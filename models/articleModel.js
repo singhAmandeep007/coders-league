@@ -70,9 +70,10 @@ const articleSchema = new Schema({
 )
 
 // indexes
-articleSchema.index({ slug: 1 })
-articleSchema.index({ likeCounts: -1, commentCounts: -1 })
-articleSchema.index({ title: "text", tags: "text" })
+articleSchema.index({ slug: 1 });
+articleSchema.index({ likeCounts: -1, commentCounts: -1 });
+articleSchema.index({ title: "text" });
+articleSchema.index({ tags: "text" });
 // virtual populate
 articleSchema.virtual('comments', {
     ref: 'Comment',
@@ -112,17 +113,21 @@ articleSchema.pre('aggregate', function (next) {
     next();
 })
 
-//post hook
-articleSchema.post('save', async function () {
+//pre save hook
+articleSchema.pre('save', async function (next) {
+    console.log('this', this)
     // this points to current article
-    const ArticleLike = require('./articleLikeModel');
-    const ArticleBookmark = require('./articleBookmarkModel');
-    await ArticleLike.create({
-        article: this._id
-    });
-    await ArticleBookmark.create({
-        article: this._id
-    });
+    if (this.isNew) {
+        const ArticleLike = require('./articleLikeModel');
+        const ArticleBookmark = require('./articleBookmarkModel');
+        await ArticleLike.create({
+            article: this._id
+        });
+        await ArticleBookmark.create({
+            article: this._id
+        });
+    }
+    next();
 });
 
 articleSchema.post(/^findOneAndDelete/, async function (doc) {

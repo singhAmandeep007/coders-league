@@ -5,7 +5,8 @@ const initialState = {
    isFetching: null,
    isAuthenticated: null,
    currentUser: null,
-   userMessage: null
+   userMessage: null,
+   userFollowing: null
 };
 
 const userReducer = function (state = initialState, action) {
@@ -34,7 +35,7 @@ const userReducer = function (state = initialState, action) {
       case userActionTypes.LOGOUT_START:
          return { ...state, isFetching: true };
       case userActionTypes.LOGOUT_SUCCESS:
-         return { ...state, isFetching: false, isAuthenticated: false, currentUser: null, userMessage: action.message };
+         return { ...state, isFetching: false, isAuthenticated: false, currentUser: null, userMessage: action.message, userFollowing: null };
       case userActionTypes.LOGOUT_ERROR:
          return { ...state, isFetching: false, userMessage: action.message };
 
@@ -62,6 +63,23 @@ const userReducer = function (state = initialState, action) {
 
       case userActionTypes.UPDATE_USER:
          return { ...state, currentUser: action.payload };
+
+      case "GET_USER_FOLLOWING":
+         return { ...state, userFollowing: action.payload };
+
+      case "SET_USER_FOLLOWING":
+         let findUserId = state.userFollowing.indexOf(action.payload);
+         if (findUserId === -1) {
+            return {
+               ...state,
+               userFollowing: [...state.userFollowing, action.payload]
+            };
+         } else {
+            return {
+               ...state,
+               userFollowing: state.userFollowing.filter(userId => userId !== action.payload)
+            };
+         }
 
       case "DISMISS_MESSAGE_USER":
          return { ...state, userMessage: action.message };

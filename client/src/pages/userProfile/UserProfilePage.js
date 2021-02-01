@@ -17,7 +17,7 @@ const UserProfilePage = ({ match, history }) => {
 
    useEffect(() => {
       getUserProfile(match.params.username).then(response => {
-         // console.log(response.data)
+         console.log(response.data)
          setData({ userData: response.data.data, loading: false })
       }, err => history.push('/error'))
    }, [match.params.username, history])
@@ -103,6 +103,10 @@ const UserProfilePage = ({ match, history }) => {
                            <div className="item" style={{ marginTop: "5px" }}>
                               <i className="comments large icon"></i>
                               <div className="middle aligned content">&nbsp;&nbsp;{data.userData.comments.length} comments written.</div>
+                           </div>
+                           <div className="item" style={{ marginTop: "5px" }}>
+                              <i className="user plus large icon"></i>
+                              <div className="middle aligned content">&nbsp;{data.userData.usersFollowing.users.length} authors followed.</div>
                            </div>
                         </div>
                      </div>

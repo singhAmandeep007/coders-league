@@ -1,8 +1,17 @@
 const express = require('express');
+const rateLimit = require("express-rate-limit");
+
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 
 const router = express.Router();
+
+const createLimiter = rateLimit({
+   windowMs: 60 * 60 * 1000, // 1 hour window
+   max: 20, // start blocking after 10 requests
+   message:
+      "📢 Too many Follow from this IP, Try again after 1 hour!"
+});
 
 // /api/v1/users
 
@@ -36,6 +45,16 @@ router.patch('/updateMe',
 
 router.delete('/deleteMe',
    userController.deleteMe);
+
+// GET FOLLOWING USERS
+router.get('/following',
+   userController.getFollowing)
+// /api/v1/users/5fc508915eeed324b8ade5e1/follow
+router.route('/:userId/follow')
+   .post(
+      authController.restrictTo('user'),
+      userController.setUserFollow
+   )
 
 // Restricted Routes --> ADMIN
 router.use(authController.restrictTo('admin'));
