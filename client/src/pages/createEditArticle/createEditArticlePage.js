@@ -51,6 +51,7 @@ const CreateEditArticlePage = ({ currentUser, location }) => {
    return (
       <Container style={{ paddingTop: "30px" }}>
          <Tab
+
             panes={panes}
             renderActiveOnly={false}
             onTabChange={() => handleTabChange()}

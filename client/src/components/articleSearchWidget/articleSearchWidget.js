@@ -45,7 +45,7 @@ const ArticleSearchWidget = ({ search, reset }) => {
             <input
                type="text"
                ref={inputRef}
-               placeholder="Search by title..."
+               placeholder="Title..."
             />
          </div>
          <br />
@@ -55,7 +55,7 @@ const ArticleSearchWidget = ({ search, reset }) => {
             search
             selection
             options={tagOptions}
-            placeholder='Search by tags...'
+            placeholder='Tags ...'
             ref={tagsRef}
             lazyLoad={true}
          />
@@ -65,7 +65,7 @@ const ArticleSearchWidget = ({ search, reset }) => {
             clearable
             selection
             options={expertiseOptions}
-            placeholder='Search by expertiseLevel...'
+            placeholder='Expertise ...'
             ref={expertiseLevelRef}
             lazyLoad={true}
          />
@@ -75,7 +75,7 @@ const ArticleSearchWidget = ({ search, reset }) => {
             clearable
             options={sortOptions}
             selection
-            placeholder='Sort by ...'
+            placeholder='Sort ...'
             ref={sortRef}
             lazyLoad={true}
          />

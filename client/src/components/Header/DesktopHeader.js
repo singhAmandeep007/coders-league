@@ -34,7 +34,7 @@ const DesktopHeader = ({ leftItems, rightItems }) => {
                      </Menu.Item>
 
                      {leftItems.map(item => {
-                        return <Menu.Item as={NavLink} color='blue' exact {...item} />
+                        return <Menu.Item as={NavLink} exact {...item} />
                      })}
 
                      <Menu.Menu position="right">
@@ -57,7 +57,7 @@ const DesktopHeader = ({ leftItems, rightItems }) => {
                            }
 
                            if (item.to === "/signup" || item.to === "/login") {
-                              return <Menu.Item as={NavLink} color='blue' exact {...item} />
+                              return <Menu.Item as={NavLink} exact {...item} />
                            }
                            if (item.to === "/profile") {
                               return (

@@ -31,7 +31,7 @@ const MobileHeader = ({ children, leftItems, rightItems }) => {
             </Menu.Item>
 
             {leftItems.map(item => {
-               return <Menu.Item as={NavLink} exact color="blue" {...item} />
+               return <Menu.Item as={NavLink} exact {...item} />
             })}
          </Sidebar>
 
@@ -86,7 +86,7 @@ const MobileHeader = ({ children, leftItems, rightItems }) => {
                               )
                            }
                            if (item.to === "/signup" || item.to === "/login") {
-                              return <Menu.Item as={NavLink} color='blue' exact {...item} />
+                              return <Menu.Item as={NavLink} exact {...item} />
                            }
                            if (item.to === "/profile") {
                               return (

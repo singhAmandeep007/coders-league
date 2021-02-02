@@ -3,7 +3,7 @@ import { Container, Grid } from 'semantic-ui-react';
 // import SearchBar from './SearchBar';
 import Feed from './../../components/Feed/Feed'
 import ArticleSearchWidget from './../../components/articleSearchWidget/articleSearchWidget';
-
+import ArticleSearchByTimeMenu from './../../components/articleSearchByTimeMenu/articleSearchByTimeMenu';
 
 const HomePage = () => {
 
@@ -11,7 +11,9 @@ const HomePage = () => {
       searchTerm: '',
       searchTags: [],
       searchExpertiseLevel: '',
-      sortBy: ''
+      sortBy: '',
+      searchTime: ''
+
    })
 
    return (
@@ -22,16 +24,19 @@ const HomePage = () => {
                <Grid.Column width={5}>
                   <ArticleSearchWidget
                      search={(searchTerm, searchTags, searchExpertiseLevel, sortBy) => setState({
+                        ...state,
                         searchTerm,
                         searchTags,
                         searchExpertiseLevel,
                         sortBy
                      })}
                      reset={() => setState({
+
                         searchTerm: '',
                         searchTags: [],
                         searchExpertiseLevel: '',
-                        sortBy: ''
+                        sortBy: '',
+                        searchTime: ''
                      })
                      }
 
@@ -40,7 +45,12 @@ const HomePage = () => {
 
                <Grid.Column width={11}>
                   <Grid.Row>
-                     {/* <SearchBar></SearchBar> */}
+                     <ArticleSearchByTimeMenu
+                        searchTime={(searchTime) => setState({
+                           ...state,
+                           searchTime
+                        })}
+                     />
                   </Grid.Row>
 
                   <Grid.Row >

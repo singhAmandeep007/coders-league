@@ -25,6 +25,13 @@ router.route('/top-5-article').get(
    articleController.getAllArticles
 );
 
+router.route('/top/week').get(
+   articleController.getTopArticles(7, 10)
+);
+router.route('/top/month').get(
+   articleController.getTopArticles(30, 10)
+);
+
 router.route('/')
    .get(articleController.setQuery, articleController.getAllArticles)
    .post(

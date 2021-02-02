@@ -113,5 +113,6 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
    </Grid>
 
 }
+
 export default ArticlePage;
 

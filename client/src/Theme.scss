@@ -12,7 +12,12 @@
    }
    .tabular.menu {
       background-color: inherit !important;
+      border-bottom: 1px solid $font-color;
+      .active.item {
+         border-color: $font-color;
+      }
    }
+
    .basic.inverted.vertical.segment {
       background-color: $segment-menu !important;
    }
@@ -23,8 +28,12 @@
    .text {
       color: $font-color !important;
    }
-   .active {
+   .menu .active {
       background-color: $active-color !important;
+   }
+   .ui.bottom.attached.segment.active.tab {
+      border: 1px solid $font-color;
+      border-color: $font-color;
    }
    .userSettings {
       background-color: $active-color !important;

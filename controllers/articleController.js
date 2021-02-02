@@ -157,6 +157,36 @@ exports.setArticleBookmark = async (req, res, next) => {
     }
 }
 
+exports.getTopArticles = (daysLess, limit) => {
+    return async (req, res, next) => {
+
+        const articles = await Article.aggregate([
+            {
+                $match: {
+                    createdAt: {
+                        $gte: new Date(new Date().setDate(new Date().getDate() - daysLess))
+                    }
+                }
+            },
+            {
+                $sort: { likeCounts: -1, commentCounts: -1 }
+            },
+            {
+                $limit: limit
+            }
+        ]);
+
+        return res.status(200).json({
+            status: 'success',
+            results: articles.length,
+            data: {
+                articles
+            }
+        });
+    }
+};
+
+
 exports.getAllArticles = factory.getAll(Article, { path: 'user', select: "username fullname photo" });
 // we pass the populate in this as we need all the comments filled up for that particular article we are trying to retrieve , we could also specify select, etc.
 //, [{ path: 'user', select: "username fullname photo location createdAt" }, { path: 'comments' }])

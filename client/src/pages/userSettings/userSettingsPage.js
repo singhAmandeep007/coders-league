@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Route, Switch } from 'react-router-dom';
-import { Container, Grid, Header, Menu, Segment } from 'semantic-ui-react';
+import { Container, Grid, Header, Menu } from 'semantic-ui-react';
 
 import UserAccount from './userAccount';
 import UserNotification from './userNotification';
@@ -27,43 +27,42 @@ const UserSettingsPage = ({ currentUser, ...props }) => {
             </Grid.Row>
             <Grid.Row verticalAlign="middle">
 
-               <Menu attached tabular fluid width={3}>
+               <Menu tabular fluid >
                   <Menu.Item
                      name='Profile'
                      as={NavLink}
                      active={pathname === '/settings' ? true : pathname === '/settings/profile' ? true : false}
-                     color='blue'
                      exact
                      to={`${url}/profile`}
                   />
                   <Menu.Item
                      name='Account'
-                     as={NavLink} color='blue' exact to={`${url}/account`}
+                     as={NavLink} exact to={`${url}/account`}
                   />
                   <Menu.Item
                      name='Notifications'
-                     as={NavLink} color='blue' exact to={`${url}/notifications`}
+                     as={NavLink} exact to={`${url}/notifications`}
                   />
                </Menu>
-               <Segment attached="bottom" className="userSettings">
 
-                  <Switch>
 
-                     <Route exact path={`${path}/profile`}>
-                        <UserProfile currentUser={currentUser} />
-                     </Route>
-                     <Route exact path={`${path}/account`}>
-                        <UserAccount currentUser={currentUser} />
-                     </Route>
-                     <Route exact path={`${path}/notifications`}>
-                        <UserNotification />
-                     </Route>
-                     <Route exact path={path}>
-                        <UserProfile currentUser={currentUser} />
-                     </Route>
-                  </Switch>
+               <Switch>
 
-               </Segment>
+                  <Route exact path={`${path}/profile`}>
+                     <UserProfile currentUser={currentUser} />
+                  </Route>
+                  <Route exact path={`${path}/account`}>
+                     <UserAccount currentUser={currentUser} />
+                  </Route>
+                  <Route exact path={`${path}/notifications`}>
+                     <UserNotification />
+                  </Route>
+                  <Route exact path={path}>
+                     <UserProfile currentUser={currentUser} />
+                  </Route>
+               </Switch>
+
+
 
             </Grid.Row>
 

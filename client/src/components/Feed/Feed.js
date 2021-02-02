@@ -15,6 +15,8 @@ const Feed = ({ articles, isFetching, articleMessage, userMessage, getArticles, 
       if (query.searchTerm) queryObj.title = query.searchTerm.trim();
       if (query.searchExpertiseLevel) queryObj.expertiseLevel = query.searchExpertiseLevel.trim();
       if (query.sortBy) queryObj.sort = query.sortBy.trim();
+
+      if (query.searchTime) queryObj["createdAt[gte]"] = query.searchTime;
       return queryObj;
    }
 
