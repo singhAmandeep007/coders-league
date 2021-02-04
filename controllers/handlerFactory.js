@@ -105,12 +105,7 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
                   select: "username"
                }
             }
-         },
-         {
-            path: 'usersFollowing',
-            select: "users -user"
          }
-
       ])
    }
 

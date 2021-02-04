@@ -181,10 +181,17 @@ exports.getFollowingAndFollowers = catchAsync(async (req, res) => {
       }
 
    ])
-
+   console.log('followingAndFollowers', followingAndFollowers)
    res.status(200).json({
       status: 'success',
-      data: followingAndFollowers
+      data: {
+         following: followingAndFollowers[0].following[0].followingInfo,
+         followers: followingAndFollowers[0].followers.map((follower) => {
+            return { ...follower.followerInfo[0] }
+         }),
+         totalFollowing: followingAndFollowers[0].totalFollowing,
+         totalFollowers: followingAndFollowers[0].totalFollowers
+      }
    })
 })
 

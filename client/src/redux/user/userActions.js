@@ -161,6 +161,7 @@ export function setUserFollowing(userId) {
             console.log('error in following the user', err.response)
          }
       );
+
    };
 }
 

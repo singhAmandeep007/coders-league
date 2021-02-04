@@ -8,10 +8,12 @@ import ArticleCard from './../../components/articleCard/articleCard';
 import PlaceholderCard from './../../components/placeholderCard/placeholderCard';
 import PlaceholderComment from './../../components/placeholderComment/placeholderComment';
 
+import UserFollowingAndFollowers from './../../components/UserFollowingAndFollowers';
+
 import convertIsoToDate from './../../utils/IsoDateConvert';
 import './userProfile.css';
 
-const UserProfilePage = ({ match, history }) => {
+const UserProfilePage = ({ match, history, currentUserId }) => {
 
    const [data, setData] = useState({ userData: null, loading: true })
 
@@ -87,7 +89,7 @@ const UserProfilePage = ({ match, history }) => {
                      </div>
                   </Grid.Row> : null}
 
-                  {data.loading ? <PlaceholderComment num={1} /> : data.userData ? <Grid.Row >
+                  {data.loading ? <PlaceholderComment num={1} /> : data.userData ? <Grid.Row style={{ marginBottom: "20px" }}>
                      <div className="ui  floating message purple">
                         <div className="header">
                            <i className=" thumbtack icon"></i>
@@ -104,13 +106,23 @@ const UserProfilePage = ({ match, history }) => {
                               <i className="comments large icon"></i>
                               <div className="middle aligned content">&nbsp;&nbsp;{data.userData.comments.length} comments written.</div>
                            </div>
-                           <div className="item" style={{ marginTop: "5px" }}>
-                              <i className="user plus large icon"></i>
-                              <div className="middle aligned content">&nbsp;{data.userData.usersFollowing.users.length} authors followed.</div>
-                           </div>
                         </div>
                      </div>
                   </Grid.Row> : null}
+
+                  {data.loading ? <PlaceholderComment num={1} /> : (currentUserId && currentUserId === data.userData.id) ? <Grid.Row >
+                     <div className="ui  floating message yellow">
+                        <div className="header">
+                           <i className=" thumbtack icon"></i>
+                              Following & Followers
+                           </div>
+                     </div>
+
+                     <div className="ui yellow raised segment">
+                        <UserFollowingAndFollowers />
+                     </div>
+                  </Grid.Row> : null}
+
 
                </Grid.Column>
 

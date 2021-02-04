@@ -67,6 +67,7 @@ const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
             path="/u/:username"
             render={(props) => <UserProfilePage
               isAuthenticated={isAuthenticated}
+              currentUserId={(currentUser && currentUser.id) ? currentUser.id : null}
               {...props}
             />}
           />
