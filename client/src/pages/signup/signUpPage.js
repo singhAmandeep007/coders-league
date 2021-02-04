@@ -43,6 +43,7 @@ const SignUpPage = ({ userMessage, signup, isFetching }) => {
             <Message
                floating
                header='Welcome to Coders League!'
+               size='tiny'
                content='Fill out the form or sign up with google to join us🚀.'
             />
             <Segment raised padded  >
@@ -167,7 +168,7 @@ const SignUpPage = ({ userMessage, signup, isFetching }) => {
                   color='google plus'
                   fluid
                />
-               <Message warning style={formStyle.align}>
+               <Message warning style={formStyle.align} size='tiny'>
                   <Icon name='help' />
                   Already signed up?&nbsp;<Link to='/login'><span style={formStyle.boldLink}>Login here</span></Link>&nbsp;instead.
                </Message>

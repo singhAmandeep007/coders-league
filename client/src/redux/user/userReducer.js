@@ -5,8 +5,7 @@ const initialState = {
    isFetching: null,
    isAuthenticated: null,
    currentUser: null,
-   userMessage: null,
-   userFollowing: null
+   userMessage: null
 };
 
 const userReducer = function (state = initialState, action) {

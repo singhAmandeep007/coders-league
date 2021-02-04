@@ -49,6 +49,10 @@ router.delete('/deleteMe',
 // GET FOLLOWING USERS
 router.get('/following',
    userController.getFollowing)
+router.get('/followingAndFollowers',
+   userController.getFollowingAndFollowers)
+
+
 // /api/v1/users/5fc508915eeed324b8ade5e1/follow
 router.route('/:userId/follow')
    .post(

@@ -57,6 +57,7 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
                floating
                header='Welcome back to Coders League!'
                content='Fill out the form below to Login.'
+               size='tiny'
             />
             <Segment raised padded  >
 
@@ -129,7 +130,7 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
                   fluid
                />
 
-               <Message warning style={formStyle.align}>
+               <Message warning style={formStyle.align} size='tiny'>
                   <Icon name='help' />
                   Don't have a account?&nbsp;<Link to='/signup'><span style={formStyle.boldLink}>Signup here</span></Link>&nbsp;instead.
                   <br />

@@ -104,7 +104,7 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
                <ArticleAuthorCard
                   userData={data.userData}
                   isAuthenticated={isAuthenticated}
-                  currentUserId={currentUser.id}
+                  currentUserId={(currentUser && currentUser.id) ? currentUser.id : null}
                />
             </Sticky>
          </div>}

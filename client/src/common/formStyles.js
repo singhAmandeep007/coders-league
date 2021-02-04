@@ -12,7 +12,8 @@ const formStyle = {
       marginTop: 0
    },
    gridColumn: {
-      maxWidth: 450
+      maxWidth: 450,
+      margin: "1em"
    },
    formButton: {
       marginTop: 20

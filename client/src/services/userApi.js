@@ -11,6 +11,7 @@ const urlUserInfo = `/api/v1/users/me`;
 const urlUserReadingList = `/api/v1/users/readingList`;
 
 const urlUserFollowing = `/api/v1/users/following`;
+const urlUserFollowingAndFollowers = `/api/v1/users/followingAndFollowers`;
 
 const urlUserProfile = `/api/v1/users/profile`;
 const urlUpdatePassword = `/api/v1/users/updatePassword`;
@@ -82,6 +83,10 @@ export function updateUserService(data) {
 // Get Current USER FOLLOWING list
 export function getUserFollowing() {
    return axios.get(urlUserFollowing);
+}
+// Get Current USER Following and Followers list with populated
+export function getUserFollowingAndFollowers() {
+   return axios.get(urlUserFollowingAndFollowers);
 }
 // USER FOLLOW Action
 export function postUserFollowService(userId) {

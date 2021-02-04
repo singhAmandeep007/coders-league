@@ -158,7 +158,7 @@ export function setUserFollowing(userId) {
             })
          },
          err => {
-            console.log('error in following')
+            console.log('error in following the user', err.response)
          }
       );
    };
@@ -195,8 +195,9 @@ export function signup(username, email, password, passwordConfirm) {
             setTimeout(() => {
                localStorage.setItem('jtoken', response.data.token);
                dispatch(signupSuccess(response.data.data.user));
+               dispatch(getUserFollowing())
             }, 1000)
-            dispatch(getUserFollowing())
+
          },
          err => {
             dispatch(signupError(err.response));

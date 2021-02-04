@@ -1,8 +1,9 @@
+const mongoose = require("mongoose");
 const multer = require('multer');
 
 const User = require('./../models/userModel');
 const ArticleBookmark = require('./../models/articleBookmarkModel');
-const UserFollow = require('./../models/userFollowingModel');
+const UserFollow = require('./../models/userFollowModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
@@ -111,6 +112,79 @@ exports.getFollowing = catchAsync(async (req, res) => {
    res.status(200).json({
       status: 'success',
       data: followingUsers
+   })
+})
+
+exports.getFollowingAndFollowers = catchAsync(async (req, res) => {
+
+   const followingAndFollowers = await UserFollow.aggregate([
+      {
+         $facet: {
+
+            "following": [
+               {
+                  $match: {
+                     user: mongoose.Types.ObjectId(req.user.id)
+                  },
+               },
+               {
+                  $lookup: {
+                     from: "users",
+                     localField: "users",
+                     foreignField: "_id",
+                     as: "followingInfo",
+                  },
+               },
+               {
+                  $project: {
+                     "followingInfo._id": 1,
+                     "followingInfo.fullname": 1,
+                     "followingInfo.username": 1,
+                     "followingInfo.photo": 1
+                  }
+               }
+
+            ],
+            "followers": [
+               {
+                  $match: {
+                     users: { $in: [mongoose.Types.ObjectId(req.user.id), "$users"] },
+                  },
+               },
+               {
+                  $lookup: {
+                     from: "users",
+                     localField: "user",
+                     foreignField: "_id",
+                     as: "followerInfo",
+                  },
+               },
+               {
+                  $project: {
+                     "followerInfo._id": 1,
+                     "followerInfo.fullname": 1,
+                     "followerInfo.username": 1,
+                     "followerInfo.photo": 1,
+
+                  }
+               }
+            ]
+         }
+      },
+      {
+         $project: {
+            following: 1,
+            followers: 1,
+            totalFollowing: { $size: { $arrayElemAt: ["$following.followingInfo", 0] } },
+            totalFollowers: { $size: "$followers" }
+         }
+      }
+
+   ])
+
+   res.status(200).json({
+      status: 'success',
+      data: followingAndFollowers
    })
 })
 

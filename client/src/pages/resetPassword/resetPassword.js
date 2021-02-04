@@ -42,6 +42,7 @@ const ResetPasswordPage = ({ resetPassword, isFetching, userMessage }) => {
                floating
                header='Reset Password!'
                content='Fill out the form below to reset your password.'
+               size='tiny'
             />
             <Segment raised padded  >
 
@@ -104,7 +105,7 @@ const ResetPasswordPage = ({ resetPassword, isFetching, userMessage }) => {
                   <button className="ui fluid button" type="button" onClick={() => reset() && clearErrors()}>Reset</button>
                </Form>
 
-               <Message warning style={formStyle.align}>
+               <Message warning style={formStyle.align} size='tiny'>
                   <Icon name='help' />
                   Don't have a account?&nbsp;<Link to='/signup'><span style={formStyle.boldLink}>Signup here</span></Link>&nbsp;instead.
                   <br />

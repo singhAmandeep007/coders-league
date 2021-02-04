@@ -166,7 +166,7 @@ userSchema.pre('save', async function (next) {
    // console.log('this', this)
    // this points to current user
    if (this.isNew) {
-      const UserFollow = require('./userFollowingModel');
+      const UserFollow = require('./userFollowModel');
       await UserFollow.create({
          user: this._id
       });
@@ -186,7 +186,7 @@ userSchema.post(/^findOneAndDelete/, async function (doc) {
    if (doc) {
       const Article = require('./../models/articleModel');
       const Comment = require('./../models/commentModel');
-      const UserFollow = require('./userFollowingModel');
+      const UserFollow = require('./userFollowModel');
       // first find all articles with matching user id
       const articles = await Article.find({
          user: doc._id

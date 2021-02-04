@@ -29,7 +29,7 @@ const ArticleSearchByTimeMenu = ({ searchTime }) => {
             name='Feed'
             onClick={() => handleItemClick('Feed')}
          >Feed
-        </Menu.Item>
+         </Menu.Item>
 
          <Menu.Item
             name='Week'
