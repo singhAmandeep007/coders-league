@@ -15,3 +15,17 @@ html {
 .hiddenCustom {
    display: none !important;
 }
+#offline-banner {
+   background: #414141 !important;
+   color: #fff !important;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 1em;
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   width: 100%;
+   z-index: 999;
+}

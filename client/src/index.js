@@ -14,6 +14,16 @@ window.onload = function () {
       localStorage.getItem("theme") || "default";
   }
 };
+window.addEventListener('online', () => {
+  let offlineBanner = document.querySelector('#offline-banner');
+  offlineBanner.classList.add('hiddenCustom');
+  offlineBanner.innerText = ""
+});
+window.addEventListener('offline', () => {
+  let offlineBanner = document.querySelector('#offline-banner');
+  offlineBanner.classList.remove('hiddenCustom');
+  offlineBanner.innerText = "You are currently offline! 🚨"
+});
 
 ReactDOM.render(
   <Provider store={store}>

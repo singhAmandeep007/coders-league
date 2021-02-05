@@ -44,14 +44,14 @@ const SignUpPage = ({ userMessage, signup, isFetching }) => {
                floating
                header='Welcome to Coders League!'
                size='tiny'
-               content='Fill out the form or sign up with google to join us🚀.'
+               content='Fill out the form or sign up with google to join us 🚀.'
             />
             <Segment raised padded  >
                <Button
                   onClick={() => setVisible(!visible)}
                   toggle
                   active={!visible}
-                  content="Sign up with Email and password"
+                  content="Sign up with email and password"
                   fluid
                   icon='signup'
                   style={{ marginBottom: '10px' }}

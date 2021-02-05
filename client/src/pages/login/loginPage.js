@@ -19,7 +19,11 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
 
    const { register, handleSubmit, errors, reset, clearErrors } = useForm({ mode: 'onChange' });
 
-   const [forgotPasswordForm, setForgotPasswordForm] = useState(false);
+   const [state, setState] = useState({
+      forgotPasswordFormVisible: false,
+      loginFormVisible: false
+   });
+
    const inputForgotPasswordRef = useRef(null);
 
    const onLoginSubmit = (data) => {
@@ -56,13 +60,25 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
             <Message
                floating
                header='Welcome back to Coders League!'
-               content='Fill out the form below to Login.'
+               content='Fill out the form below to Login 🚀.'
                size='tiny'
             />
             <Segment raised padded  >
-
+               <Button
+                  onClick={() => setState({
+                     ...state,
+                     loginFormVisible: !state.loginFormVisible
+                  })}
+                  toggle
+                  active={!state.loginFormVisible}
+                  content="Log in with email and password"
+                  fluid
+                  icon='signup'
+                  style={{ marginBottom: '10px' }}
+               />
                <Form
                   style={formStyle.align}
+                  className={`${state.loginFormVisible ? '' : 'hiddenCustom'}`}
                   onSubmit={handleSubmit(onLoginSubmit)}
                   error={mfor === 'login' && mtype === 'error'}
                   success={mfor === 'login' && mtype === 'success'}
@@ -137,45 +153,46 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
                   <Icon name="help" />
                   Forgot password?&nbsp;
                   <span
-                     onClick={() => setForgotPasswordForm(!forgotPasswordForm)}
+                     onClick={() => setState({
+                        ...state,
+                        forgotPasswordFormVisible: !state.forgotPasswordFormVisible
+                     })}
                      style={formStyle.boldLink}
                   >
                      Reset Password
                   </span>
                </Message>
 
-               {forgotPasswordForm ? (
-                  <Form
-                     style={formStyle.align}
-                     className="segment"
-                     onSubmit={onForgotPasswordSubmit}
-                     error={mfor === 'forgotPassword' && mtype === 'error'}
-                     success={mfor === 'forgotPassword' && mtype === 'success'}
-                  >
-                     <Form.Field required >
-                        <label htmlFor="forgotPasswordEmail">Email</label>
-                        <div className="ui left icon input">
-                           <i className="envelope icon"></i>
-                           <input
-                              id='forgotPasswordEmail'
-                              placeholder='johnDoe@gmail.com'
-                              type='email'
-                              name="emailForgotPassword"
-                              ref={inputForgotPasswordRef}
-                           />
-                        </div>
-                     </Form.Field>
+               <Form
+                  style={formStyle.align}
+                  className={`segment ${state.forgotPasswordFormVisible ? '' : 'hiddenCustom'}`}
+                  onSubmit={onForgotPasswordSubmit}
+                  error={mfor === 'forgotPassword' && mtype === 'error'}
+                  success={mfor === 'forgotPassword' && mtype === 'success'}
+               >
+                  <Form.Field required >
+                     <label htmlFor="forgotPasswordEmail">Email</label>
+                     <div className="ui left icon input">
+                        <i className="envelope icon"></i>
+                        <input
+                           id='forgotPasswordEmail'
+                           placeholder='johnDoe@gmail.com'
+                           type='email'
+                           name="emailForgotPassword"
+                           ref={inputForgotPasswordRef}
+                        />
+                     </div>
+                  </Form.Field>
 
-                     {mfor === 'forgotPassword' && mtype && <MessageBox message={userMessage} dispatchFor='user' />}
+                  {mfor === 'forgotPassword' && mtype && <MessageBox message={userMessage} dispatchFor='user' />}
 
-                     <Form.Button
-                        style={formStyle.formButton}
-                        content='Send Reset Link'
-                        loading={isFetching && mfor === 'forgotPassword' ? true : false}
-                        fluid
-                     />
-                  </Form>
-               ) : null}
+                  <Form.Button
+                     style={formStyle.formButton}
+                     content='Send Reset Link'
+                     loading={isFetching && mfor === 'forgotPassword' ? true : false}
+                     fluid
+                  />
+               </Form>
 
             </Segment>
          </Grid.Column>

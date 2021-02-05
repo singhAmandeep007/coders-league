@@ -40,9 +40,9 @@ const ArticleSearchWidget = ({ search, reset }) => {
    ]
 
    return (
-      <div className="ui segments">
+      <div >
 
-         <h5 className="ui attached header">
+         <h5 className="ui top attached header">
             Filter
             <i className={`angle ${!isCollapsed ? 'up' : 'down'} icon`}
                style={{ float: 'right', marginRight: '0px' }}
@@ -51,7 +51,7 @@ const ArticleSearchWidget = ({ search, reset }) => {
          </h5>
 
 
-         <div className={`ui secondary attached segment ${isCollapsed ? 'hiddenCustom' : ''}`}>
+         <div className={`ui secondary bottom attached segment ${isCollapsed ? 'hiddenCustom' : ''}`}>
             <div className="ui fluid icon input">
                <i className="search icon"></i>
                <input
