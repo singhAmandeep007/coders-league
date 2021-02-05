@@ -1,3 +1,11 @@
+body {
+   background: 0 0 !important;
+}
+html {
+   background-image: linear-gradient(rgba(255, 255, 255, 0.755), rgba(255, 255, 255, 0.755)), url(./assets/bg.jpg) !important;
+   background-size: 15%;
+}
+
 .grid {
    margin-top: 0 !important;
 }

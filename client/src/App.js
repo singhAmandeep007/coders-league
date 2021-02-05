@@ -8,6 +8,7 @@ import { logout, getUserInfo } from './redux/user/userActions';
 import ResponsiveHeader from './components/Header';
 import Loading from './components/Loading';
 
+
 // error handling
 // import ErrorBoundaryPage from './pages/error/errorBoundaryPage';
 import ErrorPage from './pages/error/errorPage';
@@ -136,6 +137,7 @@ const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
           />
 
         </Switch>
+
       </ResponsiveHeader>
     </Suspense>
     // </ErrorBoundaryPage>

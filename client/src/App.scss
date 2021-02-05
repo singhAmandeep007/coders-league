@@ -11,7 +11,7 @@ $dark-font: rgb(8, 9, 11);
 $light-font: rgba(255, 255, 255, 0.9);
 
 //algae
-$algae-bg: rgb(217, 238, 217);
+$algae-bg: rgba(217, 238, 217, 0.524);
 $algae-font: rgb(44, 102, 45);
 $algae-link: rgb(2, 91, 4);
 $algae-active: rgba(1, 169, 4, 0.585);
@@ -24,7 +24,7 @@ body.algae {
 }
 
 //charcoal
-$charcoal-bg: rgb(123, 130, 138);
+$charcoal-bg: rgba(123, 130, 138, 0.503);
 $charcoal-menu: rgba(53, 58, 64, 0.857);
 $charcoal-active: rgba(68, 72, 69, 0.809);
 $charcoal-link: rgb(26, 38, 52);
@@ -44,7 +44,7 @@ body.charcoal {
 }
 
 //blood
-$blood-bg: rgb(248, 209, 209);
+$blood-bg: rgba(248, 209, 209, 0.51);
 $blood-font: rgb(216, 81, 81);
 $blood-menu: rgba(218, 132, 132, 0.748);
 $blood-active: rgba(202, 90, 86, 0.612);
@@ -57,7 +57,7 @@ body.blood {
 }
 
 //citrus
-$citrus-bg: rgb(235, 232, 181);
+$citrus-bg: rgba(235, 232, 181, 0.517);
 $citrus-font: rgb(121, 116, 20);
 $citrus-menu: rgba(214, 204, 22, 0.775);
 $citrus-active: rgba(169, 165, 56, 0.626);
@@ -77,7 +77,7 @@ body.citrus {
 }
 
 //water
-$water-bg: rgb(173, 247, 248);
+$water-bg: rgba(173, 247, 248, 0.51);
 $water-font: rgb(62, 67, 164);
 $water-menu: rgba(111, 180, 250, 0.734);
 $water-active: rgba(83, 104, 240, 0.51);

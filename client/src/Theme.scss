@@ -1,5 +1,5 @@
 @mixin theme($bg-color, $font-color, $link-color, $active-color, $menu, $segment-menu, $card-bg) {
-   background-color: $bg-color !important;
+   // background-color: $bg-color !important;
    color: $font-color !important;
    .menu {
       background-color: $menu !important;
@@ -49,6 +49,9 @@
       // .extra .content {
       //    border: 1px solid $font-color !important;
       // }
+   }
+   .footer {
+      background-color: $segment-menu !important;
    }
    h2,
    h3,

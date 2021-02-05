@@ -179,6 +179,7 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
 
             </Segment>
          </Grid.Column>
+
       </Grid>
    )
 }

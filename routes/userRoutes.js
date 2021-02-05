@@ -1,17 +1,17 @@
 const express = require('express');
-const rateLimit = require("express-rate-limit");
+// const rateLimit = require("express-rate-limit");
 
 const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-const createLimiter = rateLimit({
-   windowMs: 60 * 60 * 1000, // 1 hour window
-   max: 20, // start blocking after 10 requests
-   message:
-      "📢 Too many Follow from this IP, Try again after 1 hour!"
-});
+// const createLimiter = rateLimit({
+//    windowMs: 60 * 60 * 1000, // 1 hour window
+//    max: 20, // start blocking after 10 requests
+//    message:
+//       "📢 Too many Follow from this IP, Try again after 1 hour!"
+// });
 
 // /api/v1/users
 

@@ -282,8 +282,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
             </Form.Field>
             <Form.Field error={!!errors.title} >
                <label htmlFor="title">Title</label>
-               <div className="ui left icon input">
-                  <i className="heading icon"></i>
+               <div className="ui input">
                   <input
                      id='title'
                      name="title"

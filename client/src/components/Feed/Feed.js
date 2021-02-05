@@ -35,7 +35,11 @@ const Feed = ({ articles, isFetching, articleMessage, userMessage, getArticles, 
 
             {articles.length > 0 ? articles.map(article => {
                return <ArticleCard key={article._id} {...article} />
-            }) : <div className="ui message">No article found...🙄</div>}
+            }) : <div className="ui segment custom-list">
+                  <section className="empty">
+                     <img alt="no article found" src="https://res.cloudinary.com/dryiuvv1l/image/upload/v1612506457/empty_2_kq7tyk.png" className="ui large centered image" />
+                     <h2 className="ui center aligned header empty-text">Seems like no article match the query!</h2>
+                  </section></div>}
          </>
       )
 

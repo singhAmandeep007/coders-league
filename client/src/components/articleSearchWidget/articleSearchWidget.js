@@ -4,6 +4,8 @@ import { tagOptions, expertiseOptions } from './../../common/dropdownOptions';
 
 const ArticleSearchWidget = ({ search, reset }) => {
 
+   const [isCollapsed, setIsCollapsed] = React.useState(false)
+
    const inputRef = useRef('');
    const tagsRef = useRef([]);
    const expertiseLevelRef = useRef('');
@@ -38,51 +40,62 @@ const ArticleSearchWidget = ({ search, reset }) => {
    ]
 
    return (
+      <div className="ui segments">
 
-      <div className="ui secondary black segment">
-         <div className="ui fluid icon input">
-            <i className="search icon"></i>
-            <input
-               type="text"
-               ref={inputRef}
-               placeholder="Title..."
+         <h5 className="ui attached header">
+            Filter
+            <i className={`angle ${!isCollapsed ? 'up' : 'down'} icon`}
+               style={{ float: 'right', marginRight: '0px' }}
+               onClick={() => setIsCollapsed(!isCollapsed)}
+            ></i>
+         </h5>
+
+
+         <div className={`ui secondary attached segment ${isCollapsed ? 'hiddenCustom' : ''}`}>
+            <div className="ui fluid icon input">
+               <i className="search icon"></i>
+               <input
+                  type="text"
+                  ref={inputRef}
+                  placeholder="Title..."
+               />
+            </div>
+            <br />
+            <Dropdown
+               fluid
+               multiple
+               search
+               selection
+               options={tagOptions}
+               placeholder='Tags ...'
+               ref={tagsRef}
+               lazyLoad={true}
             />
-         </div>
-         <br />
-         <Dropdown
-            fluid
-            multiple
-            search
-            selection
-            options={tagOptions}
-            placeholder='Tags ...'
-            ref={tagsRef}
-            lazyLoad={true}
-         />
-         <br />
-         <Dropdown
-            fluid
-            clearable
-            selection
-            options={expertiseOptions}
-            placeholder='Expertise ...'
-            ref={expertiseLevelRef}
-            lazyLoad={true}
-         />
-         <br />
-         <Dropdown
-            fluid
-            clearable
-            options={sortOptions}
-            selection
-            placeholder='Sort ...'
-            ref={sortRef}
-            lazyLoad={true}
-         />
+            <br />
+            <Dropdown
+               fluid
+               clearable
+               selection
+               options={expertiseOptions}
+               placeholder='Expertise ...'
+               ref={expertiseLevelRef}
+               lazyLoad={true}
+            />
+            <br />
+            <Dropdown
+               fluid
+               clearable
+               options={sortOptions}
+               selection
+               placeholder='Sort ...'
+               ref={sortRef}
+               lazyLoad={true}
+            />
 
-         <br />
-         <div className="ui button primary tiny" onClick={() => handleSearch()}>Search</div>
-         <div className="ui button tiny" onClick={() => handleReset()}>Reset</div>
+            <br />
+            <div className="ui button primary tiny" onClick={() => handleSearch()}>Search</div>
+            <div className="ui button tiny" onClick={() => handleReset()}>Reset</div>
+         </div>
       </div>
    )
 }
