@@ -8,6 +8,7 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
 const { cloudinary } = require('./../services/cloudinary');
+const Email = require('./../utils/email');
 
 const filterObj = (obj, ...allowedFields) => {
    let newObj = {};
@@ -235,6 +236,28 @@ exports.setUserFollow = async (req, res, next) => {
       return next(new AppError('You are not authorised to perform this action', 403))
    } catch (err) {
       next(err)
+   }
+}
+
+exports.handleContact = async (req, res, next) => {
+   try {
+      let user = {};
+      if (req.body.fullname) user['fullname'] = req.body.fullname;
+      if (req.body.userEmail) user['userEmail'] = req.body.userEmail;
+      if (req.body.message) user['message'] = req.body.message;
+      if (req.body.subject) user['subject'] = req.body.subject;
+      // IMPORTANT
+      user['email'] = 'grim.developers@gmail.com';
+
+      await new Email(user).sendTicket();
+
+      res.status(200).json({
+         status: 'success',
+         message: 'Sent email!'
+      })
+   } catch (err) {
+      // if any error appears in sending email do this.
+      return next(new AppError('Error sending the email. Try again later!', 500))
    }
 }
 

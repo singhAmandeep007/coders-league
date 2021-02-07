@@ -1,0 +1,11 @@
+extends baseEmail
+
+block content
+   p Ticket received for:  #{userSubject},
+   br
+   p Message : 
+   p.messageBackground #{userMessage}
+   
+   a(href=`mailto:${userEmail}` title="Mail" target="_blank" rel="noopener noreferrer") #{userEmail}
+   br
+   p - Grimm Reaper, CEO

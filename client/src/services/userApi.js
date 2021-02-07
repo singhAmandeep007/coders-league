@@ -12,6 +12,7 @@ const urlUserReadingList = `/api/v1/users/readingList`;
 
 const urlUserFollowing = `/api/v1/users/following`;
 const urlUserFollowingAndFollowers = `/api/v1/users/followingAndFollowers`;
+const urlContact = `/api/v1/users/contact`;
 
 const urlUserProfile = `/api/v1/users/profile`;
 const urlUpdatePassword = `/api/v1/users/updatePassword`;
@@ -92,4 +93,8 @@ export function getUserFollowingAndFollowers() {
 export function postUserFollowService(userId) {
    console.log(userId)
    return axios.post(`/api/v1/users/${userId}/follow`);
+}
+// Contact Form Submit
+export function postContactService(data) {
+   return axios.post(urlContact, data);
 }

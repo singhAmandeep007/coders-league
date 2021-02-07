@@ -14,7 +14,6 @@ import Loading from './components/Loading';
 import ErrorPage from './pages/error/errorPage';
 import NotFoundPage from './pages/notFound/notFoundPage';
 
-
 import 'semantic-ui-css/semantic.min.css';
 import './App.css'
 import "./App.scss";
@@ -30,6 +29,7 @@ const ArticlePage = lazy(() => import('./pages/article'));
 const CreateEditArticlePage = lazy(() => import('./pages/createEditArticle/createEditArticlePage'));
 const UserSettingsPage = lazy(() => import('./pages/userSettings/userSettingsPage'));
 const ReadingListPage = lazy(() => import('./pages/readingList'));
+const ContactPage = lazy(() => import('./pages/contactPage/contactPage'));
 
 const RouteUnauthenticated = ({ isAuthenticated, ...props }) => {
   return !isAuthenticated ? <Route {...props} /> : <Redirect to="/" />;
@@ -128,6 +128,12 @@ const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
             path="/settings"
             isAuthenticated={isAuthenticated}
             render={(props) => <UserSettingsPage currentUser={currentUser} {...props} />}
+          />
+          <RouteAuthenticated
+            exact
+            path="/help"
+            isAuthenticated={isAuthenticated}
+            render={(props) => <ContactPage currentUser={currentUser} {...props} />}
           />
           {/* --------404------- */}
           <Route

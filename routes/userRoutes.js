@@ -60,6 +60,12 @@ router.route('/:userId/follow')
       userController.setUserFollow
    )
 
+router.route('/contact')
+   .post(
+      userController.handleContact
+   )
+
+
 // Restricted Routes --> ADMIN
 router.use(authController.restrictTo('admin'));
 

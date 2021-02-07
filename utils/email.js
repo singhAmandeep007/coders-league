@@ -6,12 +6,15 @@ const { htmlToText } = require('html-to-text');
 // to generate a functionality where we can simply do this -> new Email(user,url).sendWelcome(); or sendPasswordReset 
 // so for different scenerios and use cases we can customise our email
 module.exports = class Email {
-   constructor(user, url) {
+   constructor(user, url = '') {
       this.to = user.email;
       this.firstName = user.fullname.split(' ')[0];
-      this.url = url;
       // we can easily customise email to send from
       this.from = `CodersLeague <${process.env.EMAIL_FROM}>`;
+      if (url) this.url = url;
+      if (user.message) this.userMessage = user.message;
+      if (user.subject) this.userSubject = user.subject;
+      if (user.userEmail) this.userEmail = user.userEmail;
    }
    // have different transport for prod and dev
    newTransport() {
@@ -45,8 +48,12 @@ module.exports = class Email {
       //renderFile -Compile a Pug template from a file and render it with locals to html string. and passing in locals to pug file
       const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
          firstName: this.firstName,
-         url: this.url,
-         subject: subject
+         url: this.url || '',
+         subject: subject,
+         userSubject: this.userSubject || '',
+         userMessage: this.userMessage || '',
+         userEmail: this.userEmail || ''
+
       })
       // 2) define the email options
       const mailOptions = {
@@ -61,12 +68,16 @@ module.exports = class Email {
       await this.newTransport().sendMail(mailOptions);
 
    }
-   // abstraction
+   // sendWelcome email
    async sendWelcome() {
       await this.send('welcome', 'Welcome to the CodersLeague Network!');
    }
    // paswordReset email
    async sendPasswordReset() {
       await this.send('passwordReset', 'Your password reset token (valid for only 10 minutes)');
+   }
+   // contact email
+   async sendTicket() {
+      await this.send('ticket', 'Ticket for Coders League');
    }
 }
