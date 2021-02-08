@@ -1,7 +1,7 @@
 extends baseEmail
 
 block content
-   p Ticket received for:  #{userSubject},
+   p Subject: <strong>#{userSubject}</strong>
    br
    p Message : 
    p.messageBackground #{userMessage}

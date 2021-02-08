@@ -110,11 +110,11 @@ const ContactForm = ({ type, currentUser }) => {
                ></textarea>
             </div>
 
-            <div class="ui error message">
+            <div class="ui error tiny message">
                <p>{state.error}</p>
             </div>
 
-            <div class="ui success message">
+            <div class="ui success tiny message">
                <p>{state.message}</p>
             </div>
 

@@ -6,16 +6,12 @@ import { useForm, Controller } from 'react-hook-form';
 import ReactQuill, { Quill } from 'react-quill';
 import ImageUploader from "quill-image-uploader";
 
-import hljs from 'highlight.js/lib/core';
-import javascript from 'highlight.js/lib/languages/javascript';
-
 import { postArticleService, updateArticleService } from './../../services/articleApi';
 
 import { tagOptions, expertiseOptions } from './../../common/dropdownOptions';
 import formStyle from './../../common/formStyles';
 
 import './../../quill.css';
-import './../../gruvbox-dark.css';
 import './createEditArticleForm.css';
 
 Quill.register({ "modules/imageUploader": ImageUploader }, true);
@@ -167,11 +163,6 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
       await trigger(name);
    }
 
-   hljs.registerLanguage('javascript', javascript);
-   hljs.configure({
-      languages: ['javascript'],
-   })
-
    const editorFormats = [
       'header', 'font', 'background', 'color', 'code', 'size',
       'bold', 'italic', 'underline', 'strike', 'blockquote',
@@ -219,11 +210,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
                   });
             });
          }
-      },
-      syntax: {
-         highlight: text => hljs.highlightAuto(text).value,
       }
-
    }), [])
 
    return (
@@ -233,7 +220,6 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
                {articleData ? `Edit ${articleData.title}` : 'Create Article'}
             </div>
          </div>
-
 
          <Form
             style={formStyle.align}

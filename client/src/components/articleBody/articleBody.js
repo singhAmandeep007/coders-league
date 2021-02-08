@@ -3,14 +3,32 @@ import { Link } from 'react-router-dom';
 import { Image, Segment, List, Label } from 'semantic-ui-react';
 
 import parse from 'html-react-parser';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 // import convertIsoToDate from './../../utils/IsoDateConvert';
 import EditDeleteArticleAction from './editDeleteArticleAction';
 
 import './../../quill.css';
-import './../../gruvbox-dark.css';
 
 const ArticleBody = ({ articleData, userData, isAuthor = false }) => {
+
+   const options = {
+      replace: domNode => {
+         if (domNode.attribs && domNode.name === 'pre') {
+            console.log(domNode)
+            return <SyntaxHighlighter
+               language="javascript"
+               style={gruvboxDark}
+               className='ql-syntax'
+               showLineNumbers={true}
+            >
+               {domNode.children[0].data}
+            </SyntaxHighlighter>
+         }
+      }
+   };
+
    console.log(articleData)
    return (
       <Segment raised >
@@ -51,7 +69,7 @@ const ArticleBody = ({ articleData, userData, isAuthor = false }) => {
          {/* body */}
          {articleData && articleData.body && <div className="ql-snow">
             <div className="ql-editor">
-               {parse(articleData.body)}
+               {parse(articleData.body, options)}
             </div>
          </div>}
       </Segment>

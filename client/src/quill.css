@@ -444,9 +444,9 @@
 }
 .ql-snow .ql-editor code,
 .ql-snow .ql-editor pre {
-   background-color: #f0f0f0;
-   border-radius: 3px;
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 14px 0 rgba(0, 0, 0, 0.19);
+   /* background-color: #f0f0f0; */
+   /* border-radius: 3px; */
+   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 14px 0 rgba(0, 0, 0, 0.19); */
 }
 .ql-snow .ql-editor pre {
    white-space: pre-wrap;
@@ -468,7 +468,14 @@
    overflow-x: auto;
    overflow-y: hidden;
    white-space: pre;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 14px 0 rgba(0, 0, 0, 0.19);
+   border-radius: 10px;
 }
+.ql-snow .ql-editor pre.ql-syntax::-webkit-scrollbar-thumb {
+   border-radius: 10px;
+   background-color: #c9c9c9;
+}
+
 .ql-snow .ql-editor img {
    max-width: 100%;
    /* custom */
