@@ -15,12 +15,12 @@ const ResponsiveHeader = ({ children, isAuthenticated, logout, currentUser }) =>
    const themeSelector = {
       content: `Theme`, key: "themeDropdown",
       options: [
-         { text: "⬜", setTheme: () => setTheme('default'), key: "default" },
-         { text: "🟩", setTheme: () => setTheme('algae'), key: "algae" },
-         { text: "⬛", setTheme: () => setTheme('charcoal'), key: "charcoal" },
-         { text: "🟥", setTheme: () => setTheme('blood'), key: "blood" },
-         { text: "🟨", setTheme: () => setTheme('citrus'), key: "citrus" },
-         { text: "🟦", setTheme: () => setTheme('water'), key: "water" }
+         { text: "⚪", setTheme: () => setTheme('default'), key: "default" },
+         { text: "💗", setTheme: () => setTheme('blood'), key: "blood" },
+         { text: "💚", setTheme: () => setTheme('algae'), key: "algae" },
+         { text: "🖤", setTheme: () => setTheme('charcoal'), key: "charcoal" },
+         { text: "💛", setTheme: () => setTheme('citrus'), key: "citrus" },
+         { text: "💙", setTheme: () => setTheme('water'), key: "water" }
       ]
    }
 

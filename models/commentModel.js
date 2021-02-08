@@ -25,6 +25,8 @@ const commentSchema = new Schema({
 }
 );
 
+commentSchema.index({ timestamps: 1 });
+
 // virtual populate
 commentSchema.virtual('commentLikes', {
    ref: 'CommentLike',
@@ -47,6 +49,7 @@ commentSchema.pre('save', function (next) {
 });
 
 commentSchema.pre(/^find/, function (next) {
+   // FIX: REFACTOR: needed check where is it being used
    this.populate({
       path: 'user',
       select: 'username fullname photo'

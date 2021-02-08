@@ -214,182 +214,172 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
    }), [])
 
    return (
-      <>
-         <div className="ui  floating message" style={{ textAlign: 'center' }}>
-            <div className="header">
-               {articleData ? `Edit ${articleData.title}` : 'Create Article'}
-            </div>
-         </div>
 
-         <Form
-            style={formStyle.align}
-            onSubmit={handleSubmit(onSubmit)}
+      <Form
+         style={formStyle.align}
+         onSubmit={handleSubmit(onSubmit)}
+         error={!!status.errors}
+         success={status.statusCode === 200 ? true : false}
+      >
+         <Form.Field error={!!errors.file}>
+            <label htmlFor="coverImage">Cover Image</label>
+            <div>
+               <input
+                  type="file"
+                  name="file"
+                  id="coverImage"
+                  accept="image/*"
+                  ref={register({
+                     validate: {
+                        checkSize: value => {
+                           if (value[0]) {
+                              return value[0].size < 5242880 || 'Only Image upto the size of 5MB is allowed!'
+                           }
+                           return;
+                        },
+                        checkType: value => {
+                           if (value[0]) {
+                              return value[0].type.startsWith('image') || 'Not an image! Please upload only images.'
+                           }
+                           return;
+                        }
+                     }
+                  })}
+               />
+            </div>
+            {errors.file && <span style={formStyle.errorMessage}>{errors.file.message}</span>}
+
+            {!errors.file && coverImageValue && coverImageValue.length > 0 && (<div>
+               <Button.Group widths='2' size='small' >
+                  <Button onClick={() => handleCoverImageUpload()} loading={status.isUploadingCover} type="button" positive>Upload</Button>
+                  {getValues('image') && <Button onClick={() => handleCoverImageDelete()} type="button" negative>Delete</Button>}</Button.Group>
+            </div>)}
+
+         </Form.Field>
+         <Form.Field error={!!errors.image} disabled>
+            <label htmlFor="imageURL">Cover Image URL</label>
+            <input id="imageURL" placeholder="Upload to get URL of cover image." type="text" name="image" readOnly ref={register()} />
+         </Form.Field>
+         <Form.Field error={!!errors.title} >
+            <label htmlFor="title">Title</label>
+            <div className="ui input">
+               <input
+                  id='title'
+                  name="title"
+                  type="text"
+                  placeholder="Article Title here..."
+                  ref={register({
+                     required: "You must specify a title.",
+                     minLength: {
+                        value: 7,
+                        message: "Title must have at least 7 characters."
+                     },
+                     maxLength: {
+                        value: 250,
+                        message: "Title must have at most 250 characters."
+                     }
+                  })}
+               />
+            </div>
+            {errors.title && <span style={formStyle.errorMessage}>{errors.title.message}</span>}
+         </Form.Field>
+         <Form.Field error={!!errors.expertiseLevel} >
+            <Form.Dropdown
+               value={expertiseValue}
+               name="expertiseLevel"
+               label='Expertise Level'
+               options={expertiseOptions}
+               placeholder='Choose a Expertise Level'
+               onChange={(e, name, value) => handleChange(e, name, value)}
+               error={errors.expertiseLevel ? true : false}
+               fluid
+               selection
+               lazyLoad={true}
+            />
+            {errors.expertiseLevel && <span style={formStyle.errorMessage}>{errors.expertiseLevel.message}</span>}
+         </Form.Field>
+         <Form.Field error={!!errors.tags} >
+            <Form.Dropdown
+               value={tagsValue}
+               name="tags"
+               label={{ children: 'Tags', htmlFor: 'form-select-tags' }}
+               options={tagOptions}
+               placeholder='Search and Add tags'
+               searchInput={{ id: 'form-select-tags' }}
+               onChange={(e, name, value) => handleChange(e, name, value)}
+               error={errors.tags ? true : false}
+               multiple
+               search
+               selection
+               fluid
+               lazyLoad={true}
+            />
+            {errors.tags && <span style={formStyle.errorMessage}>{errors.tags.message}</span>}
+         </Form.Field>
+         <Form.Field error={!!errors.shortDescription} >
+            <label htmlFor="shortDescription">Short Description</label>
+            <textarea id='shortDescription' placeholder="Some short description..." name="shortDescription" ref={register()} rows="3" />
+            {errors.shortDescription && <span style={formStyle.errorMessage}>{errors.shortDescription.message}</span>}
+         </Form.Field>
+
+         {/* body */}
+         <Form.Field error={!!errors.body} >
+            <label htmlFor="body">Article Body</label>
+
+            <Controller
+               control={control}
+               name="body"
+               rules={{
+                  required: "Article must have some content.",
+                  validate: value => {
+                     return value.split(' ').length > 10 || "Enter at least 10 words in the body."
+                  }
+               }}
+               render={(
+                  { onChange, onBlur, value, name, ref },
+                  { invalid, isTouched, isDirty }
+               ) => (
+                  <ReactQuill
+                     // ref={quillRef}
+                     // defaultValue={value} fix error https://github.com/quilljs/quill/issues/1940#issuecomment-379536850
+                     onChange={onChange}
+                     value={value}
+                     inputRef={ref}
+                     theme="snow"
+                     formats={editorFormats}
+                     modules={editorModules}
+                     className={!!errors.body ? 'quill-error' : ''}
+                     placeholder='Write your article content here...'
+                     id="body"
+                  />
+               )}
+            />
+            {errors.body && <span style={formStyle.errorMessage}>{errors.body.message}</span>}
+         </Form.Field>
+
+         {status.visibleMessage && <Message
             error={!!status.errors}
             success={status.statusCode === 200 ? true : false}
+            onDismiss={handleDismiss}
+            icon
          >
-            <Form.Field error={!!errors.file}>
-               <label htmlFor="coverImage">Cover Image</label>
-               <div>
-                  <input
-                     type="file"
-                     name="file"
-                     id="coverImage"
-                     accept="image/*"
-                     ref={register({
-                        validate: {
-                           checkSize: value => {
-                              if (value[0]) {
-                                 return value[0].size < 5242880 || 'Only Image upto the size of 5MB is allowed!'
-                              }
-                              return;
-                           },
-                           checkType: value => {
-                              if (value[0]) {
-                                 return value[0].type.startsWith('image') || 'Not an image! Please upload only images.'
-                              }
-                              return;
-                           }
-                        }
-                     })}
-                  />
-               </div>
-               {errors.file && <span style={formStyle.errorMessage}>{errors.file.message}</span>}
-
-               {!errors.file && coverImageValue && coverImageValue.length > 0 && (<div>
-                  <Button.Group widths='2' size='small' >
-                     <Button onClick={() => handleCoverImageUpload()} loading={status.isUploadingCover} type="button" positive>Upload</Button>
-                     {getValues('image') && <Button onClick={() => handleCoverImageDelete()} type="button" negative>Delete</Button>}</Button.Group>
-               </div>)}
-
-            </Form.Field>
-            <Form.Field error={!!errors.image} disabled>
-               <label htmlFor="imageURL">Cover Image URL</label>
-               <input id="imageURL" placeholder="Upload to get URL of cover image." type="text" name="image" readOnly ref={register()} />
-            </Form.Field>
-            <Form.Field error={!!errors.title} >
-               <label htmlFor="title">Title</label>
-               <div className="ui input">
-                  <input
-                     id='title'
-                     name="title"
-                     type="text"
-                     placeholder="Article Title here..."
-                     ref={register({
-                        required: "You must specify a title.",
-                        minLength: {
-                           value: 7,
-                           message: "Title must have at least 7 characters."
-                        },
-                        maxLength: {
-                           value: 250,
-                           message: "Title must have at most 250 characters."
-                        }
-                     })}
-                  />
-               </div>
-               {errors.title && <span style={formStyle.errorMessage}>{errors.title.message}</span>}
-            </Form.Field>
-            <Form.Field error={!!errors.expertiseLevel} >
-               <Form.Dropdown
-                  value={expertiseValue}
-                  name="expertiseLevel"
-                  label='Expertise Level'
-                  options={expertiseOptions}
-                  placeholder='Choose a Expertise Level'
-                  onChange={(e, name, value) => handleChange(e, name, value)}
-                  error={errors.expertiseLevel ? true : false}
-                  fluid
-                  selection
-                  lazyLoad={true}
-               />
-               {errors.expertiseLevel && <span style={formStyle.errorMessage}>{errors.expertiseLevel.message}</span>}
-            </Form.Field>
-            <Form.Field error={!!errors.tags} >
-               <Form.Dropdown
-                  value={tagsValue}
-                  name="tags"
-                  label={{ children: 'Tags', htmlFor: 'form-select-tags' }}
-                  options={tagOptions}
-                  placeholder='Search and Add tags'
-                  searchInput={{ id: 'form-select-tags' }}
-                  onChange={(e, name, value) => handleChange(e, name, value)}
-                  error={errors.tags ? true : false}
-                  multiple
-                  search
-                  selection
-                  fluid
-                  lazyLoad={true}
-               />
-               {errors.tags && <span style={formStyle.errorMessage}>{errors.tags.message}</span>}
-            </Form.Field>
-            <Form.Field error={!!errors.shortDescription} >
-               <label htmlFor="shortDescription">Short Description</label>
-               <textarea id='shortDescription' placeholder="Some short description..." name="shortDescription" ref={register()} rows="3" />
-               {errors.shortDescription && <span style={formStyle.errorMessage}>{errors.shortDescription.message}</span>}
-            </Form.Field>
-
-            {/* body */}
-            <Form.Field error={!!errors.body} >
-               <label htmlFor="body">Article Body</label>
-
-               <Controller
-                  control={control}
-                  name="body"
-                  rules={{
-                     required: "Article must have some content.",
-                     validate: value => {
-                        return value.split(' ').length > 10 || "Enter at least 10 words in the body."
-                     }
-                  }}
-                  render={(
-                     { onChange, onBlur, value, name, ref },
-                     { invalid, isTouched, isDirty }
-                  ) => (
-                     <ReactQuill
-                        // ref={quillRef}
-                        // defaultValue={value} fix error https://github.com/quilljs/quill/issues/1940#issuecomment-379536850
-                        onChange={onChange}
-                        value={value}
-                        inputRef={ref}
-                        theme="snow"
-                        formats={editorFormats}
-                        modules={editorModules}
-                        className={!!errors.body ? 'quill-error' : ''}
-                        placeholder='Write your article content here...'
-                        id="body"
-                     />
-                  )}
-               />
-               {errors.body && <span style={formStyle.errorMessage}>{errors.body.message}</span>}
-            </Form.Field>
-
-            {status.visibleMessage && <Message
-               error={!!status.errors}
-               success={status.statusCode === 200 ? true : false}
-               onDismiss={handleDismiss}
-               icon
-            >
-               <Icon name='bullhorn' />
-               <Message.Content>
-                  <Message.Header>{status.errors ? 'Error' : 'Success'}</Message.Header>
-                  {status.errors ? status.errors : <Link to={status.successMessage}>Published 🚀. Click to visit it.</Link>}
-               </Message.Content>
-            </Message>}
-            <Form.Button
-               type="submit"
-               style={formStyle.formButton}
-               color='blue'
-               content="Publish"
-               loading={status.isUploading ? true : false}
-               fluid
-            />
-            <button className="ui fluid button" type="button" onClick={() => reset()}>Reset</button>
-            {/* <button className="ui fluid button secondary" type="button" onClick={() => console.log(getValues())}>getdata</button> */}
-         </Form>
-
-
-      </>
-
+            <Icon name='bullhorn' />
+            <Message.Content>
+               <Message.Header>{status.errors ? 'Error' : 'Success'}</Message.Header>
+               {status.errors ? status.errors : <Link to={status.successMessage}>Published 🚀. Click to visit it.</Link>}
+            </Message.Content>
+         </Message>}
+         <Form.Button
+            type="submit"
+            style={formStyle.formButton}
+            color='blue'
+            content="Publish"
+            loading={status.isUploading ? true : false}
+            fluid
+         />
+         <button className="ui fluid button" type="button" onClick={() => reset()}>Reset</button>
+         {/* <button className="ui fluid button secondary" type="button" onClick={() => console.log(getValues())}>getdata</button> */}
+      </Form>
    )
 })
 

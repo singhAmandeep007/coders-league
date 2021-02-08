@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Dropdown } from 'semantic-ui-react';
-import { tagOptions, expertiseOptions } from './../../common/dropdownOptions';
+import { tagOptions, expertiseOptions, sortOptions } from './../../common/dropdownOptions';
 
 const ArticleSearchWidget = ({ search, reset }) => {
 
@@ -32,12 +32,7 @@ const ArticleSearchWidget = ({ search, reset }) => {
       reset()
    }
 
-   const sortOptions = [
-      { key: 'default', text: 'Default', value: '' },
-      { key: 'likeCounts', text: 'Likes: Low to High', value: 'likeCounts' },
-      { key: '-likeCounts', text: 'Likes: High to Low', value: '-likeCounts' },
-      { key: '-createdAt', text: 'Latest Published', value: '-createdAt' },
-   ]
+
 
    return (
       <div >

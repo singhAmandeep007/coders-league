@@ -1,15 +1,21 @@
 import axios from 'axios';
 
 const urlCommentApi = `/api/v1/articles`;
-
+const urlGetComments = `/api/v1/comments/`;
 const urlPostCommentLike = `/api/v1/comments`;
 
-export function getCommentsService() {
-   return axios.get(urlCommentApi);
-}
+// export function getCommentsService() {
+//    return axios.get(urlCommentApi);
+// }
 
-export function getCommentService(username, slug) {
-   return axios.get(`${urlCommentApi}/${username}/${slug}`);
+// export function getCommentService(username, slug) {
+//    return axios.get(`${urlCommentApi}/${username}/${slug}`);
+// }
+
+export function getCommentsService(query) {
+   return axios.get(urlGetComments, {
+      params: query
+   });
 }
 
 export function postCommentService(articleId, data) {

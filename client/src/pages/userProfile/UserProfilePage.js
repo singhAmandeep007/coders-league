@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+
 import { Grid } from 'semantic-ui-react';
 
 import { getUserProfile } from './../../services/userApi';
-import ArticleCard from './../../components/articleCard/articleCard';
 
 import PlaceholderCard from './../../components/placeholderCard/placeholderCard';
 import PlaceholderComment from './../../components/placeholderComment/placeholderComment';
 
 import UserFollowingAndFollowers from './../../components/UserFollowingAndFollowers';
+import RenderArticles from './renderArticles';
+import RenderComments from './renderComments';
 
 import convertIsoToDate from './../../utils/IsoDateConvert';
 import './userProfile.css';
@@ -19,8 +20,15 @@ const UserProfilePage = ({ match, history, currentUserId }) => {
 
    useEffect(() => {
       getUserProfile(match.params.username).then(response => {
-         console.log(response.data)
-         setData({ userData: response.data.data, loading: false })
+
+         setData({
+            userData: {
+               ...response.data.data.user,
+               articleCounts: response.data.data.articleCounts,
+               commentCounts: response.data.data.commentCounts
+            },
+            loading: false
+         })
       }, err => history.push('/error'))
    }, [match.params.username, history])
    // if err or no data show user not found or deleted
@@ -100,11 +108,11 @@ const UserProfilePage = ({ match, history, currentUserId }) => {
                         <div className="ui list">
                            <div className="item">
                               <i className="file alternate outline large icon"></i>
-                              <div className="middle aligned content">&nbsp;&nbsp;&nbsp;&nbsp; {data.userData.articles.length} articles published.</div>
+                              <div className="middle aligned content">&nbsp;&nbsp;&nbsp;&nbsp; {data.userData.articleCounts} articles published.</div>
                            </div>
                            <div className="item" style={{ marginTop: "5px" }}>
                               <i className="comments large icon"></i>
-                              <div className="middle aligned content">&nbsp;&nbsp;{data.userData.comments.length} comments written.</div>
+                              <div className="middle aligned content">&nbsp;&nbsp;{data.userData.commentCounts} comments written.</div>
                            </div>
                         </div>
                      </div>
@@ -135,9 +143,10 @@ const UserProfilePage = ({ match, history, currentUserId }) => {
                                  Recent Articles
                            </div>
                      </div>
-                     <div className="ui secondary teal segment" style={{ padding: '1.4em' }}>
-                        {data.userData.articles.map(article => <ArticleCard key={article._id} {...article} />)}
-                     </div>
+                     <RenderArticles
+                        articles={data.userData.articles}
+                        userId={data.userData.id}
+                     />
                   </Grid.Row> : null}
 
                   {data.loading ? <PlaceholderComment num={5} /> : (data.userData && data.userData.comments && data.userData.comments.length > 0) ? <Grid.Row>
@@ -147,20 +156,10 @@ const UserProfilePage = ({ match, history, currentUserId }) => {
                               Recent Comments
                            </div>
                      </div>
-                     <div className="ui olive secondary segment">
-                        <div className="ui segments">
-                           {data.userData.comments.map(comment => {
-                              return (
-                                 <div className="ui raised segment" key={comment.id}>
-                                    <h4 className="ui header">
-                                       <Link to={`/u/${comment.article.user.username}/a/${comment.article.slug}`}>{comment.article.title}</Link>
-                                       <div className="sub header" style={{ fontSize: '0.8em', lineHeight: "2em" }}>{comment.text}</div>
-                                    </h4>
-                                 </div>
-                              )
-                           })}
-                        </div>
-                     </div>
+                     <RenderComments
+                        comments={data.userData.comments}
+                        userId={data.userData.id}
+                     />
 
                   </Grid.Row> : null}
 

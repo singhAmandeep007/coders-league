@@ -71,6 +71,7 @@ const articleSchema = new Schema({
 
 // indexes
 articleSchema.index({ slug: 1 });
+articleSchema.index({ timestamps: 1 });
 articleSchema.index({ likeCounts: -1, commentCounts: -1 });
 articleSchema.index({ title: "text" });
 articleSchema.index({ tags: 1 });

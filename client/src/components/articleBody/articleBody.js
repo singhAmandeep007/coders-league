@@ -29,7 +29,6 @@ const ArticleBody = ({ articleData, userData, isAuthor = false }) => {
       }
    };
 
-   console.log(articleData)
    return (
       <Segment raised >
          {articleData && articleData.image && <Image key='coverImage' rounded fluid src={articleData.image} alt={`cover image for ${articleData.title}`} style={{ maxHeight: "50vh" }} />}

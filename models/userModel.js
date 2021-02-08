@@ -122,7 +122,7 @@ const userSchema = new Schema(
 userSchema.virtual('articles', {
    ref: 'Article',
    localField: '_id',
-   foreignField: 'user'
+   foreignField: 'user',
 })
 userSchema.virtual('comments', {
    ref: 'Comment',
@@ -238,5 +238,13 @@ userSchema.methods.createPasswordResetToken = function () {
    return resetToken;
 }
 
+userSchema.methods.countArticles = async function (userId) {
+   const Article = require('./../models/articleModel');
+   return await Article.countDocuments({ user: userId })
+}
+userSchema.methods.countComments = async function (userId) {
+   const Comment = require('./../models/commentModel');
+   return await Comment.countDocuments({ user: userId })
+}
 
 module.exports = mongoose.model('User', userSchema); 

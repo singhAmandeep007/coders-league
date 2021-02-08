@@ -89,6 +89,8 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
          {
             path: 'articles',
             select: '-body -image -images',
+            limit: 10,
+            options: { sort: { 'createdAt': -1 } },
             populate: {
                path: 'user',
                select: "username fullname photo"
@@ -97,6 +99,8 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
          {
             path: 'comments',
             select: "text -user",
+            limit: 10,
+            options: { sort: { 'createdAt': -1 } },
             populate: {
                path: 'article',
                select: "title slug",
@@ -107,10 +111,23 @@ exports.getOne = (Model, populateOptions) => catchAsync(async (req, res, next) =
             }
          }
       ])
+      const user = await query;
+      if (!user) {
+         return next(new AppError('No User found with that ID', 404))
+      }
+      const articleCounts = await user.countArticles(user.id);
+      const commentCounts = await user.countComments(user.id);
+      user.articleCounts = articleCounts;
+      user.commentCounts = commentCounts;
+
+      return res.status(200).json({
+         status: 'success',
+         data: { user, articleCounts: articleCounts, commentCounts: commentCounts }
+      })
    }
 
    else {
-      query = Model.findOne(filter)
+      query = Model.findOne(filter);
       if (populateOptions) query = query.populate(populateOptions);
    }
 

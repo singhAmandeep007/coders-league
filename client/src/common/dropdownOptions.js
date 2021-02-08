@@ -33,6 +33,12 @@ export const expertiseOptions = [
    { key: 'advanced', text: 'Advanced', value: 'advanced', label: { color: 'red', empty: true, circular: true }, },
 ]
 
+export const sortOptions = [
+   { key: 'likeCounts', text: 'Likes: Low to High', value: 'likeCounts' },
+   { key: '-likeCounts', text: 'Likes: High to Low', value: '-likeCounts' },
+   { key: '-createdAt', text: 'Latest Published', value: '-createdAt' },
+]
+
 export const helpFormOptions = [
    { key: 'feedback', text: 'Feedback :', value: 'Feedback' },
    { key: 'reportBug', text: 'Report a Bug :', value: 'Report a Bug' },
@@ -40,3 +46,4 @@ export const helpFormOptions = [
    { key: 'requestFeature', text: 'Request a Feature :', value: 'Request a Feature' },
    { key: 'other', text: 'Other :', value: 'Other' }
 ]
+

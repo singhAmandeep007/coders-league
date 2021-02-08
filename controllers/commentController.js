@@ -101,7 +101,14 @@ exports.setCommentLike = async (req, res, next) => {
    }
 }
 
-exports.getAllComments = factory.getAll(Comment)
+exports.getAllComments = factory.getAll(Comment, {
+   path: 'article',
+   select: "title slug",
+   populate: {
+      path: 'user',
+      select: "username"
+   }
+})
 exports.getComment = factory.getOne(Comment);
 exports.createComment = factory.createOne(Comment, { path: 'commentLikes', select: "users -comment" });
 // exports.updateComment = factory.updateOne(Comment);

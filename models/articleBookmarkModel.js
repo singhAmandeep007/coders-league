@@ -21,4 +21,6 @@ const articleBookmarkSchema = new Schema({
 }
 );
 
+articleBookmarkSchema.index({ timestamps: 1 });
+
 module.exports = mongoose.model('ArticleBookmark', articleBookmarkSchema);
