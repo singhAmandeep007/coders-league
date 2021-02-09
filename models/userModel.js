@@ -80,6 +80,11 @@ const userSchema = new Schema(
          },
          default: 'user'
       },
+      emailNotification: {
+         type: Boolean,
+         default: false,
+         select: false
+      },
       googleId: {
          type: String
       },

@@ -169,10 +169,32 @@ exports.getTopArticles = (daysLess, limit) => {
                 }
             },
             {
+                $lookup: {
+                    from: "users",
+                    localField: "user",
+                    foreignField: "_id",
+                    as: "user",
+                },
+
+            },
+            {
                 $sort: { likeCounts: -1, commentCounts: -1 }
             },
             {
                 $limit: limit
+            },
+            {
+                $project: {
+                    "user._id": 1,
+                    "user.fullname": 1,
+                    "user.username": 1,
+                    "user.photo": 1,
+                    "title": 1,
+                    "shortDescription": 1,
+                    "readingTime": 1,
+                    "slug": 1,
+                    "image": 1
+                }
             }
         ]);
 

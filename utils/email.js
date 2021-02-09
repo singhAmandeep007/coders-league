@@ -7,14 +7,18 @@ const { htmlToText } = require('html-to-text');
 // so for different scenerios and use cases we can customise our email
 module.exports = class Email {
    constructor(user, url = '') {
+      // console.log(user)
       this.to = user.email;
       this.firstName = user.fullname.split(' ')[0];
       // we can easily customise email to send from
       this.from = `CodersLeague <${process.env.EMAIL_FROM}>`;
       if (url) this.url = url;
+      // FOR CONTACT
       if (user.message) this.userMessage = user.message;
       if (user.subject) this.userSubject = user.subject;
       if (user.userEmail) this.userEmail = user.userEmail;
+      // FOR TOP ARTICLES
+      if (user.topArticles) this.topArticles = user.topArticles;
    }
    // have different transport for prod and dev
    newTransport() {
@@ -52,7 +56,8 @@ module.exports = class Email {
          subject: subject,
          userSubject: this.userSubject || '',
          userMessage: this.userMessage || '',
-         userEmail: this.userEmail || ''
+         userEmail: this.userEmail || '',
+         topArticles: this.topArticles || ''
 
       })
       // 2) define the email options
@@ -79,5 +84,9 @@ module.exports = class Email {
    // contact email
    async sendTicket() {
       await this.send('ticket', 'Ticket for Coders League');
+   }
+   // send top articles email
+   async sendTopArticles() {
+      await this.send('topArticles', 'Top Articles this week curated for you.');
    }
 }
