@@ -81,9 +81,14 @@ const userSchema = new Schema(
          default: 'user'
       },
       emailNotification: {
-         type: Boolean,
-         default: false,
-         select: false
+         topArticles: {
+            type: Boolean,
+            default: false
+         },
+         tips: {
+            type: Boolean,
+            default: false
+         },
       },
       googleId: {
          type: String

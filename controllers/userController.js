@@ -12,10 +12,12 @@ const factory = require('./handlerFactory');
 const { cloudinary } = require('./../services/cloudinary');
 const Email = require('./../utils/email');
 
-//const job = schedule.scheduleJob('0-59/50 * * * * *', async function () {
-const job = schedule.scheduleJob('* * 1 * * *', async function () {
-   const usersToBeNotified = await User.find({ emailNotification: { $ne: false } });
-
+const job = schedule.scheduleJob('0-59/50 * * * * *', async function () {
+   //const job = schedule.scheduleJob('* * 1 * * *', async function () {
+   const usersToBeNotified = await User.find({
+      'emailNotification.topArticles': true
+   });
+   console.log(usersToBeNotified)
    if (usersToBeNotified && usersToBeNotified.length > 0) {
       const Article = require('./../models/articleModel');
       // TOP 5 PER WEEK 
@@ -34,7 +36,6 @@ const job = schedule.scheduleJob('* * 1 * * *', async function () {
                foreignField: "_id",
                as: "user",
             },
-
          },
          {
             $sort: { likeCounts: -1, commentCounts: -1 }
@@ -58,7 +59,6 @@ const job = schedule.scheduleJob('* * 1 * * *', async function () {
       ]);
 
       usersToBeNotified.forEach(async (user) => {
-
          let userObj = {
             email: user.email,
             fullname: user.fullname,
@@ -147,8 +147,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
    }
 
    // 2) filtered out unwanted field-names that are not allowed to be updated
-   const filteredBody = filterObj(req.body, 'fullname', 'username', 'email', 'photo', 'photoId', 'location', 'skills', 'bio', 'url');
+   const filteredBody = filterObj(req.body, 'fullname', 'username', 'email', 'photo', 'photoId', 'location', 'skills', 'bio', 'url', 'emailNotification');
    // 3) update user doc
+   console.log(filteredBody)
    const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, { new: true, runValidators: true });
 
    res.status(200).json({

@@ -55,7 +55,7 @@ const UserSettingsPage = ({ currentUser, ...props }) => {
                      <UserAccount currentUser={currentUser} />
                   </Route>
                   <Route exact path={`${path}/notifications`}>
-                     <UserNotification />
+                     <UserNotification emailNotification={currentUser.emailNotification} />
                   </Route>
                   <Route exact path={path}>
                      <UserProfile currentUser={currentUser} />
