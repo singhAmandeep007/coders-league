@@ -12,8 +12,8 @@ const factory = require('./handlerFactory');
 const { cloudinary } = require('./../services/cloudinary');
 const Email = require('./../utils/email');
 
-const job = schedule.scheduleJob('0-59/50 * * * * *', async function () {
-   //const job = schedule.scheduleJob('* * 1 * * *', async function () {
+// const job = schedule.scheduleJob('0-59/50 * * * * *', async function () {
+const job = schedule.scheduleJob('* * 1 * * *', async function () {
    const usersToBeNotified = await User.find({
       'emailNotification.topArticles': true
    });
