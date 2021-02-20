@@ -95,7 +95,7 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
                            ref={register({
                               required: "You must specify an email.",
                               pattern: {
-                                 value: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/,
+                                 value: /\S+@\S+\.\S+/,
                                  message: "Your email must be valid."
                               }
                            })}

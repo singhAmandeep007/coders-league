@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Tab } from 'semantic-ui-react';
 
-import isEqual from "react-fast-compare";
+import isEqual from 'react-fast-compare';
 
 import CreateEditArticleForm from './../../components/createEditArticleForm';
 import ArticleBody from './../../components/articleBody/articleBody';

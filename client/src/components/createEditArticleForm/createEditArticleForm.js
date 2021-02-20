@@ -14,6 +14,9 @@ import formStyle from './../../common/formStyles';
 import './../../quill.css';
 import './createEditArticleForm.css';
 
+const icons = Quill.import('ui/icons');
+icons['code-block'] = '<svg viewbox="0 -2 15 18"><polyline class="ql-even ql-stroke" points="2.48 2.48 1 3.96 2.48 5.45"/><polyline class="ql-even ql-stroke" points="8.41 2.48 9.9 3.96 8.41 5.45"/><line class="ql-stroke" x1="6.19" y1="1" x2="4.71" y2="6.93"/><polyline class="ql-stroke" points="12.84 3 14 3 14 13 2 13 2 8.43"/></svg>';
+
 Quill.register({ "modules/imageUploader": ImageUploader }, true);
 
 const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, ref) => {
@@ -173,7 +176,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
       toolbar: {
          container: [
             [{ 'header': [1, 2, 3, 4, 5, 6, false] }, 'bold', 'italic', 'underline'],
-            ['blockquote', 'code-block'],
+            ['blockquote', 'code', 'code-block'],
             [{ 'align': [] }, { 'list': 'ordered' }, { 'list': 'bullet' }],
             [{ 'color': [] }, { 'background': [] }],
             ['link', 'image'],

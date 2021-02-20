@@ -6,7 +6,7 @@ const authController = require('./../controllers/authController');
 
 const createLikeLimiter = rateLimit({
    windowMs: 60 * 60 * 1000, // 1 hour window
-   max: 10, // start blocking after 10 requests
+   max: 20, // start blocking after 20 requests
    message:
       "📢 Too many Likes from this IP, Try again after 1 hour!"
 });

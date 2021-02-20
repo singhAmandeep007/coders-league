@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Segment, Grid, Form, Icon, Message, Button } from 'semantic-ui-react';
 
 import { signup } from './../../redux/user/userActions';
-import MessageBox from './../../components/messageBox'
+import MessageBox from './../../components/messageBox';
 import formStyle from './../../common/formStyles';
 
 const SignUpPage = ({ userMessage, signup, isFetching }) => {
@@ -101,7 +101,7 @@ const SignUpPage = ({ userMessage, signup, isFetching }) => {
                            ref={register({
                               required: "You must specify an email.",
                               pattern: {
-                                 value: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/,
+                                 value: /\S+@\S+\.\S+/,
                                  message: "Your email must be valid."
                               }
                            })}

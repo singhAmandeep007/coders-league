@@ -95,7 +95,7 @@ exports.setCommentLike = async (req, res, next) => {
             data: 'successfully unliked',
          })
       }
-      return next(new AppError('You are not authorised to perform this action', 403))
+      return next(new AppError('Some error occured!', 403))
    } catch (err) {
       next(err)
    }

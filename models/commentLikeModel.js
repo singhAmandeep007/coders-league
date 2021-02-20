@@ -5,7 +5,7 @@ const commentLikeSchema = new Schema({
    comment: {
       type: mongoose.Schema.ObjectId,
       required: [true, 'Comment Like must belong a comment!'],
-      ref: "Comment"
+      ref: 'Comment'
    },
    users: [
       {

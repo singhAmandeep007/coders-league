@@ -37,7 +37,8 @@ app.use((req, res, next) => {
    return next();
 });
 
-//SECURITY
+// SECURITY
+// REFACTOR:
 app.use(helmet({
    contentSecurityPolicy: {
       directives: {
@@ -51,7 +52,7 @@ app.use(helmet({
    }
 }));
 
-// Rate Limiting
+// Rate Limiting 
 const limiter = rateLimit({
    max: 100,
    windowMs: 60 * 60 * 1000,// 1 hour
@@ -60,7 +61,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Body parser, reading data from body into req.body
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json({ limit: '500kb' })); // HACK: max 500kb in req.body
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 app.use(cookieParser());
 // Data sanitization against NoSQL query injection
@@ -68,7 +69,7 @@ app.use(mongoSanitize());
 // HTML sanitizer
 app.use(expressSanitizer());
 // Data sanitization against XSS
-// app.use(xss()); causing issue in html of article body
+// app.use(xss()); causing issue in html of article body // FIX:
 // Prevent parameter pollution
 app.use(hpp({
    whitelist: ['tags', 'likeCounts', 'commentCounts']
@@ -101,7 +102,7 @@ if (process.env.NODE_ENV === 'production') {
    });
 }
 
-// Handling unhandled routes.
+// Handling unhandled routes.REFACTOR:
 app.all('*', (req, res, next) => {
    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404))
 })

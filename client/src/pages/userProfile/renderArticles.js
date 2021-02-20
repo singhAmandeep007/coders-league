@@ -67,7 +67,8 @@ function RenderArticles({ articles, userId }) {
          >
             <i className='icon plus'></i>
                   Load more Articles...
-               </button>}
+               </button>
+         }
          {!state.hasMore && <div className="ui horizontal divider">
             Yay ! You have seen all articles !
                </div>

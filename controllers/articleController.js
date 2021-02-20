@@ -69,10 +69,6 @@ exports.checkOwnershipAndDelete = catchAsync(async (req, res, next) => {
 exports.setArticleLike = async (req, res, next) => {
     try {
 
-        // if (!req.params.articleId) {
-        //     return next(new AppError('Article Like must be created on a Article!', 401))
-        // }
-
         let doc = await Article.findById(req.params.articleId);
         if (!doc) {
             return next(new AppError('No Article found with that ID', 404))
@@ -107,7 +103,7 @@ exports.setArticleLike = async (req, res, next) => {
                 data: 'successfully unliked article',
             })
         }
-        return next(new AppError('You are not authorised to perform this action', 403))
+        return next(new AppError('Some error occured!', 403))
     } catch (err) {
         next(err)
     }
@@ -151,7 +147,7 @@ exports.setArticleBookmark = async (req, res, next) => {
                 data: 'successfully unbookmarked article',
             })
         }
-        return next(new AppError('You are not authorised to perform this action', 403))
+        return next(new AppError('Some error occured!', 403))
     } catch (err) {
         next(err)
     }

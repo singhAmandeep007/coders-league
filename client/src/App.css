@@ -2,8 +2,8 @@ body {
    background: 0 0 !important;
 }
 html {
-   background-image: linear-gradient(rgba(255, 255, 255, 0.755), rgba(255, 255, 255, 0.755)), url(./assets/bg.jpg) !important;
-   background-size: 15%;
+   background-image: linear-gradient(rgba(255, 255, 255, 0.875), rgba(255, 255, 255, 0.875)), url(./assets/bg4.2.jpg) !important;
+   background-size: 40%;
 }
 
 .grid {
@@ -15,7 +15,7 @@ html {
 .hiddenCustom {
    display: none !important;
 }
-#offline-banner {
+#offline-alert {
    background: #414141 !important;
    color: #fff !important;
    display: flex;

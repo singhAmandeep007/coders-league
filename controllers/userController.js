@@ -264,7 +264,7 @@ exports.setUserFollow = async (req, res, next) => {
 
       let doc = await User.findById(req.params.userId);
       if (!doc) {
-         return next(new AppError('No User found with that ID', 404))
+         return next(new AppError('No User found with that ID!', 404))
       }
       // updateOne
       let userToBeFollowed = await UserFollow.updateOne(
@@ -296,7 +296,7 @@ exports.setUserFollow = async (req, res, next) => {
             data: 'successfully unfollowed user',
          })
       }
-      return next(new AppError('You are not authorised to perform this action', 403))
+      return next(new AppError('Some error occured!', 403))
    } catch (err) {
       next(err)
    }

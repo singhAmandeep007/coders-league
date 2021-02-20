@@ -21,7 +21,7 @@ const UserSettingsPage = ({ currentUser, ...props }) => {
                   <i className="cogs icon"></i>
                         Profile & Account Settings
                      <Header.Subheader>
-                     Manage your account settings and update profile.
+                     Manage your account, notification settings and update profile.
                      </Header.Subheader>
                </Header>
             </Grid.Row>

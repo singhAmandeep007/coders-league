@@ -4,7 +4,7 @@ import { tagOptions, expertiseOptions, sortOptions } from './../../common/dropdo
 
 const ArticleSearchWidget = ({ search, reset }) => {
 
-   const [isCollapsed, setIsCollapsed] = React.useState(false)
+   const [isCollapsed, setIsCollapsed] = React.useState(false);
 
    const inputRef = useRef('');
    const tagsRef = useRef([]);
@@ -32,8 +32,6 @@ const ArticleSearchWidget = ({ search, reset }) => {
       reset()
    }
 
-
-
    return (
       <div >
 
@@ -44,7 +42,6 @@ const ArticleSearchWidget = ({ search, reset }) => {
                onClick={() => setIsCollapsed(!isCollapsed)}
             ></i>
          </h5>
-
 
          <div className={`ui secondary bottom attached segment ${isCollapsed ? 'hiddenCustom' : ''}`}>
             <div className="ui fluid icon input">

@@ -8,7 +8,7 @@ class APIFeatures {
 
         const excludedFields = ['page', 'sort', 'limit', 'fields', 'tags', 'title'];
         excludedFields.forEach((el) => delete queryObj[el]); // bracket notation
-        let queryStr = JSON.stringify(queryObj)
+        let queryStr = JSON.stringify(queryObj);
 
         queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => {
             return `$${match}`;
@@ -46,7 +46,6 @@ class APIFeatures {
 
         return this;
     }
-
 
 }
 module.exports = APIFeatures;

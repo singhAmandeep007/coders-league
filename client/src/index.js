@@ -10,17 +10,16 @@ import App from './App';
 
 window.onload = function () {
   if (localStorage.getItem("theme")) {
-    document.getElementById("body").className =
-      localStorage.getItem("theme") || "default";
+    document.getElementById("body").className = localStorage.getItem("theme") || "default";
   }
 };
 window.addEventListener('online', () => {
-  let offlineBanner = document.querySelector('#offline-banner');
+  let offlineBanner = document.querySelector('#offline-alert');
   offlineBanner.classList.add('hiddenCustom');
-  offlineBanner.innerText = ""
+  offlineBanner.innerText = "";
 });
 window.addEventListener('offline', () => {
-  let offlineBanner = document.querySelector('#offline-banner');
+  let offlineBanner = document.querySelector('#offline-alert');
   offlineBanner.classList.remove('hiddenCustom');
   offlineBanner.innerText = "You are currently offline! 🚨"
 });

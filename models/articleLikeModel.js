@@ -23,7 +23,7 @@ const articleLikeSchema = new Schema({
 
 articleLikeSchema.post("updateOne", async function (val) {
    if (val.nModified > 0) {
-      const { article } = { ...this.getQuery() }
+      const { article } = { ...this.getQuery() };
       const updatedDoc = await this.model.findOne({ "article": article });
 
       const Article = require('./../models/articleModel');

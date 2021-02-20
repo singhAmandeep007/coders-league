@@ -79,11 +79,11 @@ module.exports = class Email {
    }
    // paswordReset email
    async sendPasswordReset() {
-      await this.send('passwordReset', 'Your password reset token (valid for only 10 minutes)');
+      await this.send('passwordReset', 'Your password reset token (valid for only 10 minutes.)');
    }
    // contact email
    async sendTicket() {
-      await this.send('ticket', 'Ticket for Coders League');
+      await this.send('ticket', 'Ticket for Coders League.');
    }
    // send top articles email
    async sendTopArticles() {

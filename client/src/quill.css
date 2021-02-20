@@ -442,11 +442,10 @@
    background: #f0f1f2;
    line-height: 2;
 }
-.ql-snow .ql-editor code,
-.ql-snow .ql-editor pre {
-   /* background-color: #f0f0f0; */
-   /* border-radius: 3px; */
-   /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 14px 0 rgba(0, 0, 0, 0.19); */
+.ql-snow .ql-editor code {
+   /* .ql-snow .ql-editor pre { */
+   background-color: #0000006a !important;
+   color: #f8f8f2 !important;
 }
 .ql-snow .ql-editor pre {
    white-space: pre-wrap;
@@ -456,10 +455,10 @@
 }
 .ql-snow .ql-editor code {
    font-size: 85%;
-   padding: 2px 4px;
+   /* padding: 2px 4px; */
 }
 .ql-snow .ql-editor pre.ql-syntax {
-   background-color: #282828;
+   background-color: #000000 !important;
    color: #f8f8f2;
    /* overflow: scroll; */
    line-height: 1.5em;

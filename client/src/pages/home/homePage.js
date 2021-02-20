@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Grid } from 'semantic-ui-react';
-// import SearchBar from './SearchBar';
 import Feed from './../../components/Feed/Feed'
 import ArticleSearchWidget from './../../components/articleSearchWidget/articleSearchWidget';
 import ArticleSearchByTimeMenu from './../../components/articleSearchByTimeMenu/articleSearchByTimeMenu';
@@ -31,7 +30,6 @@ const HomePage = () => {
                         sortBy
                      })}
                      reset={() => setState({
-
                         searchTerm: '',
                         searchTags: [],
                         searchExpertiseLevel: '',

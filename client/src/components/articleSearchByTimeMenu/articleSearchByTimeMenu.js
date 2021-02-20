@@ -6,7 +6,7 @@ const ArticleSearchByTimeMenu = ({ searchTime }) => {
    const [state, setState] = useState({ activeItem: 'Feed' })
 
    const handleItemClick = (name) => {
-      console.log(name)
+      //console.log(name)
       setState({ activeItem: name })
       if (name === 'Feed') {
          searchTime('')
