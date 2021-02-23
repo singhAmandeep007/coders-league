@@ -16,7 +16,7 @@ const ArticleBody = ({ articleData, userData, isAuthor = false }) => {
    const options = {
       replace: domNode => {
          if (domNode.attribs && domNode.name === 'pre') {
-            console.log(domNode)
+            //console.log(domNode)
             return <SyntaxHighlighter
                language="javascript"
                style={gruvboxDark}

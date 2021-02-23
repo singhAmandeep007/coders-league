@@ -33,7 +33,7 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
    }
    const handleFileInputChange = e => {
       const file = e.target.files[0];
-      console.log('file', file);
+      //console.log('file', file);
       if (file) {
          if (!isImage(file)) {
             setFileStatus({
@@ -93,7 +93,7 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
       try {
          setFileStatus({ ...fileStatus, isUploading: true });
          const response = await upload(formData)
-         console.log(response.data.data)
+         //console.log(response.data.data)
          onUploadSuccess(response.data.data.user)
          setFileStatus({
             ...baseFileStatus,

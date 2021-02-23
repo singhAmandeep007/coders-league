@@ -29,7 +29,7 @@ const ReadingListPage = ({ currentUser }) => {
 
    useEffect(() => {
       getUserReadingList().then(response => {
-         console.log(response.data.data);
+         //console.log(response.data.data);
 
          dispatch({
             type: 'FETCH_SUCCESS',

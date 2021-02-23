@@ -22,7 +22,7 @@ const UpdateUserPassword = ({ updatePassword, isFetching, userMessage }) => {
    }
 
    const onUpdatePasswordSubmit = (data) => {
-      console.log(data)
+      //console.log(data)
       try {
          updatePassword(data)
       } catch (error) {

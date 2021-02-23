@@ -13,7 +13,7 @@ const RenderArticles = ({ articleData }) => {
                articles: articleData.filter(article => article.title.indexOf(action.payload) !== -1)
             };
          case 'SEARCH':
-            console.log('action.payload', action.payload)
+            //console.log('action.payload', action.payload)
             const { searchTerm, searchTags, searchExpertiseLevel, sortBy } = action.payload;
             const matchedArticles = articleData.filter((article) => {
 

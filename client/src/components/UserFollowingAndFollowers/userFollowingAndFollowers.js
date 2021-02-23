@@ -25,7 +25,7 @@ const UserFollowingAndFollowers = () => {
 
    useEffect(() => {
       getUserFollowingAndFollowers().then(response => {
-         console.log(response.data)
+         //console.log(response.data)
          setState({
             followingData: response.data.data.following,
             followersData: response.data.data.followers,

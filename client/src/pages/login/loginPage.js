@@ -28,7 +28,7 @@ const LoginPage = ({ userMessage, login, forgotPassword, isFetching }) => {
 
    const onLoginSubmit = (data) => {
       const { email, password } = data;
-      console.log(data)
+      //console.log(data)
       try {
          login(email, password)
       } catch (error) {

@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { Comment, Form, Button } from 'semantic-ui-react';
 
 const CommentForm = ({ currentUser, articleId, commentService, dispatch }) => {
-   console.log(articleId)
+   //console.log(articleId)
    const textRef = useRef(null);
 
    const handleSubmit = async () => {

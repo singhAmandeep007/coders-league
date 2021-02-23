@@ -28,7 +28,7 @@ const SignUpPage = ({ userMessage, signup, isFetching }) => {
 
    const onSubmit = (data) => {
       const { username, email, password, passwordConfirm } = data;
-      console.log(data)
+      //console.log(data)
       try {
          signup(username, email, password, passwordConfirm);
       } catch (error) {

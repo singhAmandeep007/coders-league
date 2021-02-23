@@ -19,7 +19,7 @@ export function getCommentsService(query) {
 }
 
 export function postCommentService(articleId, data) {
-   console.log(articleId, data)
+   //console.log(articleId, data)
    return axios.post(`${urlCommentApi}/${articleId}/comments/`,
       data
    );
@@ -37,6 +37,6 @@ export function deleteCommentService(articleId, commentId) {
 
 // COMMENT LIKE
 export function postCommentLikeService(commentId) {
-   console.log(commentId)
+   //console.log(commentId)
    return axios.post(`${urlPostCommentLike}/${commentId}/like`);
 }

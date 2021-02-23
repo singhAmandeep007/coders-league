@@ -151,7 +151,7 @@ export function setUserFollowing(userId) {
    return dispatch => {
       services.postUserFollowService(userId).then(
          (response) => {
-            console.log(response)
+            //console.log(response)
             dispatch({
                type: "SET_USER_FOLLOWING",
                payload: userId
@@ -171,7 +171,7 @@ export function login(email, password) {
 
       services.loginService(email, password).then(
          (response) => {
-            console.log(response)
+            //console.log(response)
             dispatch(setLoginSuccessMessage())
             setTimeout(() => {
                localStorage.setItem('jtoken', response.data.token);
@@ -191,7 +191,7 @@ export function signup(username, email, password, passwordConfirm) {
 
       services.signupService(username, email, password, passwordConfirm).then(
          response => {
-            console.log(response)
+            //console.log(response)
             dispatch(setSignupSuccessMessage())
             setTimeout(() => {
                localStorage.setItem('jtoken', response.data.token);
@@ -241,7 +241,7 @@ export function resetPassword(resetToken, password, passwordConfirm) {
       dispatch(resetPasswordStart())
       services.resetPasswordService(resetToken, password, passwordConfirm).then(
          (response) => {
-            console.log(response)
+            //console.log(response)
             dispatch(setResetPasswordSuccessMessage())
             setTimeout(() => {
                localStorage.setItem('jtoken', response.data.token);
@@ -261,7 +261,7 @@ export function updatePassword(data) {
       dispatch(updatePasswordStart())
       services.updatePasswordService(data).then(
          (response) => {
-            console.log(response)
+            //console.log(response)
             dispatch(setUpdatePasswordSuccessMessage())
             dispatch(updateUserInfo(response.data.data.user))
             localStorage.setItem('jtoken', response.data.token);

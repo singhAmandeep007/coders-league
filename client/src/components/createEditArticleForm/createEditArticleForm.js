@@ -109,7 +109,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
             }
          })
          .then(result => {
-            console.log(result);
+            //console.log(result);
             setValue('image', result.secure_url)
 
             setStatus({ ...baseState, isUploadingCover: false })
@@ -204,7 +204,7 @@ const CreateEditArticleForm = forwardRef(({ currentUser, articleData = null }, r
                      }
                   })
                   .then(result => {
-                     console.log(result);
+                     //console.log(result);
                      resolve(result.secure_url);
                   })
                   .catch(error => {

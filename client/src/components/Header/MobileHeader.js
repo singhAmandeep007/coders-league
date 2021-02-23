@@ -5,7 +5,7 @@ import { NavLink, Link } from 'react-router-dom';
 import './MobileHeader.css';
 
 const MobileHeader = ({ children, leftItems, rightItems }) => {
-   console.log(rightItems);
+   //console.log(rightItems);
 
    const [sidebarOpened, setSidebarOpened] = useState(null)
    const [fixed, setFixed] = useState(false);

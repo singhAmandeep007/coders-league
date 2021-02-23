@@ -31,7 +31,7 @@ const ArticlePage = ({ match, history, isAuthenticated, currentUser }) => {
    useEffect(() => {
       const { username, slug } = match.params;
       getArticleService(username, slug).then(response => {
-         console.log(response.data.data)
+         //console.log(response.data.data)
          let { user: userData, comments: commentsData, ...articleData } = response.data.data;
 
          setData({

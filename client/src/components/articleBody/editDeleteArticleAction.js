@@ -12,7 +12,7 @@ const EditDeleteArticleAction = ({ articleData }) => {
    const deleteArticle = async () => {
       try {
          const response = await deleteArticleService(articleData.id)
-         console.log(response)
+         //console.log(response)
          if (response.status === 204) {
             history.push('/');
          }

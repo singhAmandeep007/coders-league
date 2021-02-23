@@ -451,7 +451,7 @@
    white-space: pre-wrap;
    margin-bottom: 5px;
    margin-top: 5px;
-   padding: 5px 10px;
+   padding: 5px 12px !important;
 }
 .ql-snow .ql-editor code {
    font-size: 85%;

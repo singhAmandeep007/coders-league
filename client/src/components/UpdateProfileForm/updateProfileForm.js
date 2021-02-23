@@ -29,9 +29,9 @@ const UpdateProfileForm = ({ updateUserInfo, updateUserInfoCB, currentUser }) =>
    const onSubmit = async (data) => {
       try {
          setUpdateStatus({ ...updateStatus, isFetching: true });
-         console.log(data)
+         //console.log(data)
          const response = await updateUserInfo(data);
-         console.log(response.data)
+         //console.log(response.data)
          updateUserInfoCB(response.data.data.user)
          setUpdateStatus({
             statusCode: response.status,

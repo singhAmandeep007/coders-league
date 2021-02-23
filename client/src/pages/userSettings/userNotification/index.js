@@ -35,7 +35,7 @@ export default function UserNotification({ emailNotification }) {
             }
          })
          if (response.status === 200) {
-            console.log(response.data.data.user)
+            //console.log(response.data.data.user)
             updateUserInfo(response.data.data.user)
             setState({
                ...state,

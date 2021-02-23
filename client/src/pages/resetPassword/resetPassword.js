@@ -26,7 +26,7 @@ const ResetPasswordPage = ({ resetPassword, isFetching, userMessage }) => {
 
    const onResetPasswordSubmit = (data) => {
       const { password, passwordConfirm } = data;
-      console.log(data)
+      //console.log(data)
       try {
          resetPassword(resetToken, password, passwordConfirm)
       } catch (error) {
