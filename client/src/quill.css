@@ -440,7 +440,7 @@
    padding-left: 16px;
    /* custom */
    background: #f0f1f2;
-   line-height: 2;
+   line-height: 1.73;
 }
 .ql-snow .ql-editor code {
    /* .ql-snow .ql-editor pre { */
@@ -472,7 +472,7 @@
 }
 .ql-snow .ql-editor pre.ql-syntax::-webkit-scrollbar-thumb {
    border-radius: 10px;
-   background-color: #c9c9c9;
+   background-color: #434343;
 }
 
 .ql-snow .ql-editor img {

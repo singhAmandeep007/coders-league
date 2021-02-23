@@ -4,6 +4,7 @@ import UpdateUserPassword from './../../../components/UpdateUserPassword'
 import { IsoToDateWithDay, IsoToDateWithDayAndTime } from './../../../utils/IsoDateConvert';
 
 const UserAccount = ({ currentUser }) => {
+
    const { email, createdAt, updatedAt, role, passwordChangedAt } = currentUser;
 
    return (
@@ -11,7 +12,7 @@ const UserAccount = ({ currentUser }) => {
          <div className="ui  floating message blue">
             <div className="header">
                <i className=" thumbtack icon"></i>
-            Update Password
+               Update Password
             </div>
 
          </div>
@@ -61,8 +62,8 @@ const UserAccount = ({ currentUser }) => {
 
          <div className="ui raised segment red">
             <div className="ui bulleted list">
-               <div className="item">Delete your profile, along with your authentication associations. This does not include applications permissions. You will have to remove them yourself.</div>
-               <div className="item">Delete any and all content you have, such as articles, comments, your reading list or chat messages.</div>
+               <div className="item">Delete your profile, along with your authentication associations.</div>
+               <div className="item">Delete any and all content you have, such as articles, comments, your reading list.</div>
                <div className="item">Allow your username to become available to anyone.</div>
             </div>
             <div className="ui animated button negative" tabIndex="0">

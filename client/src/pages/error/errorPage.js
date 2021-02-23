@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 
 const ErrorPage = () => {
    return (
-      <div className="ui one column stackable center aligned  grid segment red inverted" style={{ height: '87.5vh', width: '100vw', margin: '0', borderRadius: '0em' }}>
+      <div className="ui one column stackable center aligned grid" >
          <div className="column twelve wide">
 
-            <h2 className="ui icon header">
-               <i className="exclamation triangle icon"></i>
+            <h2 className="ui icon header" style={{ color: '#db2828' }}>
+               <i className="exclamation triangle icon circular" style={{ boxShadow: '0 0 0 0.1em #ffe8e6 inset' }}></i>
                <div className="content">
                   404
-                  </div>
+               </div>
             </h2>
             <div className="ui message large  red">
 
-               <div className="header">Description</div>
+               <div className="header">Description:</div>
                <p>Page you were trying to visit was <strong>not found</strong> or <strong>deleted.</strong></p>
                <div className="ui horizontal divider" style={{ paddingTop: '60px' }}>
-                  👇
+                  🔻
                </div>
                <Link to="/" className="link">
                   <button className="ui primary button">

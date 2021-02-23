@@ -91,7 +91,7 @@ export function getUserFollowingAndFollowers() {
 }
 // USER FOLLOW Action
 export function postUserFollowService(userId) {
-   console.log(userId)
+   //console.log(userId)
    return axios.post(`/api/v1/users/${userId}/follow`);
 }
 // Contact Form Submit

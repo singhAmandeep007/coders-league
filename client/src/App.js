@@ -8,7 +8,6 @@ import { logout, getUserInfo } from './redux/user/userActions';
 import ResponsiveHeader from './components/Header';
 import Loading from './components/Loading';
 
-
 // error handling
 // import ErrorBoundaryPage from './pages/error/errorBoundaryPage';
 import ErrorPage from './pages/error/errorPage';
@@ -138,12 +137,10 @@ const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
           {/* --------404------- */}
           <Route
             path="*"
-            exact={true}
+            exact
             component={NotFoundPage}
           />
-
         </Switch>
-
       </ResponsiveHeader>
     </Suspense>
     // </ErrorBoundaryPage>
@@ -151,7 +148,7 @@ const App = ({ isAuthenticated, logout, getUserInfo, currentUser }) => {
 }
 
 const mapStateToProps = state => {
-  console.log('state: ', state);
+  // console.log('state: ', state);
   return {
     currentUser: state.userReducer.currentUser,
     isAuthenticated: state.userReducer.isAuthenticated
@@ -165,5 +162,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(getUserInfo())
   }
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 

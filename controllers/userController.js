@@ -13,11 +13,11 @@ const { cloudinary } = require('./../services/cloudinary');
 const Email = require('./../utils/email');
 
 // const job = schedule.scheduleJob('0-59/50 * * * * *', async function () {
-const job = schedule.scheduleJob('* * 1 * * *', async function () {
+const job = schedule.scheduleJob('* * * 1 * *', async function () { // NOTE: day of month (1 - 31)
    const usersToBeNotified = await User.find({
       'emailNotification.topArticles': true
    });
-   console.log(usersToBeNotified)
+   // console.log(usersToBeNotified)
    if (usersToBeNotified && usersToBeNotified.length > 0) {
       const Article = require('./../models/articleModel');
       // TOP 5 PER WEEK 
@@ -172,11 +172,11 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 exports.getFollowing = catchAsync(async (req, res) => {
    const followingUsers = await UserFollow
       .find({ user: req.user.id })
-      .select('users')
+      .select('users');
    res.status(200).json({
       status: 'success',
       data: followingUsers
-   })
+   });
 })
 
 exports.getFollowingAndFollowers = catchAsync(async (req, res) => {
@@ -184,7 +184,6 @@ exports.getFollowingAndFollowers = catchAsync(async (req, res) => {
    const followingAndFollowers = await UserFollow.aggregate([
       {
          $facet: {
-
             "following": [
                {
                   $match: {
@@ -207,7 +206,6 @@ exports.getFollowingAndFollowers = catchAsync(async (req, res) => {
                      "followingInfo.photo": 1
                   }
                }
-
             ],
             "followers": [
                {
@@ -275,8 +273,8 @@ exports.setUserFollow = async (req, res, next) => {
          {
             $addToSet: { users: req.params.userId }
          }
-      )
-
+      );
+      console.log('userToBeFollowed', userToBeFollowed)
       if (userToBeFollowed.nModified === 1) {
          //1 means, modification, that means its followed
          return res.status(200).json({
