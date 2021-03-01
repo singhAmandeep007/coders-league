@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const multer = require('multer');
 
-const schedule = require('node-schedule');
+//const schedule = require('node-schedule');
 
 const User = require('./../models/userModel');
 const ArticleBookmark = require('./../models/articleBookmarkModel');
@@ -13,63 +13,63 @@ const { cloudinary } = require('./../services/cloudinary');
 const Email = require('./../utils/email');
 
 // const job = schedule.scheduleJob('0-59/50 * * * * *', async function () {
-const job = schedule.scheduleJob('* * * 1 * *', async function () { // NOTE: day of month (1 - 31)
-   const usersToBeNotified = await User.find({
-      'emailNotification.topArticles': true
-   });
-   // console.log(usersToBeNotified)
-   if (usersToBeNotified && usersToBeNotified.length > 0) {
-      const Article = require('./../models/articleModel');
-      // TOP 5 PER WEEK 
-      const topArticles = await Article.aggregate([
-         {
-            $match: {
-               createdAt: {
-                  $gte: new Date(new Date().setDate(new Date().getDate() - 7))
-               }
-            }
-         },
-         {
-            $lookup: {
-               from: "users",
-               localField: "user",
-               foreignField: "_id",
-               as: "user",
-            },
-         },
-         {
-            $sort: { likeCounts: -1, commentCounts: -1 }
-         },
-         {
-            $limit: 5
-         },
-         {
-            $project: {
-               "user._id": 1,
-               "user.fullname": 1,
-               "user.username": 1,
-               "user.photo": 1,
-               "title": 1,
-               "shortDescription": 1,
-               "readingTime": 1,
-               "slug": 1,
-               "image": 1
-            }
-         }
-      ]);
+// const job = schedule.scheduleJob('* * * 1 * *', async function () { // NOTE: day of month (1 - 31)
+//    const usersToBeNotified = await User.find({
+//       'emailNotification.topArticles': true
+//    });
+//    // console.log(usersToBeNotified)
+//    if (usersToBeNotified && usersToBeNotified.length > 0) {
+//       const Article = require('./../models/articleModel');
+//       // TOP 5 PER WEEK 
+//       const topArticles = await Article.aggregate([
+//          {
+//             $match: {
+//                createdAt: {
+//                   $gte: new Date(new Date().setDate(new Date().getDate() - 7))
+//                }
+//             }
+//          },
+//          {
+//             $lookup: {
+//                from: "users",
+//                localField: "user",
+//                foreignField: "_id",
+//                as: "user",
+//             },
+//          },
+//          {
+//             $sort: { likeCounts: -1, commentCounts: -1 }
+//          },
+//          {
+//             $limit: 5
+//          },
+//          {
+//             $project: {
+//                "user._id": 1,
+//                "user.fullname": 1,
+//                "user.username": 1,
+//                "user.photo": 1,
+//                "title": 1,
+//                "shortDescription": 1,
+//                "readingTime": 1,
+//                "slug": 1,
+//                "image": 1
+//             }
+//          }
+//       ]);
 
-      usersToBeNotified.forEach(async (user) => {
-         let userObj = {
-            email: user.email,
-            fullname: user.fullname,
-            photo: user.photo,
-            username: user.username,
-            topArticles
-         }
-         await new Email(userObj).sendTopArticles();
-      })
-   }
-});
+//       usersToBeNotified.forEach(async (user) => {
+//          let userObj = {
+//             email: user.email,
+//             fullname: user.fullname,
+//             photo: user.photo,
+//             username: user.username,
+//             topArticles
+//          }
+//          await new Email(userObj).sendTopArticles();
+//       })
+//    }
+// });
 
 
 const filterObj = (obj, ...allowedFields) => {
