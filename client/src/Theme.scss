@@ -1,62 +1,70 @@
-@mixin theme($bg-color, $font-color, $link-color, $active-color, $menu, $segment-menu, $card-bg) {
-   // background-color: $bg-color !important;
-   color: $font-color !important;
-   .menu {
+@mixin theme(
+  $bg-color,
+  $font-color,
+  $link-color,
+  $active-color,
+  $menu,
+  $segment-menu,
+  $card-bg
+) {
+  // background-color: $bg-color !important;
+  color: $font-color !important;
+  .menu {
+    background-color: $menu !important;
+    .menu.transition.visible {
       background-color: $menu !important;
-      .menu.transition.visible {
-         background-color: $menu !important;
-      }
-   }
-   .sticky > .menu {
-      background-color: inherit !important;
-   }
-   .tabular.menu {
-      background-color: inherit !important;
-      border-bottom: 1px solid $font-color;
-      .active.item {
-         border-color: $font-color;
-      }
-   }
-
-   .basic.inverted.vertical.segment {
-      background-color: $segment-menu !important;
-   }
-
-   a {
-      color: $link-color;
-   }
-   .text {
-      color: $font-color !important;
-   }
-   .menu .active {
-      background-color: $active-color !important;
-   }
-   .ui.bottom.attached.segment.active.tab {
-      border: 1px solid $font-color;
+    }
+  }
+  .sticky > .menu {
+    background-color: inherit !important;
+  }
+  .tabular.menu {
+    background-color: inherit !important;
+    border-bottom: 1px solid $font-color;
+    .active.item {
       border-color: $font-color;
-   }
-   .userSettings {
-      background-color: $active-color !important;
-   }
-   .ui.card {
-      background-color: $card-bg !important;
-      box-shadow: 0 1px 3px 0 $font-color, 0 0 0 1px $font-color;
-      .header,
-      .meta {
-         color: $font-color !important;
-      }
-      // .content,
-      // .extra .content {
-      //    border: 1px solid $font-color !important;
-      // }
-   }
-   .footer {
-      background-color: $segment-menu !important;
-   }
-   h2,
-   h3,
-   p,
-   table {
+    }
+  }
+
+  .basic.inverted.vertical.segment {
+    background-color: $segment-menu !important;
+  }
+
+  a {
+    color: $link-color;
+  }
+  .text {
+    color: $font-color !important;
+  }
+  .menu .active {
+    background-color: $active-color !important;
+  }
+  .ui.bottom.attached.segment.active.tab {
+    border: 1px solid $font-color;
+    border-color: $font-color;
+  }
+  .userSettings {
+    background-color: $active-color !important;
+  }
+  .ui.card {
+    background-color: $card-bg !important;
+    box-shadow: 0 1px 3px 0 $font-color, 0 0 0 1px $font-color;
+    .header,
+    .meta {
       color: $font-color !important;
-   }
+    }
+    // .content,
+    // .extra .content {
+    //    border: 1px solid $font-color !important;
+    // }
+  }
+  .footer {
+    background-color: $segment-menu !important;
+  }
+  h2,
+  h3,
+  p,
+  table {
+    color: $font-color !important;
+  }
 }

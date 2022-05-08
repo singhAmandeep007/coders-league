@@ -6,7 +6,7 @@
    border-radius: 0.28571429rem;
 }
 .customText {
-   word-break: break-all;
+   /* word-break: break-all; */
    white-space: pre-wrap !important;
 }
 
