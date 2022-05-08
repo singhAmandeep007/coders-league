@@ -54,7 +54,7 @@ exports.checkOwnershipAndUpdate = catchAsync(async (req, res, next) => {
 });
 
 exports.checkOwnershipAndDelete = catchAsync(async (req, res, next) => {
-  // allow admin to delete
+  // allow admin to delete an any model
   let filter = { _id: req.params.id };
   if (req.user.role !== 'admin') {
     filter['user'] = req.user.id;
