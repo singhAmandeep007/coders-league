@@ -4,3 +4,5 @@ node_modules/
 dev-data/data
 import-dev-data.js
 TODO
+
+.eslintcache
