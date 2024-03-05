@@ -1,1 +1,1 @@
-export { default } from './createEditArticleForm';
+export { default } from "./createEditArticleForm";

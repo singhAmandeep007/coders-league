@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
-const multer = require('multer');
+const mongoose = require("mongoose");
+const multer = require("multer");
 
 //const schedule = require('node-schedule');
 
-const User = require('./../models/userModel');
-const ArticleBookmark = require('./../models/articleBookmarkModel');
-const UserFollow = require('./../models/userFollowModel');
-const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
-const factory = require('./handlerFactory');
-const { cloudinary } = require('./../services/cloudinary');
-const Email = require('./../utils/email');
+const User = require("./../models/userModel");
+const ArticleBookmark = require("./../models/articleBookmarkModel");
+const UserFollow = require("./../models/userFollowModel");
+const catchAsync = require("./../utils/catchAsync");
+const AppError = require("./../utils/appError");
+const factory = require("./handlerFactory");
+const { cloudinary } = require("./../services/cloudinary");
+const Email = require("./../utils/email");
 
 // const job = schedule.scheduleJob('0-59/50 * * * * *', async function () {
 // const job = schedule.scheduleJob('* * * 1 * *', async function () { // NOTE: day of month (1 - 31)
@@ -87,10 +87,10 @@ const storage = multer.diskStorage({
 });
 // This function is for filtering the files that are being upload to only be the specified types of 'images'
 const imageFilter = function (req, file, cb) {
-  if (file.mimetype.startsWith('image')) {
+  if (file.mimetype.startsWith("image")) {
     cb(null, true);
   } else {
-    cb(new AppError('Not an image! Please upload only images.', 400), false);
+    cb(new AppError("Not an image! Please upload only images.", 400), false);
   }
 };
 const upload = multer({
@@ -111,46 +111,41 @@ exports.getUserReadingList = catchAsync(async (req, res) => {
   const readingList = await ArticleBookmark.find({
     users: { $eq: req.user.id },
   })
-    .select('-users')
+    .select("-users")
     .populate({
-      path: 'article',
-      select: '-body -image -images',
-      populate: { path: 'user', select: 'username fullname photo' },
+      path: "article",
+      select: "-body -image -images",
+      populate: { path: "user", select: "username fullname photo" },
     });
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: readingList,
   });
 });
 
-exports.uploadUserPhoto = upload.single('photo');
+exports.uploadUserPhoto = upload.single("photo");
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   // console.log('req.body', req.body);
   // 1) create error if user POSTs password data or tries to update password through this route
   if (req.body.password || req.body.passwordConfirm) {
-    return next(
-      new AppError(
-        'This route is not for password updates. Please use /updateMyPassword',
-        400
-      )
-    );
+    return next(new AppError("This route is not for password updates. Please use /updateMyPassword", 400));
   }
   if (req.file) {
     await cloudinary.uploader.upload(
       req.file.path,
       {
-        upload_preset: 'dev_setups',
-        transformation: ['profileImageCodersLeague'],
+        upload_preset: "dev_setups",
+        transformation: ["profileImageCodersLeague"],
         // eager: [
         //     { gravity: "auto", height: 300, quality: 100, width: 300, crop: "fill" }
         // ]
       },
       (err, result) => {
         if (err) {
-          console.log('err', err);
-          return next(new AppError('Error in uploading Photo', 500));
+          console.log("err", err);
+          return next(new AppError("Error in uploading Photo", 500));
         }
         // console.log(result);
         req.body.photoId = result.public_id;
@@ -162,16 +157,16 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   // 2) filtered out unwanted field-names that are not allowed to be updated
   const filteredBody = filterObj(
     req.body,
-    'fullname',
-    'username',
-    'email',
-    'photo',
-    'photoId',
-    'location',
-    'skills',
-    'bio',
-    'url',
-    'emailNotification'
+    "fullname",
+    "username",
+    "email",
+    "photo",
+    "photoId",
+    "location",
+    "skills",
+    "bio",
+    "url",
+    "emailNotification"
   );
   // 3) update user doc
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
@@ -180,7 +175,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   });
 
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: {
       user: updatedUser,
     },
@@ -191,17 +186,15 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   // delete user , in post hook delete all linked comments and articles
   await User.findOneAndDelete({ _id: req.user.id });
   res.status(204).json({
-    status: 'success',
+    status: "success",
     data: null,
   });
 });
 
 exports.getFollowing = catchAsync(async (req, res) => {
-  const followingUsers = await UserFollow.find({ user: req.user.id }).select(
-    'users'
-  );
+  const followingUsers = await UserFollow.find({ user: req.user.id }).select("users");
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: followingUsers,
   });
 });
@@ -218,41 +211,41 @@ exports.getFollowingAndFollowers = catchAsync(async (req, res) => {
           },
           {
             $lookup: {
-              from: 'users',
-              localField: 'users',
-              foreignField: '_id',
-              as: 'followingInfo',
+              from: "users",
+              localField: "users",
+              foreignField: "_id",
+              as: "followingInfo",
             },
           },
           {
             $project: {
-              'followingInfo._id': 1,
-              'followingInfo.fullname': 1,
-              'followingInfo.username': 1,
-              'followingInfo.photo': 1,
+              "followingInfo._id": 1,
+              "followingInfo.fullname": 1,
+              "followingInfo.username": 1,
+              "followingInfo.photo": 1,
             },
           },
         ],
         followers: [
           {
             $match: {
-              users: { $in: [mongoose.Types.ObjectId(req.user.id), '$users'] },
+              users: { $in: [mongoose.Types.ObjectId(req.user.id), "$users"] },
             },
           },
           {
             $lookup: {
-              from: 'users',
-              localField: 'user',
-              foreignField: '_id',
-              as: 'followerInfo',
+              from: "users",
+              localField: "user",
+              foreignField: "_id",
+              as: "followerInfo",
             },
           },
           {
             $project: {
-              'followerInfo._id': 1,
-              'followerInfo.fullname': 1,
-              'followerInfo.username': 1,
-              'followerInfo.photo': 1,
+              "followerInfo._id": 1,
+              "followerInfo.fullname": 1,
+              "followerInfo.username": 1,
+              "followerInfo.photo": 1,
             },
           },
         ],
@@ -263,14 +256,14 @@ exports.getFollowingAndFollowers = catchAsync(async (req, res) => {
         following: 1,
         followers: 1,
         totalFollowing: {
-          $size: { $arrayElemAt: ['$following.followingInfo', 0] },
+          $size: { $arrayElemAt: ["$following.followingInfo", 0] },
         },
-        totalFollowers: { $size: '$followers' },
+        totalFollowers: { $size: "$followers" },
       },
     },
   ]);
   res.status(200).json({
-    status: 'success',
+    status: "success",
     data: {
       following: followingAndFollowers[0].following[0].followingInfo,
       followers: followingAndFollowers[0].followers.map((follower) => {
@@ -286,7 +279,7 @@ exports.setUserFollow = async (req, res, next) => {
   try {
     let doc = await User.findById(req.params.userId);
     if (!doc) {
-      return next(new AppError('No User found with that ID!', 404));
+      return next(new AppError("No User found with that ID!", 404));
     }
     // updateOne
     let userToBeFollowed = await UserFollow.updateOne(
@@ -301,8 +294,8 @@ exports.setUserFollow = async (req, res, next) => {
     if (userToBeFollowed.nModified === 1) {
       //1 means, modification, that means its followed
       return res.status(200).json({
-        status: 'success',
-        data: 'successfully followed user',
+        status: "success",
+        data: "successfully followed user",
       });
     } else if (userToBeFollowed.nModified === 0) {
       await UserFollow.updateOne(
@@ -313,11 +306,11 @@ exports.setUserFollow = async (req, res, next) => {
       );
 
       return res.status(200).json({
-        status: 'success',
-        data: 'successfully unfollowed user',
+        status: "success",
+        data: "successfully unfollowed user",
       });
     }
-    return next(new AppError('Some error occured!', 403));
+    return next(new AppError("Some error occured!", 403));
   } catch (err) {
     next(err);
   }
@@ -326,22 +319,22 @@ exports.setUserFollow = async (req, res, next) => {
 exports.handleContact = async (req, res, next) => {
   try {
     let user = {};
-    if (req.body.fullname) user['fullname'] = req.body.fullname;
-    if (req.body.userEmail) user['userEmail'] = req.body.userEmail;
-    if (req.body.message) user['message'] = req.body.message;
-    if (req.body.subject) user['subject'] = req.body.subject;
+    if (req.body.fullname) user["fullname"] = req.body.fullname;
+    if (req.body.userEmail) user["userEmail"] = req.body.userEmail;
+    if (req.body.message) user["message"] = req.body.message;
+    if (req.body.subject) user["subject"] = req.body.subject;
     // IMPORTANT
-    user['email'] = 'grim.developers@gmail.com';
+    user["email"] = "grim.developers@gmail.com";
 
     await new Email(user).sendTicket();
 
     res.status(200).json({
-      status: 'success',
-      message: 'Sent email!',
+      status: "success",
+      message: "Sent email!",
     });
   } catch (err) {
     // if any error appears in sending email do this.
-    return next(new AppError('Error sending the email. Try again later!', 500));
+    return next(new AppError("Error sending the email. Try again later!", 500));
   }
 };
 
@@ -350,8 +343,8 @@ exports.getAllUsers = factory.getAll(User);
 exports.getUser = factory.getOne(User);
 exports.createUser = (req, res) => {
   res.status(500).json({
-    status: 'error',
-    message: 'This route is not defined! Please use /signup instead.',
+    status: "error",
+    message: "This route is not defined! Please use /signup instead.",
   });
 };
 exports.updateUser = factory.updateOne(User);

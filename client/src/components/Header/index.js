@@ -1,1 +1,1 @@
-export { default } from './ResponsiveHeader';
+export { default } from "./ResponsiveHeader";

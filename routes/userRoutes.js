@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 // const rateLimit = require("express-rate-limit");
 
-const userController = require('../controllers/userController');
-const authController = require('../controllers/authController');
+const userController = require("../controllers/userController");
+const authController = require("../controllers/authController");
 
 const router = express.Router();
 
@@ -15,67 +15,44 @@ const router = express.Router();
 
 // /api/v1/users
 
-router.post('/signup', authController.signup);
-router.post('/login', authController.login);
-router.get('/logout', authController.logout);
+router.post("/signup", authController.signup);
+router.post("/login", authController.login);
+router.get("/logout", authController.logout);
 
-router.post('/forgotPassword', authController.forgotPassword);
+router.post("/forgotPassword", authController.forgotPassword);
 
-router.patch('/resetPassword/:token', authController.resetPassword);
+router.patch("/resetPassword/:token", authController.resetPassword);
 
-router.get('/profile/:username', userController.getUserProfile);
+router.get("/profile/:username", userController.getUserProfile);
 
 // Protected Routes
 router.use(authController.protect);
 
-router.patch('/updatePassword',
-   authController.updatePassword);
+router.patch("/updatePassword", authController.updatePassword);
 
-router.get('/me',
-   userController.getMe,
-   userController.getUser);
+router.get("/me", userController.getMe, userController.getUser);
 
 // /api/v1/users
-router.get('/readingList',
-   userController.getUserReadingList);
+router.get("/readingList", userController.getUserReadingList);
 
-router.patch('/updateMe',
-   userController.uploadUserPhoto,
-   userController.updateMe);
+router.patch("/updateMe", userController.uploadUserPhoto, userController.updateMe);
 
-router.delete('/deleteMe',
-   userController.deleteMe);
+router.delete("/deleteMe", userController.deleteMe);
 
 // GET FOLLOWING USERS
-router.get('/following',
-   userController.getFollowing)
-router.get('/followingAndFollowers',
-   userController.getFollowingAndFollowers)
-
+router.get("/following", userController.getFollowing);
+router.get("/followingAndFollowers", userController.getFollowingAndFollowers);
 
 // /api/v1/users/5fc508915eeed324b8ade5e1/follow
-router.route('/:userId/follow')
-   .post(
-      authController.restrictTo('user'),
-      userController.setUserFollow
-   )
+router.route("/:userId/follow").post(authController.restrictTo("user"), userController.setUserFollow);
 
-router.route('/contact')
-   .post(
-      userController.handleContact
-   )
-
+router.route("/contact").post(userController.handleContact);
 
 // Restricted Routes --> ADMIN
-router.use(authController.restrictTo('admin'));
+router.use(authController.restrictTo("admin"));
 
-router.route('/')
-   .get(userController.getAllUsers)
-   .post(userController.createUser);
+router.route("/").get(userController.getAllUsers).post(userController.createUser);
 
-router.route('/:id')
-   .get(userController.getUser)
-   .patch(userController.updateUser)
-   .delete(userController.deleteUser);
+router.route("/:id").get(userController.getUser).patch(userController.updateUser).delete(userController.deleteUser);
 
 module.exports = router;

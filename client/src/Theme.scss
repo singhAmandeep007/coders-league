@@ -1,12 +1,4 @@
-@mixin theme(
-  $bg-color,
-  $font-color,
-  $link-color,
-  $active-color,
-  $menu,
-  $segment-menu,
-  $card-bg
-) {
+@mixin theme($bg-color, $font-color, $link-color, $active-color, $menu, $segment-menu, $card-bg) {
   // background-color: $bg-color !important;
   color: $font-color !important;
   .menu {

@@ -1,1 +1,1 @@
-export { default } from './resetPasswordContainer';
+export { default } from "./resetPasswordContainer";

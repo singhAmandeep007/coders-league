@@ -20,7 +20,7 @@ $algae-segment-menu: rgb(106, 201, 107);
 $algae-card: rgba(176, 233, 176, 0.667);
 
 body.algae {
-   @include theme($algae-bg, $algae-font, $algae-link, $algae-active, $algae-menu, $algae-segment-menu, $algae-card);
+  @include theme($algae-bg, $algae-font, $algae-link, $algae-active, $algae-menu, $algae-segment-menu, $algae-card);
 }
 
 //charcoal
@@ -32,15 +32,15 @@ $charcoal-segment-menu: rgb(53, 58, 64);
 $charcoal-card: rgba(71, 74, 76, 0.573);
 
 body.charcoal {
-   @include theme(
-      $charcoal-bg,
-      $dark-font,
-      $charcoal-link,
-      $charcoal-active,
-      $charcoal-menu,
-      $charcoal-segment-menu,
-      $charcoal-card
-   );
+  @include theme(
+    $charcoal-bg,
+    $dark-font,
+    $charcoal-link,
+    $charcoal-active,
+    $charcoal-menu,
+    $charcoal-segment-menu,
+    $charcoal-card
+  );
 }
 
 //blood
@@ -53,7 +53,7 @@ $blood-segment-menu: rgb(218, 132, 132);
 $blood-card: rgba(243, 155, 155, 0.585);
 
 body.blood {
-   @include theme($blood-bg, $blood-font, $blood-link, $blood-active, $blood-menu, $blood-segment-menu, $blood-card);
+  @include theme($blood-bg, $blood-font, $blood-link, $blood-active, $blood-menu, $blood-segment-menu, $blood-card);
 }
 
 //citrus
@@ -65,15 +65,15 @@ $citrus-link: rgb(121, 116, 20);
 $citrus-segment-menu: rgb(214, 206, 22);
 $citrus-card: rgba(214, 204, 22, 0.578);
 body.citrus {
-   @include theme(
-      $citrus-bg,
-      $citrus-font,
-      $citrus-link,
-      $citrus-active,
-      $citrus-menu,
-      $citrus-segment-menu,
-      $citrus-card
-   );
+  @include theme(
+    $citrus-bg,
+    $citrus-font,
+    $citrus-link,
+    $citrus-active,
+    $citrus-menu,
+    $citrus-segment-menu,
+    $citrus-card
+  );
 }
 
 //water
@@ -85,5 +85,5 @@ $water-link: rgb(62, 67, 164);
 $water-segment-menu: rgb(111, 180, 250);
 $water-card: rgba(94, 147, 253, 0.578);
 body.water {
-   @include theme($water-bg, $water-font, $water-link, $water-active, $water-menu, $water-segment-menu, $water-card);
+  @include theme($water-bg, $water-font, $water-link, $water-active, $water-menu, $water-segment-menu, $water-card);
 }

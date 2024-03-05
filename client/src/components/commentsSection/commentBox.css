@@ -1,16 +1,16 @@
 .saveLabel {
-   background-color: #21ba45;
-   padding: 0.2833em 0.633em;
-   color: #fff;
-   border: 0 solid transparent;
-   border-radius: 0.28571429rem;
+  background-color: #21ba45;
+  padding: 0.2833em 0.633em;
+  color: #fff;
+  border: 0 solid transparent;
+  border-radius: 0.28571429rem;
 }
 .customText {
-   /* word-break: break-all; */
-   white-space: pre-wrap !important;
+  /* word-break: break-all; */
+  white-space: pre-wrap !important;
 }
 
 .errorMessageCommentLike {
-   font-size: 10px;
-   color: #dd221f;
+  font-size: 10px;
+  color: #dd221f;
 }

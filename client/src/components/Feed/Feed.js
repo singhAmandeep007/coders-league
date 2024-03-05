@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { getArticles } from './../../redux/article/articleActions';
-import { getArticlesService } from './../../services/articleApi';
-import ArticleCard from './../articleCard/articleCard';
-import MessageBox from './../messageBox';
-import PlaceholderCard from './../placeholderCard/placeholderCard';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { getArticles } from "./../../redux/article/articleActions";
+import { getArticlesService } from "./../../services/articleApi";
+import ArticleCard from "./../articleCard/articleCard";
+import MessageBox from "./../messageBox";
+import PlaceholderCard from "./../placeholderCard/placeholderCard";
 
-const Feed = ({
-  articles,
-  isFetching,
-  articleMessage,
-  userMessage,
-  getArticles,
-  query,
-}) => {
+const Feed = ({ articles, isFetching, articleMessage, userMessage, getArticles, query }) => {
   const generateQuery = (query) => {
     let queryObj = {};
-    if (query.searchTags.length > 0)
-      queryObj.tags = query.searchTags.toString();
+    if (query.searchTags.length > 0) queryObj.tags = query.searchTags.toString();
     if (query.searchTerm) queryObj.title = query.searchTerm.trim();
-    if (query.searchExpertiseLevel)
-      queryObj.expertiseLevel = query.searchExpertiseLevel;
+    if (query.searchExpertiseLevel) queryObj.expertiseLevel = query.searchExpertiseLevel;
     if (query.sortBy) queryObj.sort = query.sortBy;
-    if (query.searchTime) queryObj['createdAt[gte]'] = query.searchTime;
+    if (query.searchTime) queryObj["createdAt[gte]"] = query.searchTime;
     return queryObj;
   };
 
@@ -91,20 +82,38 @@ const Feed = ({
   ) : (
     <>
       {articleMessage && (
-        <MessageBox message={articleMessage} dispatchFor="article" />
+        <MessageBox
+          message={articleMessage}
+          dispatchFor="article"
+        />
       )}
-      {userMessage && <MessageBox message={userMessage} dispatchFor="user" />}
+      {userMessage && (
+        <MessageBox
+          message={userMessage}
+          dispatchFor="user"
+        />
+      )}
 
       {articles.length > 0 ? (
         <>
           {articles.map((article) => {
-            return <ArticleCard key={article._id} {...article} />;
+            return (
+              <ArticleCard
+                key={article._id}
+                {...article}
+              />
+            );
           })}
 
           {state.nextArticles &&
             state.nextArticles.length > 0 &&
             state.nextArticles.map((article) => {
-              return <ArticleCard key={article._id} {...article} />;
+              return (
+                <ArticleCard
+                  key={article._id}
+                  {...article}
+                />
+              );
             })}
 
           {state.loading ? <PlaceholderCard num={3} /> : null}
@@ -114,8 +123,8 @@ const Feed = ({
               className="ui primary button"
               onClick={() => getMoreArticles(state.page + 1)}
               style={{
-                margin: '0 auto',
-                display: 'block',
+                margin: "0 auto",
+                display: "block",
               }}
             >
               <i className="icon plus"></i>
@@ -123,11 +132,7 @@ const Feed = ({
             </button>
           )}
 
-          {!state.hasMore && (
-            <div className="ui horizontal divider">
-              Yay ! You have seen all articles !
-            </div>
-          )}
+          {!state.hasMore && <div className="ui horizontal divider">Yay ! You have seen all articles !</div>}
 
           {state.error && (
             <div class="ui negative message">
@@ -144,9 +149,7 @@ const Feed = ({
               src="https://res.cloudinary.com/dryiuvv1l/image/upload/v1612506457/empty_2_kq7tyk.png"
               className="ui large centered image"
             />
-            <h2 className="ui center aligned header empty-text">
-              Seems like there is no article !
-            </h2>
+            <h2 className="ui center aligned header empty-text">Seems like there is no article !</h2>
           </section>
         </div>
       )}

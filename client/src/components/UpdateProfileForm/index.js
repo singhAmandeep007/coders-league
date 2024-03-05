@@ -1,1 +1,1 @@
-export { default } from './updateProfileForm';
+export { default } from "./updateProfileForm";

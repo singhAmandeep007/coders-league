@@ -1,1 +1,1 @@
-export { default } from './articleAuthorContainer';
+export { default } from "./articleAuthorContainer";

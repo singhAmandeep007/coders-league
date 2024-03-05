@@ -1,31 +1,31 @@
 body {
-   background: 0 0 !important;
+  background: 0 0 !important;
 }
 html {
-   background-image: linear-gradient(rgba(255, 255, 255, 0.875), rgba(255, 255, 255, 0.875)), url(./assets/bg4.2.jpg) !important;
-   background-size: 40%;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.875), rgba(255, 255, 255, 0.875)), url(./assets/bg4.2.jpg) !important;
+  background-size: 40%;
 }
 
 .grid {
-   margin-top: 0 !important;
+  margin-top: 0 !important;
 }
 .wrapWord {
-   word-wrap: break-word !important;
+  word-wrap: break-word !important;
 }
 .hiddenCustom {
-   display: none !important;
+  display: none !important;
 }
 #offline-alert {
-   background: #414141 !important;
-   color: #fff !important;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   padding: 1em;
-   position: fixed;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   width: 100%;
-   z-index: 999;
+  background: #414141 !important;
+  color: #fff !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
 }

@@ -1,72 +1,77 @@
-import React, { useReducer, useEffect } from 'react';
-import { Container, Grid, Header } from 'semantic-ui-react';
+import React, { useReducer, useEffect } from "react";
+import { Container, Grid, Header } from "semantic-ui-react";
 
-import { getUserReadingList } from './../../services/userApi';
+import { getUserReadingList } from "./../../services/userApi";
 
-import RenderArticles from './renderArticles';
+import RenderArticles from "./renderArticles";
 
-import PlaceholderCard from './../../components/placeholderCard/placeholderCard';
+import PlaceholderCard from "./../../components/placeholderCard/placeholderCard";
 
 const ReadingListPage = ({ currentUser }) => {
+  const initialState = {
+    loading: true,
+    errorMsg: "",
+    articleData: [],
+  };
 
-   const initialState = {
-      loading: true,
-      errorMsg: '',
-      articleData: []
-   }
+  function reducer(state, action) {
+    switch (action.type) {
+      case "FETCH_SUCCESS":
+        return { ...state, loading: false, articleData: action.payload };
+      case "FETCH_FAILED":
+        return { loading: false, error: action.payload, articleData: [] };
+      default:
+        throw new Error();
+    }
+  }
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-   function reducer(state, action) {
-      switch (action.type) {
-         case 'FETCH_SUCCESS':
-            return { ...state, loading: false, articleData: action.payload };
-         case 'FETCH_FAILED':
-            return { loading: false, error: action.payload, articleData: [] };
-         default:
-            throw new Error();
-      }
-   }
-   const [state, dispatch] = useReducer(reducer, initialState);
+  useEffect(() => {
+    getUserReadingList()
+      .then((response) => {
+        //console.log(response.data.data);
 
-   useEffect(() => {
-      getUserReadingList().then(response => {
-         //console.log(response.data.data);
-
-         dispatch({
-            type: 'FETCH_SUCCESS',
-            payload: response.data.data.map(({ article }) => article)
-         });
+        dispatch({
+          type: "FETCH_SUCCESS",
+          payload: response.data.data.map(({ article }) => article),
+        });
       })
-         .catch(error => {
-            dispatch({
-               type: 'FETCH_FAILED',
-               payload: error.message
-            });
-         })
-   }, [])
+      .catch((error) => {
+        dispatch({
+          type: "FETCH_FAILED",
+          payload: error.message,
+        });
+      });
+  }, []);
 
-   return (
-      <Container>
-         <Grid stackable padded="vertically">
-            <Grid.Row centered>
-               <Header as='h2' icon>
-                  <i className="book  circular icon"></i>
-                        Reading List
+  return (
+    <Container>
+      <Grid
+        stackable
+        padded="vertically"
+      >
+        <Grid.Row centered>
+          <Header
+            as="h2"
+            icon
+          >
+            <i className="book  circular icon"></i>
+            Reading List
+            <Header.Subheader>Search your article bookmark list and check them out.</Header.Subheader>
+          </Header>
+        </Grid.Row>
 
-                     <Header.Subheader>
-                     Search your article bookmark list and check them out.
-                     </Header.Subheader>
-               </Header>
-            </Grid.Row>
-
-
-            <Grid.Row >
-
-               {state.loading ? <Grid.Column><PlaceholderCard num={4} /></Grid.Column> : (state.articleData && state.articleData.length > 0) ? <RenderArticles articleData={state.articleData} /> : null}
-
-            </Grid.Row>
-
-         </Grid>
-      </Container>
-   )
-}
+        <Grid.Row>
+          {state.loading ? (
+            <Grid.Column>
+              <PlaceholderCard num={4} />
+            </Grid.Column>
+          ) : state.articleData && state.articleData.length > 0 ? (
+            <RenderArticles articleData={state.articleData} />
+          ) : null}
+        </Grid.Row>
+      </Grid>
+    </Container>
+  );
+};
 export default ReadingListPage;

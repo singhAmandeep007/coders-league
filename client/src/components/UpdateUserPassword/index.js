@@ -1,1 +1,1 @@
-export { default } from './updateUserPasswordContainer';
+export { default } from "./updateUserPasswordContainer";

@@ -46,5 +46,8 @@
     "slugify": "^1.4.6",
     "validator": "^13.1.17",
     "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }

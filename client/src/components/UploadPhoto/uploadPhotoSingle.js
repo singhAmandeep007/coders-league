@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
-import {
-  Button,
-  Form,
-  Icon,
-  Image,
-  Message,
-  Progress,
-} from 'semantic-ui-react';
+import React, { useState } from "react";
+import { Button, Form, Icon, Image, Message, Progress } from "semantic-ui-react";
 
 const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
   const [fileStatus, setFileStatus] = useState({
     file: null,
-    filename: '',
+    filename: "",
     previewSource: null,
     statusCode: null,
     isUploading: false,
@@ -19,22 +12,22 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
   });
   const baseFileStatus = {
     file: null,
-    filename: '',
+    filename: "",
     previewSource: null,
     statusCode: null,
     isUploading: false,
     errors: false,
   };
   function isImage(file) {
-    return file['type'].split('/')[0] === 'image';
+    return file["type"].split("/")[0] === "image";
   }
   function returnFileSize(number) {
     if (number < 1024) {
-      return number + 'bytes';
+      return number + "bytes";
     } else if (number >= 1024 && number < 1048576) {
-      return (number / 1024).toFixed(1) + 'KB';
+      return (number / 1024).toFixed(1) + "KB";
     } else if (number >= 1048576) {
-      return (number / 1048576).toFixed(1) + 'MB';
+      return (number / 1048576).toFixed(1) + "MB";
     }
   }
   const handleFileInputChange = (e) => {
@@ -45,7 +38,7 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
         setFileStatus({
           ...baseFileStatus,
           filename: `Name: ${file.name}   Size: ${returnFileSize(file.size)}`,
-          errors: 'Not an image! Please upload only an image.',
+          errors: "Not an image! Please upload only an image.",
         });
         return;
       }
@@ -53,7 +46,7 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
         setFileStatus({
           ...baseFileStatus,
           filename: `Name: ${file.name}   Size: ${returnFileSize(file.size)}`,
-          errors: 'Only Image upto the size of 5MB is allowed!',
+          errors: "Only Image upto the size of 5MB is allowed!",
         });
         return;
       }
@@ -71,7 +64,7 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
         reader.onerror = () => {
           setFileStatus({
             ...baseFileStatus,
-            errors: 'Error in reading the File!',
+            errors: "Error in reading the File!",
           });
           return;
         };
@@ -79,7 +72,7 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
     } else {
       setFileStatus({
         ...baseFileStatus,
-        errors: 'No Image Selected!',
+        errors: "No Image Selected!",
       });
       return;
     }
@@ -90,12 +83,12 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
     if (fileStatus.errors || !fileStatus.file) {
       setFileStatus({
         ...baseFileStatus,
-        errors: 'No Image Selected or Image size > 5MB!',
+        errors: "No Image Selected or Image size > 5MB!",
       });
       return;
     }
     let formData = new FormData();
-    formData.append('photo', fileStatus.file);
+    formData.append("photo", fileStatus.file);
 
     try {
       setFileStatus({ ...fileStatus, isUploading: true });
@@ -128,9 +121,17 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
         />
       )}
       <br />
-      <Form onSubmit={handleSubmitFile} error={!!fileStatus.errors}>
+      <Form
+        onSubmit={handleSubmitFile}
+        error={!!fileStatus.errors}
+      >
         <Form.Field>
-          <Button as="label" htmlFor="photo" type="button" animated="fade">
+          <Button
+            as="label"
+            htmlFor="photo"
+            type="button"
+            animated="fade"
+          >
             <Button.Content visible>
               <Icon name="file image" />
             </Button.Content>
@@ -151,13 +152,21 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
             readOnly
             value={fileStatus.filename}
           />
-          <Message error content={fileStatus.errors} icon="bullhorn" />
-          <Button type="submit" primary loading={fileStatus.isUploading}>
+          <Message
+            error
+            content={fileStatus.errors}
+            icon="bullhorn"
+          />
+          <Button
+            type="submit"
+            primary
+            loading={fileStatus.isUploading}
+          >
             Upload
           </Button>
           {fileStatus.statusCode && fileStatus.statusCode === 200 ? (
             <Progress
-              style={{ marginTop: '20px' }}
+              style={{ marginTop: "20px" }}
               percent={100}
               success
               progress
@@ -165,10 +174,9 @@ const UploadPhotoSingle = React.memo(({ upload, onUploadSuccess }) => {
             >
               Image Upload Success
             </Progress>
-          ) : fileStatus.statusCode &&
-            (fileStatus.statusCode === 500 || fileStatus.statusCode === 400) ? (
+          ) : fileStatus.statusCode && (fileStatus.statusCode === 500 || fileStatus.statusCode === 400) ? (
             <Progress
-              style={{ marginTop: '20px' }}
+              style={{ marginTop: "20px" }}
               percent={100}
               error
               active
